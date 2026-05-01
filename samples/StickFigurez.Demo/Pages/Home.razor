@@ -43,6 +43,7 @@
     private readonly Figure[] figures =
     [
         new("Runner",      (s, sp) => @<Runner Size="@s" RunSpeed="@sp" />,             (s, sp) => $"<Runner Size=\"{s}\" RunSpeed=\"{sp}\" />"),
+        new("Runner (Jack Sparrow)", (s, sp) => @<Runner Size="@s" RunSpeed="@sp" JackSparrow="true" />, (s, sp) => $"<Runner Size=\"{s}\" RunSpeed=\"{sp}\" JackSparrow=\"true\" />"),
         new("Celebration", (s, _)  => @<Celebration Size="@s" />,                       (s, _)  => $"<Celebration Size=\"{s}\" />"),
         new("WaitingMan",  (s, sp) => @<WaitingMan Size="@s" Speed="@sp" />,            (s, sp) => $"<WaitingMan Size=\"{s}\" Speed=\"{sp}\" />"),
         new("LoveMan",     (s, sp) => @<LoveMan Size="@s" Speed="@sp" Text="M3" />,     (s, sp) => $"<LoveMan Size=\"{s}\" Speed=\"{sp}\" Text=\"M3\" />"),
