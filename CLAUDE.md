@@ -48,7 +48,7 @@ Two conventions for new figure:
 Add `Foo`:
 
 1. Create `src/StickFigurez/Components/Foo.razor` (+ `.razor.css`), follow pattern above.
-2. Register in `figures` array in `samples/StickFigurez.Demo/Pages/Home.razor` — demo grid, search, live-snippet render all read from this one array (`Name`, keyword list, `RenderFragment`, snippet string).
+2. Register in `All` array in `samples/StickFigurez.Demo/FigureCatalog.razor` — single source of truth for the demo grid, search, detail page, and live snippets (`Name`, keyword list, `RenderFragment<FigureArgs>`, snippet builder). Keep alphabetical.
 3. Add row to component table + usage example in `README.md`. Sort examples alphabetically by component name.
 
 Rename component = update all three spots + both `Foo.razor` and `Foo.razor.css` files (filename = component name in Razor).

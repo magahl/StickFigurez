@@ -1,6 +1,5 @@
 @page "/"
 @using ColorCode
-@using StickFigurez.Components
 @inject HtmlClassFormatter Formatter
 
 <PageTitle>StickFigurez — Demo</PageTitle>
@@ -29,12 +28,13 @@
 <section class="grid" style="color: @color;">
     @foreach (var f in Filtered)
     {
+        var args = new FigureCatalog.FigureArgs(size, speed);
         <a class="card-link" href="@($"/{f.Name.ToLowerInvariant()}")">
             <article class="card">
-                <div class="stage">@f.Render(size, speed)</div>
+                <div class="stage">@f.Render(args)</div>
                 <header>
                     <h2>@f.Name</h2>
-                    <code class="snippet">@((MarkupString)Formatter.GetHtmlString(f.Snippet(size, speed), Languages.Html))</code>
+                    <code class="snippet">@((MarkupString)Formatter.GetHtmlString(f.Snippet(args), Languages.Html))</code>
                 </header>
             </article>
         </a>
@@ -47,41 +47,13 @@
     private string color = "#1a1a1a";
     private string query = "";
 
-    private record Figure(string Name, string[] Keywords, Func<int, int, RenderFragment> Render, Func<int, int, string> Snippet);
-
-    private readonly Figure[] figures =
-    [
-        new("Runner",      ["run", "jog", "sprint", "fast", "move", "exercise"],
-            (s, sp) => @<Runner Size="@s" Speed="@sp" />,                (s, sp) => $"<Runner Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("JackSparrow",  ["run", "pirate", "sparrow", "jack", "sway", "drunk"],
-            (s, sp) => @<JackSparrow Size="@s" Speed="@sp" />,            (s, sp) => $"<JackSparrow Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("Celebrator",  ["win", "victory", "trophy", "happy", "cheer", "success"],
-            (s, sp) => @<Celebrator Size="@s" Speed="@sp" />,            (s, sp) => $"<Celebrator Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("Waiting",     ["wait", "clock", "time", "idle", "patience", "delay"],
-            (s, sp) => @<Waiting Size="@s" Speed="@sp" />,               (s, sp) => $"<Waiting Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("Lover",       ["love", "heart", "like", "favorite", "romance"],
-            (s, sp) => @<Lover Size="@s" Speed="@sp" Text="M3" />,       (s, sp) => $"<Lover Size=\"{s}\" Speed=\"{sp}\" Text=\"M3\" />"),
-        new("Githubber",   ["github", "octocat", "git", "open source", "fan"],
-            (s, sp) => @<Githubber Size="@s" Speed="@sp" />,             (s, sp) => $"<Githubber Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("Cloner",      ["clone", "copy", "duplicate", "split", "multiply"],
-            (s, sp) => @<Cloner Size="@s" Speed="@sp" />,                (s, sp) => $"<Cloner Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("Locksmith",   ["lock", "secure", "auth", "key", "knock", "password"],
-            (s, sp) => @<Locksmith Size="@s" Speed="@sp" />,             (s, sp) => $"<Locksmith Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("Scientist",   ["test", "lab", "science", "experiment", "research", "flask", "chemistry"],
-            (s, sp) => @<Scientist Size="@s" Speed="@sp" />,             (s, sp) => $"<Scientist Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("Searcher",    ["query", "search", "find", "magnify", "investigate", "lookup"],
-            (s, sp) => @<Searcher Size="@s" Speed="@sp" />,              (s, sp) => $"<Searcher Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("Teacher",     ["stats", "chart", "data", "analytics", "graph", "report", "metrics"],
-            (s, sp) => @<Teacher Size="@s" Speed="@sp" />,               (s, sp) => $"<Teacher Size=\"{s}\" Speed=\"{sp}\" />"),
-    ];
-
-    private IEnumerable<Figure> Filtered
+    private IEnumerable<FigureCatalog.Figure> Filtered
     {
         get
         {
             var q = query?.Trim();
-            if (string.IsNullOrEmpty(q)) return figures;
-            return figures.Where(f =>
+            if (string.IsNullOrEmpty(q)) return FigureCatalog.All;
+            return FigureCatalog.All.Where(f =>
                 f.Name.Contains(q, StringComparison.OrdinalIgnoreCase) ||
                 f.Keywords.Any(k => k.Contains(q, StringComparison.OrdinalIgnoreCase)));
         }

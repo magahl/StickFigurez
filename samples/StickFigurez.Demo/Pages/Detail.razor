@@ -1,20 +1,24 @@
 @page "/{Name}"
 @using ColorCode
-@using StickFigurez.Components
 @inject HtmlClassFormatter Formatter
-@inject NavigationManager Nav
 
-<PageTitle>StickFigurez — @(Canonical ?? Name)</PageTitle>
+@{
+    var figure = FigureCatalog.Find(Name);
+}
+
+<PageTitle>StickFigurez — @(figure?.Name ?? Name)</PageTitle>
 
 <a class="back" href="/">← All components</a>
 
-@if (Canonical is null)
+@if (figure is null)
 {
     <p class="missing">Unknown component <code>@Name</code>.</p>
 }
 else
 {
-    <h1 class="detail-title">@Canonical</h1>
+    var args = new FigureCatalog.FigureArgs(size, speed, text);
+
+    <h1 class="detail-title">@figure.Name</h1>
 
     <div class="controls">
         <label>
@@ -31,7 +35,7 @@ else
             Color
             <input type="color" @bind="color" />
         </label>
-        @if (Canonical == "Lover")
+        @if (figure.Name == "Lover")
         {
             <label class="text">
                 Text
@@ -41,23 +45,10 @@ else
     </div>
 
     <section class="detail-stage" style="color: @color;">
-        @switch (Canonical)
-        {
-            case "Runner":      <Runner Size="@size" Speed="@speed" /> break;
-            case "JackSparrow": <JackSparrow Size="@size" Speed="@speed" /> break;
-            case "Celebrator":  <Celebrator Size="@size" Speed="@speed" /> break;
-            case "Waiting":     <Waiting Size="@size" Speed="@speed" /> break;
-            case "Lover":       <Lover Size="@size" Speed="@speed" Text="@text" /> break;
-            case "Githubber":   <Githubber Size="@size" Speed="@speed" /> break;
-            case "Cloner":      <Cloner Size="@size" Speed="@speed" /> break;
-            case "Locksmith":   <Locksmith Size="@size" Speed="@speed" /> break;
-            case "Scientist":   <Scientist Size="@size" Speed="@speed" /> break;
-            case "Searcher":    <Searcher Size="@size" Speed="@speed" /> break;
-            case "Teacher":     <Teacher Size="@size" Speed="@speed" /> break;
-        }
+        @figure.Render(args)
     </section>
 
-    <code class="snippet">@((MarkupString)Formatter.GetHtmlString(Snippet, Languages.Html))</code>
+    <code class="snippet">@((MarkupString)Formatter.GetHtmlString(figure.Snippet(args), Languages.Html))</code>
 }
 
 @code {
@@ -67,19 +58,4 @@ else
     private int speed = 5;
     private string color = "#1a1a1a";
     private string text = "M3";
-
-    private static readonly string[] Components =
-    [
-        "Runner", "JackSparrow", "Celebrator", "Waiting", "Lover",
-        "Githubber", "Cloner", "Locksmith", "Scientist", "Searcher", "Teacher",
-    ];
-
-    private string? Canonical =>
-        Components.FirstOrDefault(c => string.Equals(c, Name, StringComparison.OrdinalIgnoreCase));
-
-    private string Snippet => Canonical switch
-    {
-        "Lover" => $"<Lover Size=\"{size}\" Speed=\"{speed}\" Text=\"{text}\" />",
-        _       => $"<{Canonical} Size=\"{size}\" Speed=\"{speed}\" />",
-    };
 }

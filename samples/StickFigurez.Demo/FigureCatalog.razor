@@ -1,0 +1,49 @@
+@code {
+    public record FigureArgs(int Size, int Speed, string? Text = null);
+
+    public record Figure(
+        string Name,
+        string[] Keywords,
+        RenderFragment<FigureArgs> Render,
+        Func<FigureArgs, string> Snippet);
+
+    public static readonly Figure[] All =
+    [
+        new("Celebrator",  ["win", "victory", "trophy", "happy", "cheer", "success"],
+            a => @<Celebrator Size="@a.Size" Speed="@a.Speed" />,
+            a => $"<Celebrator Size=\"{a.Size}\" Speed=\"{a.Speed}\" />"),
+        new("Cloner",      ["clone", "copy", "duplicate", "split", "multiply"],
+            a => @<Cloner Size="@a.Size" Speed="@a.Speed" />,
+            a => $"<Cloner Size=\"{a.Size}\" Speed=\"{a.Speed}\" />"),
+        new("Githubber",   ["github", "octocat", "git", "open source", "fan"],
+            a => @<Githubber Size="@a.Size" Speed="@a.Speed" />,
+            a => $"<Githubber Size=\"{a.Size}\" Speed=\"{a.Speed}\" />"),
+        new("JackSparrow", ["run", "pirate", "sparrow", "jack", "sway", "drunk"],
+            a => @<JackSparrow Size="@a.Size" Speed="@a.Speed" />,
+            a => $"<JackSparrow Size=\"{a.Size}\" Speed=\"{a.Speed}\" />"),
+        new("Locksmith",   ["lock", "secure", "auth", "key", "knock", "password"],
+            a => @<Locksmith Size="@a.Size" Speed="@a.Speed" />,
+            a => $"<Locksmith Size=\"{a.Size}\" Speed=\"{a.Speed}\" />"),
+        new("Lover",       ["love", "heart", "like", "favorite", "romance"],
+            a => @<Lover Size="@a.Size" Speed="@a.Speed" Text="@(a.Text ?? "M3")" />,
+            a => $"<Lover Size=\"{a.Size}\" Speed=\"{a.Speed}\" Text=\"{a.Text ?? "M3"}\" />"),
+        new("Runner",      ["run", "jog", "sprint", "fast", "move", "exercise"],
+            a => @<Runner Size="@a.Size" Speed="@a.Speed" />,
+            a => $"<Runner Size=\"{a.Size}\" Speed=\"{a.Speed}\" />"),
+        new("Scientist",   ["test", "lab", "science", "experiment", "research", "flask", "chemistry"],
+            a => @<Scientist Size="@a.Size" Speed="@a.Speed" />,
+            a => $"<Scientist Size=\"{a.Size}\" Speed=\"{a.Speed}\" />"),
+        new("Searcher",    ["query", "search", "find", "magnify", "investigate", "lookup"],
+            a => @<Searcher Size="@a.Size" Speed="@a.Speed" />,
+            a => $"<Searcher Size=\"{a.Size}\" Speed=\"{a.Speed}\" />"),
+        new("Teacher",     ["stats", "chart", "data", "analytics", "graph", "report", "metrics"],
+            a => @<Teacher Size="@a.Size" Speed="@a.Speed" />,
+            a => $"<Teacher Size=\"{a.Size}\" Speed=\"{a.Speed}\" />"),
+        new("Waiting",     ["wait", "clock", "time", "idle", "patience", "delay"],
+            a => @<Waiting Size="@a.Size" Speed="@a.Speed" />,
+            a => $"<Waiting Size=\"{a.Size}\" Speed=\"{a.Speed}\" />"),
+    ];
+
+    public static Figure? Find(string? name) =>
+        All.FirstOrDefault(f => string.Equals(f.Name, name, StringComparison.OrdinalIgnoreCase));
+}
