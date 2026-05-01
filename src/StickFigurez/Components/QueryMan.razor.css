@@ -1,0 +1,37 @@
+/* QueryMan — squatting, facing right, peering through magnifier */
+
+.query-head {
+    will-change: transform;
+    animation: head-peer var(--query-duration, 3s) ease-in-out infinite;
+}
+
+@keyframes head-peer {
+    0%   { transform: translate(0px, 0px); }
+    40%  { transform: translate(1px, 1px); }
+    60%  { transform: translate(1px, 1px); }
+    100% { transform: translate(0px, 0px); }
+}
+
+.query-arm {
+    will-change: transform;
+    animation: arm-peer var(--query-duration, 3s) ease-in-out infinite;
+}
+
+@keyframes arm-peer {
+    0%   { transform: translate(11px, 8px) rotate(-5deg); }
+    40%  { transform: translate(12px, 9px) rotate(-5deg); }
+    60%  { transform: translate(12px, 9px) rotate(-5deg); }
+    100% { transform: translate(11px, 8px) rotate(-5deg); }
+}
+
+.magnify-group {
+    will-change: transform;
+    animation: glass-peer var(--query-duration, 3s) ease-in-out infinite;
+}
+
+@keyframes glass-peer {
+    0%   { transform: translate(19px, 9px); }
+    40%  { transform: translate(20px, 10px); }
+    60%  { transform: translate(20px, 10px); }
+    100% { transform: translate(19px, 9px); }
+}

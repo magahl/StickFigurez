@@ -1,0 +1,25 @@
+/* Pointer arm at shoulder (8, 8). Sweeps across chart, taps twice total. */
+
+.pointer-arm {
+    will-change: transform;
+    animation: tap-bars var(--stats-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes tap-bars {
+    0%   { transform: translate(8px, 8px) rotate(5deg); }
+    /* Sweep to middle */
+    20%  { transform: translate(8px, 8px) rotate(-5deg); }
+    /* Tap 1 */
+    25%  { transform: translate(8px, 8px) rotate(-2deg); }
+    30%  { transform: translate(8px, 8px) rotate(-5deg); }
+    /* Sweep to top */
+    50%  { transform: translate(8px, 8px) rotate(-18deg); }
+    /* Tap 2 */
+    55%  { transform: translate(8px, 8px) rotate(-15deg); }
+    60%  { transform: translate(8px, 8px) rotate(-18deg); }
+    /* Hold */
+    75%  { transform: translate(8px, 8px) rotate(-18deg); }
+    /* Back */
+    92%  { transform: translate(8px, 8px) rotate(5deg); }
+    100% { transform: translate(8px, 8px) rotate(5deg); }
+}

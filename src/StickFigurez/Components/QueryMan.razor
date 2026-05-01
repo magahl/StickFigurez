@@ -1,0 +1,50 @@
+@using System.Globalization
+
+<svg class="queryman-svg"
+     width="@Size"
+     height="@Size"
+     viewBox="0 0 24 22"
+     style="--query-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-linecap="round">
+
+    @* Stickman squatting, facing right, holding magnifier out *@
+
+    @* Head — far forward *@
+    <circle class="query-head" cx="13" cy="5" r="2.5" fill="currentColor" stroke="none"/>
+    @* Back — very hunched, nearly horizontal *@
+    <line x1="12" y1="7" x2="5" y2="12" stroke-width="2"/>
+    @* Left arm — on knee *@
+    <line x1="9" y1="9" x2="8" y2="13" stroke-width="2"/>
+    @* Right arm — down from shoulder toward ground *@
+    <g class="query-arm">
+        <line x1="0" y1="0" x2="3" y2="5" stroke-width="1.8"/>
+    </g>
+    @* Thigh — goes forward-right from hip to knee *@
+    <line x1="5" y1="12" x2="9" y2="14" stroke-width="2"/>
+    <line x1="5" y1="12" x2="8" y2="14.5" stroke-width="2"/>
+    @* Shin — knee down to feet *@
+    <line x1="9" y1="14" x2="7" y2="20" stroke-width="2"/>
+    <line x1="8" y1="14.5" x2="6" y2="20" stroke-width="2"/>
+    @* Feet *@
+    <line x1="7" y1="20" x2="8.5" y2="20" stroke-width="1.5"/>
+    <line x1="6" y1="20" x2="7.5" y2="20" stroke-width="1.5"/>
+
+    @* Magnifying glass — glass out front, handle back to hand *@
+    <g class="magnify-group">
+        <circle cx="0" cy="0" r="2.8" fill="none" stroke-width="1.2"/>
+        <line x1="-2" y1="2" x2="-4.5" y2="4.5" stroke-width="1.8"/>
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int ClampedSpeed => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(3.0 - (ClampedSpeed - 1) * 0.2).ToString("F2", CultureInfo.InvariantCulture)}s";
+}

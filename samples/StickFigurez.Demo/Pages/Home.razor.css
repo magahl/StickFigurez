@@ -1,0 +1,75 @@
+.controls {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1rem 1.25rem;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    font-size: .9rem;
+}
+
+.controls label {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    color: #444;
+}
+
+.controls input[type=range] {
+    width: 140px;
+}
+
+.controls .val {
+    min-width: 2.5rem;
+    color: #888;
+    font-variant-numeric: tabular-nums;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    border: 1px solid #eee;
+    border-radius: 12px;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.stage {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    min-height: 140px;
+    background: repeating-linear-gradient(45deg, #fafafa 0 8px, #f4f4f4 8px 16px);
+}
+
+header {
+    padding: .75rem 1rem;
+    border-top: 1px solid #eee;
+    background: #fff;
+}
+
+header h2 {
+    font-size: 1rem;
+    margin: 0 0 .35rem;
+    color: #1a1a1a;
+}
+
+header code {
+    display: block;
+    font-size: .75rem;
+    color: #555;
+    word-break: break-all;
+    background: #f7f7f7;
+    padding: .35rem .5rem;
+    border-radius: 6px;
+}

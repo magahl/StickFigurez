@@ -1,0 +1,46 @@
+/* =====================================================================
+   LABMAN ANIMATION — stickman facing right, leaning into microscope
+   Hip at (7, 16). Head at (10, 4.5).
+   ===================================================================== */
+
+.labman-head {
+    will-change: transform;
+    animation: head-lean var(--lab-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes head-lean {
+    0%   { transform: translate(0px, 0px); }
+    10%  { transform: translate(0px, 0px); }
+    35%  { transform: translate(3px, 1.5px); }
+    55%  { transform: translate(3px, 1.5px); }
+    75%  { transform: translate(0px, 0px); }
+    100% { transform: translate(0px, 0px); }
+}
+
+.labman-torso {
+    will-change: transform;
+    animation: torso-lean var(--lab-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes torso-lean {
+    0%   { transform: translate(7px, 16px) rotate(0deg) translate(-7px, -16px); }
+    10%  { transform: translate(7px, 16px) rotate(0deg) translate(-7px, -16px); }
+    35%  { transform: translate(7px, 16px) rotate(8deg) translate(-7px, -16px); }
+    55%  { transform: translate(7px, 16px) rotate(8deg) translate(-7px, -16px); }
+    75%  { transform: translate(7px, 16px) rotate(0deg) translate(-7px, -16px); }
+    100% { transform: translate(7px, 16px) rotate(0deg) translate(-7px, -16px); }
+}
+
+.labman-arms {
+    will-change: transform;
+    animation: arms-lean var(--lab-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes arms-lean {
+    0%   { transform: translate(9px, 9px) rotate(0deg); }
+    10%  { transform: translate(9px, 9px) rotate(0deg); }
+    35%  { transform: translate(11px, 9.5px) rotate(-8deg); }
+    55%  { transform: translate(11px, 9.5px) rotate(-8deg); }
+    75%  { transform: translate(9px, 9px) rotate(0deg); }
+    100% { transform: translate(9px, 9px) rotate(0deg); }
+}

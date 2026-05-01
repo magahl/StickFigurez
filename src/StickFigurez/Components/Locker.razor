@@ -1,0 +1,58 @@
+@using System.Globalization
+
+<svg class="knocker-svg"
+     width="@Width"
+     height="@Size"
+     viewBox="0 0 28 22"
+     style="--key-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-linecap="round">
+
+    @* Padlock *@
+    <g class="padlock">
+        <rect x="18" y="7" width="9" height="8" rx="1" fill="none" stroke-width="1.5"/>
+        <path d="M20.5 7 L20.5 4 A2 2 0 0 1 24.5 4 L24.5 7" fill="none" stroke-width="1.5"/>
+        <circle cx="22.5" cy="11" r="1" fill="currentColor" stroke="none"/>
+        <line x1="22.5" y1="12" x2="22.5" y2="13.5" stroke-width="1.2"/>
+    </g>
+
+    @* Key *@
+    <g class="key-group">
+        <line x1="12" y1="11" x2="19" y2="11" stroke-width="1.5"/>
+        <line x1="17" y1="11" x2="17" y2="13" stroke-width="1.2"/>
+        <line x1="15.5" y1="11" x2="15.5" y2="12.5" stroke-width="1.2"/>
+        <line x1="18.5" y1="11" x2="18.5" y2="12" stroke-width="1.2"/>
+        <circle cx="11" cy="11" r="2" fill="none" stroke-width="1.5"/>
+    </g>
+
+    @* Stickman body (static) *@
+    <g transform="translate(5, 0)">
+        <circle cx="1" cy="3" r="2.5" fill="currentColor" stroke="none" stroke-width="0"/>
+        <line x1="1" y1="5.5" x2="0" y2="14" stroke-width="2"/>
+        <line x1="0" y1="14" x2="-2" y2="20" stroke-width="2"/>
+        <line x1="0" y1="14" x2="2" y2="20" stroke-width="2"/>
+    </g>
+
+    @* Right arm — pivots at shoulder (abs 6, 7) *@
+    <g class="arm-right">
+        <line x1="0" y1="0" x2="5" y2="4"/>
+    </g>
+    @* Left arm — pivots at shoulder (abs 5.5, 7.5) *@
+    <g class="arm-left">
+        <line x1="0" y1="0" x2="5" y2="3.5"/>
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int KnockSpeed { get; set; } = 5;
+
+    private int Speed => Math.Clamp(KnockSpeed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(4.0 - (Speed - 1) * 0.25).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 1.3);
+}

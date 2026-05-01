@@ -1,0 +1,12 @@
+* text=auto eol=lf
+*.sln text eol=crlf
+*.csproj text eol=lf
+*.razor text eol=lf
+*.cs text eol=lf
+*.css text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+*.png binary
+*.jpg binary
+*.ico binary

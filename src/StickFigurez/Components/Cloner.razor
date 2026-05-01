@@ -1,0 +1,50 @@
+@using System.Globalization
+
+<svg class="cloner-svg"
+     width="@Width"
+     height="@Size"
+     viewBox="0 0 44 22"
+     style="--clone-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-width="2"
+     stroke-linecap="round">
+
+    @* Original stickman: sm-crouch squishes from the feet; sm-shake trembles laterally *@
+    <g transform="translate(13, 0)">
+        <g class="sm-crouch">
+            <g class="sm-shake">
+                <circle cx="0" cy="3.5" r="2.5" fill="currentColor" stroke="none" />
+                <line x1="0" y1="6" x2="0" y2="14" />
+                <line x1="0" y1="8" x2="4" y2="11" />
+                <line x1="0" y1="8" x2="-4" y2="11" />
+                <line x1="0" y1="14" x2="3" y2="20" />
+                <line x1="0" y1="14" x2="-3" y2="20" />
+            </g>
+        </g>
+    </g>
+
+    @* Clone: parked at same x as original (invisible), then slides out to the right *@
+    <g class="sm-clone">
+        <circle cx="0" cy="3.5" r="2.5" fill="currentColor" stroke="none" />
+        <line x1="0" y1="6" x2="0" y2="14" />
+        <line x1="0" y1="8" x2="4" y2="11" />
+        <line x1="0" y1="8" x2="-4" y2="11" />
+        <line x1="0" y1="14" x2="3" y2="20" />
+        <line x1="0" y1="14" x2="-3" y2="20" />
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int CloneSpeed { get; set; } = 5;
+
+    private int Speed => Math.Clamp(CloneSpeed, 1, 10);
+
+    // 7.0 s at speed 1 (slow), 5.0 s at speed 5 (default), 2.5 s at speed 10 (fast)
+    private string CycleDuration =>
+        $"{(7.0 - (Speed - 1) * 0.5).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => Size * 2;
+}

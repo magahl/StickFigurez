@@ -1,0 +1,77 @@
+/* =====================================================================
+   KEY + PADLOCK ANIMATION
+   Key rotates around tip. Arms pivot at shoulder to follow key.
+   Uses translate-rotate-translate trick for correct pivot points.
+   ===================================================================== */
+
+/* Key rotates around its tip (19, 11) */
+.key-group {
+    will-change: transform;
+    animation: key-turn var(--key-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes key-turn {
+    0%   { transform: translate(0px, 0px); }
+    10%  { transform: translate(0px, 0px); }
+    30%  { transform: translate(3px, 0px); }
+    40%  { transform: translate(3px, 0px) translate(19px, 11px) rotate(20deg) translate(-19px, -11px); }
+    50%  { transform: translate(3px, 0px) translate(19px, 11px) rotate(-8deg) translate(-19px, -11px); }
+    60%  { transform: translate(3px, 0px) translate(19px, 11px) rotate(20deg) translate(-19px, -11px); }
+    68%  { transform: translate(3px, 0px); }
+    80%  { transform: translate(0px, 0px); }
+    100% { transform: translate(0px, 0px); }
+}
+
+/* Right arm — pivots at shoulder (6, 7) */
+.arm-right {
+    will-change: transform;
+    animation: arm-turn var(--key-duration, 4s) ease-in-out infinite;
+}
+
+/* Left arm — pivots at shoulder (5.5, 7.5) */
+.arm-left {
+    will-change: transform;
+    animation: arm-left-turn var(--key-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes arm-turn {
+    0%   { transform: translate(6px, 7px) rotate(0deg); }
+    10%  { transform: translate(6px, 7px) rotate(0deg); }
+    30%  { transform: translate(6px, 7px) rotate(0deg); }
+    40%  { transform: translate(6px, 7px) rotate(-25deg); }
+    50%  { transform: translate(6px, 7px) rotate(10deg); }
+    60%  { transform: translate(6px, 7px) rotate(-25deg); }
+    68%  { transform: translate(6px, 7px) rotate(0deg); }
+    80%  { transform: translate(6px, 7px) rotate(0deg); }
+    100% { transform: translate(6px, 7px) rotate(0deg); }
+}
+
+@keyframes arm-left-turn {
+    0%   { transform: translate(5.5px, 7.5px) rotate(0deg); }
+    10%  { transform: translate(5.5px, 7.5px) rotate(0deg); }
+    30%  { transform: translate(5.5px, 7.5px) rotate(0deg); }
+    40%  { transform: translate(5.5px, 7.5px) rotate(-25deg); }
+    50%  { transform: translate(5.5px, 7.5px) rotate(10deg); }
+    60%  { transform: translate(5.5px, 7.5px) rotate(-25deg); }
+    68%  { transform: translate(5.5px, 7.5px) rotate(0deg); }
+    80%  { transform: translate(5.5px, 7.5px) rotate(0deg); }
+    100% { transform: translate(5.5px, 7.5px) rotate(0deg); }
+}
+
+/* Padlock shakes when key turns */
+.padlock {
+    will-change: transform;
+    animation: lock-shake var(--key-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes lock-shake {
+    0%   { transform: rotate(0deg); }
+    39%  { transform: rotate(0deg); }
+    42%  { transform: rotate(2deg); }
+    46%  { transform: rotate(-2deg); }
+    50%  { transform: rotate(1deg); }
+    54%  { transform: rotate(-1deg); }
+    58%  { transform: rotate(2deg); }
+    62%  { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+}

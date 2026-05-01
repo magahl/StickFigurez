@@ -1,0 +1,70 @@
+@using System.Globalization
+
+<svg class="labman-svg"
+     width="@Width"
+     height="@Size"
+     viewBox="0 0 28 24"
+     style="--lab-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-linecap="round">
+
+    @* Table *@
+    <line x1="10" y1="16" x2="26" y2="16" stroke-width="1.5"/>
+    <line x1="12" y1="16" x2="12" y2="22" stroke-width="1.5"/>
+    <line x1="24" y1="16" x2="24" y2="22" stroke-width="1.5"/>
+
+    @* Microscope on table *@
+    <g transform="translate(14, 8.5)">
+        @* Base — flat on table *@
+        <rect x="0" y="6" width="6" height="1.5" rx="0.3" fill="none" stroke-width="1"/>
+        @* Pillar *@
+        <line x1="5" y1="6" x2="5" y2="1" stroke-width="1.8"/>
+        @* Eyepiece tube — angled toward viewer *@
+        <line x1="5" y1="1" x2="1.5" y2="-1" stroke-width="2.2"/>
+        @* Arm + objective — angled down to stage *@
+        <line x1="4" y1="3" x2="2.5" y2="2" stroke-width="1.5"/>
+        <line x1="2.5" y1="2" x2="2.5" y2="4" stroke-width="1.2"/>
+        @* Stage *@
+        <rect x="1" y="4.5" width="4" height="0.8" rx="0.2" fill="none" stroke-width="0.8"/>
+    </g>
+
+    @* Erlenmeyer flask on table *@
+    <g transform="translate(22, 6)">
+        @* Neck *@
+        <line x1="1.5" y1="0" x2="1.5" y2="4" stroke-width="0.8"/>
+        <line x1="2.5" y1="0" x2="2.5" y2="4" stroke-width="0.8"/>
+        @* Rim *@
+        <line x1="1" y1="0" x2="3" y2="0" stroke-width="0.8"/>
+        @* Body — widens out *@
+        <line x1="1.5" y1="4" x2="-0.5" y2="10" stroke-width="0.8"/>
+        <line x1="2.5" y1="4" x2="4.5" y2="10" stroke-width="0.8"/>
+        @* Bottom *@
+        <line x1="-0.5" y1="10" x2="4.5" y2="10" stroke-width="0.8"/>
+    </g>
+
+    @* Stickman — on left, facing right *@
+    <g class="labman-body">
+        <circle class="labman-head" cx="10" cy="4.5" r="2.5" fill="currentColor" stroke="none"/>
+        <line class="labman-torso" x1="10" y1="7" x2="7" y2="16" stroke-width="2"/>
+        <g class="labman-arms">
+            <line x1="0" y1="0" x2="5" y2="3" stroke-width="2"/>
+            <line x1="0" y1="0" x2="4" y2="4" stroke-width="2"/>
+        </g>
+        <line x1="7" y1="16" x2="5" y2="22" stroke-width="2"/>
+        <line x1="7" y1="16" x2="9" y2="22" stroke-width="2"/>
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int ClampedSpeed => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(4.0 - (ClampedSpeed - 1) * 0.25).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 1.2);
+}

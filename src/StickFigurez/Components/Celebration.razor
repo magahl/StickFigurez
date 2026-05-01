@@ -1,0 +1,63 @@
+<svg class="celebrating-stick-man"
+     viewBox="0 0 24 24"
+     width="@Size"
+     height="@Size"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.5"
+     stroke-linecap="round"
+     style="overflow: visible;"
+     xmlns="http://www.w3.org/2000/svg">
+
+    <g class="cel-body-group">
+
+        @* Head *@
+        <circle cx="12" cy="4.5" r="2.5" fill="currentColor" stroke="none" />
+
+        @* Neck — explicit gap between head-bottom (y=7) and torso-top (y=8.5) *@
+        <line x1="12" y1="7" x2="12" y2="8.5" />
+
+        @* Body *@
+        <line x1="12" y1="8.5" x2="12" y2="12" />
+
+        @* Right arm (raised up-right): upper arm + elbow joint + forearm *@
+        <g class="cel-arm-right-upper">
+            <line x1="0" y1="0" x2="0" y2="4" />
+            <circle cx="0" cy="4" r="0.8" fill="currentColor" stroke="none" />
+            <g class="cel-arm-right-lower">
+                <line x1="0" y1="0" x2="0" y2="3" />
+            </g>
+        </g>
+
+        @* Left arm (raised up-left): mirrored *@
+        <g class="cel-arm-left-upper">
+            <line x1="0" y1="0" x2="0" y2="4" />
+            <circle cx="0" cy="4" r="0.8" fill="currentColor" stroke="none" />
+            <g class="cel-arm-left-lower">
+                <line x1="0" y1="0" x2="0" y2="3" />
+            </g>
+        </g>
+
+        @* Right leg (heel-kick jump): thigh + shin — shin at 2.5 so feet stay compact *@
+        <g class="cel-leg-right-upper">
+            <line x1="0" y1="0" x2="0" y2="4" />
+            <g class="cel-leg-right-lower">
+                <line x1="0" y1="0" x2="0" y2="1.5" />
+            </g>
+        </g>
+
+        @* Left leg (heel-kick jump): mirrored *@
+        <g class="cel-leg-left-upper">
+            <line x1="0" y1="0" x2="0" y2="4" />
+            <g class="cel-leg-left-lower">
+                <line x1="0" y1="0" x2="0" y2="1.5" />
+            </g>
+        </g>
+
+    </g>
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 16;
+}
+

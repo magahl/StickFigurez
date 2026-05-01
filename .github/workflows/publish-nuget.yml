@@ -1,0 +1,44 @@
+name: Publish NuGet
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Install nbgv
+        run: dotnet tool install --tool-path .tools nbgv
+
+      - name: Resolve version
+        id: nbgv
+        run: |
+          VER=$(.tools/nbgv get-version -v NuGetPackageVersion)
+          echo "version=$VER" >> "$GITHUB_OUTPUT"
+          echo "Resolved version: $VER"
+
+      - name: Pack
+        run: dotnet pack src/StickFigurez/StickFigurez.csproj -c Release -o artifacts
+
+      - name: Push to NuGet.org
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          dotnet nuget push "artifacts/*.nupkg" \
+            --api-key "$NUGET_API_KEY" \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate

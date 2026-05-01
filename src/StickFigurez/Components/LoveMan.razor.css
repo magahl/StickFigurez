@@ -1,0 +1,45 @@
+/* Head looks up toward bubble then back down — dreaming */
+
+.dreamer-head {
+    will-change: transform;
+    animation: head-dream var(--dream-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes head-dream {
+    0%   { transform: translate(0px, 0px); }
+    /* Tilt head toward heart — right and slightly up */
+    30%  { transform: translate(1.5px, -0.5px); }
+    /* Nuzzle back other way */
+    60%  { transform: translate(-0.5px, -0.3px); }
+    /* Back to center */
+    100% { transform: translate(0px, 0px); }
+}
+
+/* Bubble fades in when looking up, fades when looking down */
+
+.thought-bubble {
+    will-change: opacity;
+    animation: bubble-fade var(--dream-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes bubble-fade {
+    0%   { opacity: 1; }
+    100% { opacity: 1; }
+}
+
+/* Heart pulsates — quick double-beat like real heartbeat */
+
+.heart-pulse {
+    will-change: transform;
+    transform-origin: 14.5px 8px;
+    animation: heartbeat 0.8s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%   { transform: scale(1); }
+    15%  { transform: scale(1.12); }
+    30%  { transform: scale(1); }
+    45%  { transform: scale(1.08); }
+    60%  { transform: scale(1); }
+    100% { transform: scale(1); }
+}

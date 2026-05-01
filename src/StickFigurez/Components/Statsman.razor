@@ -1,0 +1,53 @@
+@using System.Globalization
+
+<svg class="statsman-svg"
+     width="@Width"
+     height="@Size"
+     viewBox="0 0 32 24"
+     style="--stats-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-linecap="round">
+
+    @* Whiteboard on easel *@
+    <rect x="14" y="1" width="16" height="12" rx="0.5" fill="none" stroke-width="1.2"/>
+    @* Easel legs *@
+    <line x1="16" y1="13" x2="14" y2="22" stroke-width="1"/>
+    <line x1="28" y1="13" x2="30" y2="22" stroke-width="1"/>
+
+    @* Bar chart on board *@
+    <line x1="16" y1="12" x2="29" y2="12" stroke-width="0.6"/>
+    <rect x="16.5" y="9" width="2" height="3" fill="currentColor" stroke="none"/>
+    <rect x="19.5" y="7" width="2" height="5" fill="currentColor" stroke="none"/>
+    <rect x="22.5" y="5.5" width="2" height="6.5" fill="currentColor" stroke="none"/>
+    <rect x="25.5" y="3" width="2" height="9" fill="currentColor" stroke="none"/>
+
+    @* Stickman left of board *@
+    @* Head *@
+    <circle cx="8" cy="4" r="2.5" fill="currentColor" stroke="none"/>
+    @* Body *@
+    <line x1="8" y1="6.5" x2="8" y2="14" stroke-width="2"/>
+    @* Left arm — down *@
+    <line x1="8" y1="8" x2="6" y2="12" stroke-width="2"/>
+    @* Right arm + pointer stick — pivots at shoulder (8, 8) *@
+    <g class="pointer-arm">
+        <line x1="0" y1="0" x2="5" y2="0" stroke-width="1.8"/>
+        <line x1="5" y1="0" x2="14" y2="0" stroke-width="1.2"/>
+    </g>
+    @* Legs *@
+    <line x1="8" y1="14" x2="6" y2="20" stroke-width="2"/>
+    <line x1="8" y1="14" x2="10" y2="20" stroke-width="2"/>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int ClampedSpeed => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(4.0 - (ClampedSpeed - 1) * 0.25).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 1.35);
+}

@@ -1,0 +1,76 @@
+/* ============================================================
+   Whole-body jump — the body group bounces up and down.
+   translateY(3px) = squat/land; translateY(-2px) = peak of jump.
+   ============================================================ */
+@keyframes celebrate-jump {
+    0%, 100% { transform: translateY(3px); }
+    40%, 60% { transform: translateY(-2px); }
+}
+
+.cel-body-group {
+    animation: celebrate-jump 0.65s ease-in-out infinite;
+}
+
+/* ============================================================
+   Arms — raised in a V shape, waving joyfully.
+   Shoulder pivot: (12, 9.5)  ← arm attaches near top of body (body starts y=8.5)
+   ============================================================ */
+@keyframes cel-arm-right-upper-wave {
+    0%, 100% { transform: translate(12px, 9.5px) rotate(-120deg); }
+    50%       { transform: translate(12px, 9.5px) rotate(-150deg); }
+}
+@keyframes cel-arm-left-upper-wave {
+    0%, 100% { transform: translate(12px, 9.5px) rotate(120deg); }
+    50%       { transform: translate(12px, 9.5px) rotate(150deg); }
+}
+
+/* Forearms pivot at elbow — end of the 4-unit upper arm.
+   Large rotation (±40–55°) makes the bend clearly visible. */
+@keyframes cel-forearm-right-wave {
+    0%, 100% { transform: translate(0px, 4px) rotate(-10deg); }
+    50%       { transform: translate(0px, 4px) rotate(-16deg); }
+}
+@keyframes cel-forearm-left-wave {
+    0%, 100% { transform: translate(0px, 4px) rotate(10deg); }
+    50%       { transform: translate(0px, 4px) rotate(16deg); }
+}
+
+/* ============================================================
+   Legs — spread heel-kick jump.
+   Hip pivot: (12, 12)  ← bottom of shortened torso
+   ============================================================ */
+@keyframes cel-thigh-right-jump {
+    0%, 100% { transform: translate(12px, 12px) rotate(35deg); }
+    50%       { transform: translate(12px, 12px) rotate(18deg); }
+}
+@keyframes cel-thigh-left-jump {
+    0%, 100% { transform: translate(12px, 12px) rotate(-35deg); }
+    50%       { transform: translate(12px, 12px) rotate(-18deg); }
+}
+
+/* Shin pivots at knee — end of the 4-unit thigh.
+   82° within thigh space (thigh at 35°) → total ~117° world rotation,
+   so the short 2.5-unit shin tucks cleanly up and behind the knee. */
+@keyframes cel-shin-right-jump {
+    0%, 100% { transform: translate(0px, 4px) rotate(90deg); }
+    50%       { transform: translate(0px, 4px) rotate(68deg); }
+}
+@keyframes cel-shin-left-jump {
+    0%, 100% { transform: translate(0px, 4px) rotate(-90deg); }
+    50%       { transform: translate(0px, 4px) rotate(-68deg); }
+}
+
+/* ============================================================
+   Apply animations — left side offset by ~⅓ period for a
+   natural, jubilant wiggle rather than a locked-in mirror.
+   ============================================================ */
+.cel-arm-right-upper { animation: cel-arm-right-upper-wave 0.65s ease-in-out infinite; }
+.cel-arm-right-lower { animation: cel-forearm-right-wave   0.65s ease-in-out infinite; }
+.cel-arm-left-upper  { animation: cel-arm-left-upper-wave  0.65s ease-in-out infinite; animation-delay: -0.22s; }
+.cel-arm-left-lower  { animation: cel-forearm-left-wave    0.65s ease-in-out infinite; animation-delay: -0.22s; }
+
+.cel-leg-right-upper { animation: cel-thigh-right-jump 0.65s ease-in-out infinite; }
+.cel-leg-right-lower { animation: cel-shin-right-jump  0.65s ease-in-out infinite; }
+.cel-leg-left-upper  { animation: cel-thigh-left-jump  0.65s ease-in-out infinite; animation-delay: -0.22s; }
+.cel-leg-left-lower  { animation: cel-shin-left-jump   0.65s ease-in-out infinite; animation-delay: -0.22s; }
+

@@ -1,0 +1,59 @@
+@using System.Globalization
+
+<svg class="waitingman-svg"
+     width="@Size"
+     height="@Size"
+     viewBox="0 0 24 22"
+     style="--wait-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-linecap="round"
+     fill="none">
+
+    @* Clock — top right *@
+    <g class="clock">
+        <circle cx="16" cy="4.5" r="3.5" stroke-width="0.9"/>
+        <circle cx="16" cy="4.5" r="0.35" fill="currentColor" stroke="none"/>
+        <g class="clock-minute">
+            <line x1="16" y1="4.5" x2="16" y2="1.7" stroke-width="0.7"/>
+        </g>
+        <g class="clock-hour">
+            <line x1="16" y1="4.5" x2="17.9" y2="4.5" stroke-width="0.9"/>
+        </g>
+    </g>
+
+    @* Head — full size, matches other stick figures *@
+    <circle cx="8" cy="4" r="2.5" fill="currentColor" stroke="none"/>
+
+    @* Long torso *@
+    <line x1="8" y1="6.5" x2="8" y2="13" stroke-width="1.6"/>
+
+    @* Arms — wide diamond, hands clasped low. Shoulders right at neck. *@
+    <line x1="8" y1="6.8" x2="4.5" y2="10.5" stroke-width="1.6"/>
+    <line x1="4.5" y1="10.5" x2="8" y2="12.8" stroke-width="1.6"/>
+    <line x1="8" y1="6.8" x2="11.5" y2="10.5" stroke-width="1.6"/>
+    <line x1="11.5" y1="10.5" x2="8" y2="12.8" stroke-width="1.6"/>
+
+    @* Left leg — slight knee bend, foot extends outward *@
+    <line x1="8" y1="13" x2="7.2" y2="16.7" stroke-width="1.6"/>
+    <line x1="7.2" y1="16.7" x2="5.8" y2="20.5" stroke-width="1.6"/>
+    <line x1="3.8" y1="20.5" x2="5.8" y2="20.5" stroke-width="1.5"/>
+
+    @* Right leg — slight knee bend, foot taps at ankle *@
+    <line x1="8" y1="13" x2="8.8" y2="16.7" stroke-width="1.6"/>
+    <line x1="8.8" y1="16.7" x2="10.2" y2="20.5" stroke-width="1.6"/>
+    <g class="foot-right">
+        <line x1="10.2" y1="20.5" x2="12.2" y2="20.5" stroke-width="1.5"/>
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int ClampedSpeed => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(2.4 - (ClampedSpeed - 1) * 0.18).ToString("F2", CultureInfo.InvariantCulture)}s";
+}

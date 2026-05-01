@@ -1,0 +1,40 @@
+/* WaitingMan — arms clasped in front, right foot taps, clock spins */
+
+.clock-minute {
+    will-change: transform;
+    transform-origin: 16px 4.5px;
+    animation: clock-minute var(--wait-duration, 2.4s) linear infinite;
+}
+
+@keyframes clock-minute {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.clock-hour {
+    will-change: transform;
+    transform-origin: 16px 4.5px;
+    animation: clock-hour calc(var(--wait-duration, 2.4s) * 6) linear infinite;
+}
+
+@keyframes clock-hour {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Right foot taps twice per cycle — pivot at ankle (10.2, 20.5) */
+.foot-right {
+    will-change: transform;
+    transform-origin: 10.2px 20.5px;
+    animation: foot-tap var(--wait-duration, 2.4s) ease-in-out infinite;
+}
+
+@keyframes foot-tap {
+    0%   { transform: rotate(0deg); }
+    15%  { transform: rotate(0deg); }
+    20%  { transform: rotate(-32deg); }
+    25%  { transform: rotate(0deg); }
+    30%  { transform: rotate(-32deg); }
+    35%  { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+}

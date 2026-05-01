@@ -1,0 +1,54 @@
+@page "/"
+
+<PageTitle>StickFigurez — demo</PageTitle>
+
+<div class="controls">
+    <label>
+        Size
+        <input type="range" min="16" max="96" step="4" @bind:event="oninput" @bind="size" />
+        <span class="val">@size px</span>
+    </label>
+    <label>
+        Speed
+        <input type="range" min="1" max="10" @bind:event="oninput" @bind="speed" />
+        <span class="val">@speed</span>
+    </label>
+    <label class="color">
+        Color
+        <input type="color" @bind="color" />
+    </label>
+</div>
+
+<section class="grid" style="color: @color;">
+    @foreach (var f in figures)
+    {
+        <article class="card">
+            <div class="stage">@f.Render(size, speed)</div>
+            <header>
+                <h2>@f.Name</h2>
+                <code>@f.Snippet(size, speed)</code>
+            </header>
+        </article>
+    }
+</section>
+
+@code {
+    private int size = 48;
+    private int speed = 5;
+    private string color = "#1a1a1a";
+
+    private record Figure(string Name, Func<int, int, RenderFragment> Render, Func<int, int, string> Snippet);
+
+    private readonly Figure[] figures =
+    [
+        new("Runner",      (s, sp) => @<Runner Size="@s" RunSpeed="@sp" />,             (s, sp) => $"<Runner Size=\"{s}\" RunSpeed=\"{sp}\" />"),
+        new("Celebration", (s, _)  => @<Celebration Size="@s" />,                       (s, _)  => $"<Celebration Size=\"{s}\" />"),
+        new("WaitingMan",  (s, sp) => @<WaitingMan Size="@s" Speed="@sp" />,            (s, sp) => $"<WaitingMan Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("LoveMan",     (s, sp) => @<LoveMan Size="@s" Speed="@sp" Text="M3" />,     (s, sp) => $"<LoveMan Size=\"{s}\" Speed=\"{sp}\" Text=\"M3\" />"),
+        new("Cloner",      (s, sp) => @<Cloner Size="@s" CloneSpeed="@sp" />,           (s, sp) => $"<Cloner Size=\"{s}\" CloneSpeed=\"{sp}\" />"),
+        new("Locker",      (s, sp) => @<Locker Size="@s" KnockSpeed="@sp" />,           (s, sp) => $"<Locker Size=\"{s}\" KnockSpeed=\"{sp}\" />"),
+        new("Labman",      (s, sp) => @<Labman Size="@s" Speed="@sp" />,                (s, sp) => $"<Labman Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("QueryMan",    (s, sp) => @<QueryMan Size="@s" Speed="@sp" />,              (s, sp) => $"<QueryMan Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("Statsman",    (s, sp) => @<Statsman Size="@s" Speed="@sp" />,              (s, sp) => $"<Statsman Size=\"{s}\" Speed=\"{sp}\" />"),
+    ];
+}

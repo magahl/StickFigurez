@@ -1,0 +1,87 @@
+/* =====================================================================
+   CLONER ANIMATION — crouch + in-place shake → clone slides out
+   5 s cycle:
+     0.00–0.25 s  standing still (pause)
+     0.25–1.10 s  sink into crouch from feet up (ease-in)
+     1.10–2.50 s  crouched, shaking laterally (~10 Hz)
+     2.50–3.15 s  straighten back up (ease-out)
+     2.65–3.40 s  clone snaps visible at same position, slides right
+     2.85–3.90 s  both standing side-by-side
+     3.90–4.50 s  clone slides further right and fades (ease-in)
+     4.50–5.00 s  original alone; pause → loop
+   ===================================================================== */
+
+/* ---- Crouch: squish the whole figure downward from the feet ----
+   Fill-box: x ∈ [-4, 4] (w=8), y ∈ [1, 20] (h=19)
+   transform-origin 50% 100% anchors at the feet.              */
+
+.sm-crouch {
+    transform-box:    fill-box;
+    transform-origin: 50% 100%;
+    will-change:      transform;
+    animation:        sm-do-crouch var(--clone-duration, 5s) linear infinite;
+}
+
+@keyframes sm-do-crouch {
+    0%   { transform: scale(1, 1);       animation-timing-function: ease-in; }
+    5%   { transform: scale(1, 1);       animation-timing-function: ease-in; }
+    /* fully crouched — body squishes down, feet stay grounded */
+    22%  { transform: scale(1.12, 0.82); animation-timing-function: linear; }
+    /* hold crouch through the shake */
+    50%  { transform: scale(1.12, 0.82); animation-timing-function: ease-out; }
+    /* straighten back up */
+    63%  { transform: scale(1, 1); }
+    100% { transform: scale(1, 1); }
+}
+
+/* ---- Shake: rapid lateral tremor while crouched ---- */
+
+.sm-shake {
+    will-change: transform;
+    animation:   sm-do-shake var(--clone-duration, 5s) linear infinite;
+}
+
+@keyframes sm-do-shake {
+    /* silent before and after the shake window */
+    0%, 22% { transform: translateX(0px); }
+    /* ±1.5 px lateral bursts at ~10 Hz (2 % spacing) */
+    24%     { transform: translateX(-1.5px); }
+    26%     { transform: translateX( 1.5px); }
+    28%     { transform: translateX(-1.5px); }
+    30%     { transform: translateX( 1.5px); }
+    32%     { transform: translateX(-1.5px); }
+    34%     { transform: translateX( 1.5px); }
+    36%     { transform: translateX(-1.5px); }
+    38%     { transform: translateX( 1.5px); }
+    40%     { transform: translateX(-1.5px); }
+    42%     { transform: translateX( 1.5px); }
+    44%     { transform: translateX(-1.5px); }
+    46%     { transform: translateX( 1.5px); }
+    /* taper off */
+    48%     { transform: translateX(-0.5px); }
+    50%     { transform: translateX( 0px);   }
+    100%    { transform: translateX( 0px);   }
+}
+
+/* ---- Clone: born inside the original, slides out to the right ---- */
+
+.sm-clone {
+    will-change: transform, opacity;
+    animation:   sm-clone-anim var(--clone-duration, 5s) linear infinite;
+}
+
+@keyframes sm-clone-anim {
+    /* Invisible, parked exactly at the original's position */
+    0%   { transform: translate(13px, 0px); opacity: 0; }
+    49%  { transform: translate(13px, 0px); opacity: 0; }
+    /* Snap visible (overlapping the original), then burst right */
+    53%  { transform: translate(13px, 0px); opacity: 1; animation-timing-function: ease-out; }
+    /* Decelerate into standing position next to original */
+    68%  { transform: translate(24px, 0px); opacity: 1; }
+    /* Stand together for a moment */
+    82%  { transform: translate(24px, 0px); opacity: 1; animation-timing-function: ease-in; }
+    /* Accelerate away and vanish */
+    92%  { transform: translate(30px, 0px); opacity: 0; }
+    /* Teleport back to start while invisible */
+    100% { transform: translate(13px, 0px); opacity: 0; }
+}

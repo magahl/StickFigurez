@@ -1,0 +1,51 @@
+@using System.Globalization
+
+<svg class="mihugger-svg"
+     width="@Width"
+     height="@Size"
+     viewBox="2 0 22 24"
+     style="--dream-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-linecap="round">
+
+    @* Thought heart *@
+    <g class="thought-bubble">
+        @* Heart shape *@
+        <path class="heart-pulse" d="M21 6.5 C21 4, 17 0.5, 14.5 3.5 C12 0.5, 8 4, 8 6.5 C8 11, 14.5 15, 14.5 15 C14.5 15, 21 11, 21 6.5 Z"
+              fill="none" stroke-width="1"/>
+        @* Text inside heart *@
+        <text x="14.5" y="9.5" text-anchor="middle"
+              font-size="5" font-weight="bold" font-family="sans-serif"
+              fill="currentColor" stroke="none">@Text</text>
+        @* Trail dots *@
+        <circle cx="11" cy="13" r="0.6" fill="currentColor" stroke="none"/>
+        <circle cx="9.5" cy="14" r="0.4" fill="currentColor" stroke="none"/>
+    </g>
+
+    @* Stickman *@
+    @* Head — looks up and down *@
+    <circle class="dreamer-head" cx="8" cy="12" r="2.5" fill="currentColor" stroke="none"/>
+    @* Body *@
+    <line x1="8" y1="14.5" x2="8" y2="20" stroke-width="2"/>
+    @* Arms relaxed *@
+    <line x1="8" y1="16" x2="5.5" y2="19" stroke-width="2"/>
+    <line x1="8" y1="16" x2="10.5" y2="19" stroke-width="2"/>
+    @* Legs *@
+    <line x1="8" y1="20" x2="6" y2="23.5" stroke-width="2"/>
+    <line x1="8" y1="20" x2="10" y2="23.5" stroke-width="2"/>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int Speed { get; set; } = 5;
+    [Parameter] public string Text { get; set; } = "M3";
+
+    private int ClampedSpeed => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(4.0 - (ClampedSpeed - 1) * 0.25).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => Size;
+}

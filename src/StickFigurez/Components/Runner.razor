@@ -1,0 +1,79 @@
+@using System.Globalization
+
+<svg class="@SvgClass"
+     width="@Size" height="@Size"
+     viewBox="0 0 25 22"
+     style="--run-duration: @AnimDuration; --shoulder-x: @ShoulderXPx; --lean-deg: @LeanDeg;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-width="2"
+     stroke-linecap="round">
+
+    @* Legs with knees: outer group = thigh (pivots at hip), inner group = shin (pivots at knee) *@
+    <g class="leg-right-upper">
+        <line x1="0" y1="0" x2="0" y2="4.5" />
+        <g class="leg-right-lower">
+            <line x1="0" y1="0" x2="0" y2="4.5" />
+        </g>
+    </g>
+    <g class="leg-left-upper">
+        <line x1="0" y1="0" x2="0" y2="4.5" />
+        <g class="leg-left-lower">
+            <line x1="0" y1="0" x2="0" y2="4.5" />
+        </g>
+    </g>
+
+    <g class="runner-body">
+
+        @* Head — shifts forward with lean *@
+        <circle cx="@HeadCx" cy="3.5" r="2.5" fill="currentColor" stroke="none" />
+
+        @* Body — top follows head, bottom (hip) stays fixed *@
+        <line x1="@HeadCx" y1="6" x2="12" y2="14" />
+
+        @* Arms with elbows: outer group = upper arm (pivots at shoulder), inner group = forearm (pivots at elbow) *@
+        <g class="arm-right-upper">
+            <line x1="0" y1="0" x2="0" y2="4" />
+            <g class="arm-right-lower">
+                <line x1="0" y1="0" x2="0" y2="3" />
+            </g>
+        </g>
+        <g class="arm-left-upper">
+            <line x1="0" y1="0" x2="0" y2="4" />
+            <g class="arm-left-lower">
+                <line x1="0" y1="0" x2="0" y2="3" />
+            </g>
+        </g>
+
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 16;
+    [Parameter] public int RunSpeed { get; set; } = 5;
+    [Parameter] public bool JackSparrow { get; set; }
+
+    private int Speed => Math.Clamp(RunSpeed, 1, 10);
+
+    // Each step adds 0.35 SVG units of forward lean (head/shoulder x offset)
+    private double LeanOffset => (Speed - 1) * 0.35;
+
+    // 0.65 s at speed 1, down to ~0.25 s at speed 10
+    private string AnimDuration =>
+        $"{(0.65 - (Speed - 1) * 0.045).ToString("F3", CultureInfo.InvariantCulture)}s";
+
+    private string HeadCx =>
+        (12.5 + LeanOffset).ToString("F2", CultureInfo.InvariantCulture);
+
+    private string SvgClass => JackSparrow
+        ? "running-stick-man jack-sparrow-mode"
+        : "running-stick-man";
+
+    private string ShoulderXPx =>
+        $"{(12.5 + LeanOffset).ToString("F2", CultureInfo.InvariantCulture)}px";
+
+    // Angle the body line makes from vertical (hip to head), used to cancel forward lean in Jack Sparrow mode
+    private string LeanDeg =>
+        $"{(Math.Atan2(LeanOffset, 8.0) * 180.0 / Math.PI).ToString("F1", CultureInfo.InvariantCulture)}deg";
+}
