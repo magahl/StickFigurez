@@ -78,6 +78,10 @@ Versioning via [Nerdbank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVe
 2. Tag the release commit `v0.x.y` and push the tag.
 3. CI publishes the package to NuGet.org.
 
+## Stargazers
+
+[![Star History Chart](https://api.star-history.com/svg?repos=magahl/StickFigurez&type=Date)](https://www.star-history.com/#magahl/StickFigurez&Date)
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
