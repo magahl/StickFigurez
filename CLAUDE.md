@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guide Claude Code (claude.ai/code) for this repo.
 
 ## Commands
 
@@ -19,52 +19,52 @@ dotnet tool install --tool-path .tools nbgv   # one-time
 .tools/nbgv get-version
 ```
 
-There is no test project. CI runs `restore → build -c Release → pack` and uploads the `.nupkg` as an artifact.
+No test project. CI run `restore → build -c Release → pack`, upload `.nupkg` as artifact.
 
-Targets `net10.0` (SDK pinned via `global.json` to `10.0.x`, `allowPrerelease: true`). `Directory.Build.props` enables `TreatWarningsAsErrors=true` and `EnforceCodeStyleInBuild=true` for every project — warnings will fail the build.
+Target `net10.0` (SDK pin via `global.json` to `10.0.x`, `allowPrerelease: true`). `Directory.Build.props` set `TreatWarningsAsErrors=true` + `EnforceCodeStyleInBuild=true` every project — warning fail build.
 
 ## Architecture
 
 Two projects in `StickFigurez.sln`:
 
-- `src/StickFigurez` — the published Razor class library (`Microsoft.NET.Sdk.Razor`). Ships as the `StickFigurez` NuGet package.
-- `samples/StickFigurez.Demo` — Blazor WebAssembly app (`Microsoft.NET.Sdk.BlazorWebAssembly`) that references the library by `ProjectReference`. Deployed to GitHub Pages (and to `stickfigurez.com`) by `.github/workflows/deploy-pages.yml`.
+- `src/StickFigurez` — published Razor class library (`Microsoft.NET.Sdk.Razor`). Ship as `StickFigurez` NuGet package.
+- `samples/StickFigurez.Demo` — Blazor WebAssembly app (`Microsoft.NET.Sdk.BlazorWebAssembly`), reference library via `ProjectReference`. Deploy to GitHub Pages (+ `stickfigurez.com`) by `.github/workflows/deploy-pages.yml`.
 
 ### Component pattern
 
-Every figure under `src/StickFigurez/Components/` is the same shape:
+Every figure under `src/StickFigurez/Components/` same shape:
 
-- `Foo.razor` — inline SVG, `[Parameter] int Size`, `[Parameter] int Speed` (clamped 1–10), and a computed CSS-variable string passed via `style="--foo-duration: …"` on the root `<svg>`.
-- `Foo.razor.css` — Blazor-scoped CSS containing the keyframes that consume those custom properties.
+- `Foo.razor` — inline SVG, `[Parameter] int Size`, `[Parameter] int Speed` (clamp 1–10), computed CSS-variable string via `style="--foo-duration: …"` on root `<svg>`.
+- `Foo.razor.css` — Blazor-scoped CSS, keyframes consume those custom properties.
 
-Two conventions matter for any new figure:
+Two conventions for new figure:
 
-1. **Color follows `currentColor`.** SVG strokes/fills use `currentColor` so the consumer sets `color:` on a parent. Don't hard-code colors.
-2. **Speed → duration mapping is done in C#**, not CSS. The Razor file formats the duration with `CultureInfo.InvariantCulture` (commas-as-decimals locales would otherwise break the inline style) and exposes it as a CSS custom property.
-3. **Off-origin rotations use the translate–rotate–translate trick** (see `Locksmith.razor.css` `key-turn`, `Runner.razor` nested joint groups). SVG has no `transform-origin` for inline `<g>` in older Safari; this is the portable workaround.
+1. **Color follows `currentColor`.** SVG stroke/fill use `currentColor`; consumer set `color:` on parent. No hard-code colors.
+2. **Speed → duration mapping in C#**, not CSS. Razor file format duration with `CultureInfo.InvariantCulture` (comma-decimal locales break inline style otherwise), expose as CSS custom property.
+3. **Off-origin rotations use translate–rotate–translate trick** (see `Locksmith.razor.css` `key-turn`, `Runner.razor` nested joint groups). SVG no `transform-origin` for inline `<g>` in older Safari; portable workaround.
 
 ### Adding a new figure
 
-To add `Foo`:
+Add `Foo`:
 
-1. Create `src/StickFigurez/Components/Foo.razor` (+ `.razor.css`) following the pattern above.
-2. Register it in the `figures` array in `samples/StickFigurez.Demo/Pages/Home.razor` — the demo's grid, search, and live-snippet rendering all read from this single array (`Name`, keyword list, `RenderFragment`, snippet string).
-3. Add a row to the component table and the usage example in `README.md`.
+1. Create `src/StickFigurez/Components/Foo.razor` (+ `.razor.css`), follow pattern above.
+2. Register in `figures` array in `samples/StickFigurez.Demo/Pages/Home.razor` — demo grid, search, live-snippet render all read from this one array (`Name`, keyword list, `RenderFragment`, snippet string).
+3. Add row to component table + usage example in `README.md`.
 
-Renaming a component requires updating all three locations plus both `Foo.razor` and `Foo.razor.css` files (filename = component name in Razor).
+Rename component = update all three spots + both `Foo.razor` and `Foo.razor.css` files (filename = component name in Razor).
 
 ## Versioning and release
 
-Versioning is driven by [Nerdbank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVersioning) (`version.json`). Public releases come only from `master` or tags matching `v\d+\.\d+(\.\d+)?(-.+)?`.
+Version driven by [Nerdbank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVersioning) (`version.json`). Public release only from `master` or tags match `v\d+\.\d+(\.\d+)?(-.+)?`.
 
 Release flow:
 
-1. `nbgv prepare-release` creates a `release/v0.x` branch and bumps the minor version on `master`.
-2. Tag the release commit `v0.x.y` and push the tag.
-3. Manually trigger `Publish NuGet` (`.github/workflows/publish-nuget.yml`, `workflow_dispatch`). It uses NuGet.org **trusted publishing** (OIDC, `id-token: write`) under user `mahlberg` — there is no API-key secret to rotate.
+1. `nbgv prepare-release` create `release/v0.x` branch, bump minor on `master`.
+2. Tag release commit `v0.x.y`, push tag.
+3. Manual trigger `Publish NuGet` (`.github/workflows/publish-nuget.yml`, `workflow_dispatch`). Use NuGet.org **trusted publishing** (OIDC, `id-token: write`) under user `mahlberg` — no API-key secret to rotate.
 
-`Directory.Build.props` opts into deterministic, source-linked builds (`EmbedUntrackedSources`, `IncludeSymbols`, snupkg). Don't disable these on the library project — they're what makes the published package debuggable.
+`Directory.Build.props` opt into deterministic, source-linked builds (`EmbedUntrackedSources`, `IncludeSymbols`, snupkg). No disable on library project — these make published package debuggable.
 
 ## Demo deployment
 
-`deploy-pages.yml` runs on every push to `master`. It publishes the demo, copies `index.html → 404.html` (SPA fallback for GitHub Pages), and `touch`es `.nojekyll`. If you add a route, the SPA fallback already covers it; if you add static assets that Jekyll would mangle (filenames starting with `_`), the `.nojekyll` is what keeps them.
+`deploy-pages.yml` run every push to `master`. Publish demo, copy `index.html → 404.html` (SPA fallback for GitHub Pages), `touch` `.nojekyll`. Add route = SPA fallback cover it; add static assets Jekyll mangle (filename start `_`) = `.nojekyll` keep them.
