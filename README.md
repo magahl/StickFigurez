@@ -30,7 +30,7 @@ In a page or component:
 <Waiting Size="32" Speed="5" />
 <Lover Size="32" Text="❤" />
 <Cloner Size="32" Speed="6" />
-<Locker Size="32" Speed="5" />
+<Locksmith Size="32" Speed="5" />
 <Scientist Size="32" Speed="5" />
 <Searcher Size="32" Speed="5" />
 <Teacher Size="32" Speed="5" />
@@ -45,7 +45,7 @@ Color follows `currentColor` — set CSS `color` on a parent.
 | `Celebrator`   | `Size`, `Speed` (1–10)                      |
 | `Cloner`       | `Size`, `Speed` (1–10)                      |
 | `Scientist`    | `Size`, `Speed` (1–10)                      |
-| `Locker`       | `Size`, `Speed` (1–10)                      |
+| `Locksmith`    | `Size`, `Speed` (1–10)                      |
 | `Lover`        | `Size`, `Speed` (1–10), `Text`              |
 | `Searcher`     | `Size`, `Speed` (1–10)                      |
 | `JackSparrow`  | `Size`, `Speed` (1–10)                      |

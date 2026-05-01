@@ -36,12 +36,13 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
-    width: 100%;
-    max-width: 320px;
+    min-width: 320px;
 }
 
-.controls .search input[type=search] {
-    min-width: 0;
+.controls input[type=search]:focus {
+    outline: none;
+    border-color: #2b6cb0;
+    box-shadow: 0 0 0 3px rgba(43, 108, 176, .15);
 }
 
 @media (max-width: 640px) {
@@ -57,13 +58,12 @@
     }
     .controls input[type=range] {
         flex: 1;
+        width: auto;
     }
-}
-
-.controls input[type=search]:focus {
-    outline: none;
-    border-color: #2b6cb0;
-    box-shadow: 0 0 0 3px rgba(43, 108, 176, .15);
+    .controls input[type=search] {
+        min-width: 0;
+        width: 100%;
+    }
 }
 
 .controls .val {
