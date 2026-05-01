@@ -55,7 +55,7 @@ Color follows `currentColor` — set CSS `color` on a parent.
 
 ## Demo
 
-Live demo: <https://magahl.github.io/StickFigurez/>
+Live demo: <https://stickfigurez.com/>
 
 Run locally:
 
