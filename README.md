@@ -24,16 +24,17 @@ In `_Imports.razor`:
 In a page or component:
 
 ```razor
-<Runner Size="32" Speed="7" />
-<JackSparrow Size="32" Speed="7" />
 <Celebrator Size="48" Speed="5" />
-<Waiting Size="32" Speed="5" />
-<Lover Size="32" Text="❤" />
 <Cloner Size="32" Speed="6" />
+<Githubber Size="32" Speed="5" />
+<JackSparrow Size="32" Speed="7" />
 <Locksmith Size="32" Speed="5" />
+<Lover Size="32" Text="❤" />
+<Runner Size="32" Speed="7" />
 <Scientist Size="32" Speed="5" />
 <Searcher Size="32" Speed="5" />
 <Teacher Size="32" Speed="5" />
+<Waiting Size="32" Speed="5" />
 ```
 
 Color follows `currentColor` — set CSS `color` on a parent.
@@ -44,12 +45,13 @@ Color follows `currentColor` — set CSS `color` on a parent.
 |----------------|---------------------------------------------|
 | `Celebrator`   | `Size`, `Speed` (1–10)                      |
 | `Cloner`       | `Size`, `Speed` (1–10)                      |
-| `Scientist`    | `Size`, `Speed` (1–10)                      |
+| `Githubber`    | `Size`, `Speed` (1–10)                      |
+| `JackSparrow`  | `Size`, `Speed` (1–10)                      |
 | `Locksmith`    | `Size`, `Speed` (1–10)                      |
 | `Lover`        | `Size`, `Speed` (1–10), `Text`              |
-| `Searcher`     | `Size`, `Speed` (1–10)                      |
-| `JackSparrow`  | `Size`, `Speed` (1–10)                      |
 | `Runner`       | `Size`, `Speed` (1–10)                      |
+| `Scientist`    | `Size`, `Speed` (1–10)                      |
+| `Searcher`     | `Size`, `Speed` (1–10)                      |
 | `Teacher`      | `Size`, `Speed` (1–10)                      |
 | `Waiting`      | `Size`, `Speed` (1–10)                      |
 

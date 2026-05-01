@@ -1,0 +1,39 @@
+/* Head looks up toward octocat then back down — admiring */
+
+.dreamer-head {
+    will-change: transform;
+    animation: head-dream var(--dream-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes head-dream {
+    0%   { transform: translate(0px, 0px); }
+    30%  { transform: translate(1.5px, -0.5px); }
+    60%  { transform: translate(-0.5px, -0.3px); }
+    100% { transform: translate(0px, 0px); }
+}
+
+.thought-bubble {
+    will-change: opacity;
+    animation: bubble-fade var(--dream-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes bubble-fade {
+    0%   { opacity: 1; }
+    100% { opacity: 1; }
+}
+
+/* Octocat bobs gently like idle Octocat avatar */
+
+.octo-pulse {
+    will-change: transform;
+    transform-origin: 14.5px 7px;
+    animation: octo-bob 1.6s ease-in-out infinite;
+}
+
+@keyframes octo-bob {
+    0%   { transform: translateY(0) scale(1); }
+    25%  { transform: translateY(-0.4px) scale(1.05); }
+    50%  { transform: translateY(0) scale(1); }
+    75%  { transform: translateY(0.3px) scale(0.98); }
+    100% { transform: translateY(0) scale(1); }
+}

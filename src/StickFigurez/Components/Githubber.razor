@@ -1,0 +1,68 @@
+@using System.Globalization
+
+<svg class="githubber-svg"
+     width="@Width"
+     height="@Size"
+     viewBox="2 0 22 24"
+     style="--dream-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+    @* Thought octocat — silhouette + eye paths from the public-domain Octocat SVG by
+       Johannes Sundström (https://gist.github.com/johan/1007813). Eyes are cut out of
+       the silhouette via fill-rule="evenodd"; pupils sit on top. *@
+    <g class="thought-bubble">
+        @* Bubble outline — wavy cloud with 8 bumps *@
+        <path fill="none" stroke="currentColor" stroke-width="0.35" stroke-linejoin="round"
+              d="M 14.5 4.1
+                 Q 16.80 2.88 17.47 5.09
+                 Q 20.04 5.59 18.70 7.5
+                 Q 20.04 9.41 17.47 9.91
+                 Q 16.80 12.12 14.50 10.9
+                 Q 12.20 12.12 11.53 9.91
+                 Q 8.96 9.41 10.30 7.5
+                 Q 8.96 5.59 11.53 5.09
+                 Q 12.20 2.88 14.50 4.10 Z"/>
+        <g class="octo-pulse">
+            <g transform="translate(10.95 4.85) scale(0.0185)">
+                <path fill="currentColor" stroke="none" fill-rule="evenodd"
+                      d="M378.18 141.32l.28-1.389c-31.162-6.231-63.141-6.294-82.487-5.49 3.178-11.451 4.134-24.627 4.134-39.32 0-21.073-7.917-37.931-20.77-50.759 2.246-7.25 5.246-23.351-2.996-43.963 0 0-14.541-4.617-47.431 17.396-12.884-3.22-26.596-4.81-40.328-4.81-15.109 0-30.376 1.924-44.615 5.83-33.94-23.154-48.923-18.411-48.923-18.411-9.78 24.457-3.733 42.566-1.896 47.063-11.495 12.406-18.513 28.243-18.513 47.659 0 14.658 1.669 27.808 5.745 39.237-19.511-.71-50.323-.437-80.373 5.572l.276 1.389c30.231-6.046 61.237-6.256 80.629-5.522.898 2.366 1.899 4.661 3.021 6.879-19.177.618-51.922 3.062-83.303 11.915l.387 1.36c31.629-8.918 64.658-11.301 83.649-11.882 11.458 21.358 34.048 35.152 74.236 39.484-5.704 3.833-11.523 10.349-13.881 21.374-7.773 3.718-32.379 12.793-47.142-12.599 0 0-8.264-15.109-24.082-16.292 0 0-15.344-.235-1.059 9.562 0 0 10.267 4.838 17.351 23.019 0 0 9.241 31.01 53.835 21.061v32.032s-.943 11.33-11.33 15.105c0 0-6.137 4.249.475 6.606 0 0 28.792 2.361 28.792-21.238v-34.929s-1.142-13.852 5.663-18.667v57.371s-.47 13.688-7.551 18.881c0 0-4.723 8.494 5.663 6.137 0 0 19.824-2.832 20.769-25.961l.449-58.06h4.765l.453 58.06c.943 23.129 20.768 25.961 20.768 25.961 10.383 2.357 5.663-6.137 5.663-6.137-7.08-5.193-7.551-18.881-7.551-18.881v-56.876c6.801 5.296 5.663 18.171 5.663 18.171v34.929c0 23.6 28.793 21.238 28.793 21.238 6.606-2.357.474-6.606.474-6.606-10.386-3.775-11.33-15.105-11.33-15.105v-45.786c0-17.854-7.518-27.309-14.87-32.3 42.859-4.25 63.426-18.089 72.903-39.591 18.773.516 52.557 2.803 84.873 11.919l.384-1.36c-32.131-9.063-65.692-11.408-84.655-11.96.898-2.172 1.682-4.431 2.378-6.755 19.25-.798 51.378-.789 82.656 5.462z
+                         M160.1 126.06c0 13.994-7.88 25.336-17.6 25.336-9.72 0-17.6-11.342-17.6-25.336 0-13.992 7.88-25.33 17.6-25.33 9.72.01 17.6 11.34 17.6 25.33z
+                         M254.53 126.06c0 13.994-7.88 25.336-17.6 25.336-9.72 0-17.6-11.342-17.6-25.336 0-13.992 7.88-25.33 17.6-25.33 9.72.01 17.6 11.34 17.6 25.33z"/>
+                @* Pupils *@
+                <ellipse cx="142.73" cy="126.38" rx="11.73" ry="16.89" fill="currentColor" stroke="none"/>
+                <ellipse cx="237.15" cy="126.38" rx="11.73" ry="16.89" fill="currentColor" stroke="none"/>
+            </g>
+        </g>
+        @* Trail dots — bubble tail leading down toward stickman *@
+        <circle cx="12" cy="11.7" r="0.5" fill="none" stroke="currentColor" stroke-width="0.3"/>
+        <circle cx="10.7" cy="12.6" r="0.35" fill="none" stroke="currentColor" stroke-width="0.3"/>
+    </g>
+
+    @* Stickman *@
+    @* Head *@
+    <circle class="dreamer-head" cx="8" cy="12" r="2.5" fill="currentColor" stroke="none"/>
+    @* Body *@
+    <line x1="8" y1="14.5" x2="8" y2="20" stroke-width="2"/>
+    @* Arms relaxed *@
+    <line x1="8" y1="16" x2="5.5" y2="19" stroke-width="2"/>
+    <line x1="8" y1="16" x2="10.5" y2="19" stroke-width="2"/>
+    @* Legs *@
+    <line x1="8" y1="20" x2="6" y2="23.5" stroke-width="2"/>
+    <line x1="8" y1="20" x2="10" y2="23.5" stroke-width="2"/>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int ClampedSpeed => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(4.0 - (ClampedSpeed - 1) * 0.25).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => Size;
+}

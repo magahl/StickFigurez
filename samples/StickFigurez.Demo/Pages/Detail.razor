@@ -1,0 +1,85 @@
+@page "/{Name}"
+@using ColorCode
+@using StickFigurez.Components
+@inject HtmlClassFormatter Formatter
+@inject NavigationManager Nav
+
+<PageTitle>StickFigurez — @(Canonical ?? Name)</PageTitle>
+
+<a class="back" href="/">← All components</a>
+
+@if (Canonical is null)
+{
+    <p class="missing">Unknown component <code>@Name</code>.</p>
+}
+else
+{
+    <h1 class="detail-title">@Canonical</h1>
+
+    <div class="controls">
+        <label>
+            Size
+            <input type="range" min="64" max="384" step="8" @bind:event="oninput" @bind="size" />
+            <span class="val">@size px</span>
+        </label>
+        <label>
+            Speed
+            <input type="range" min="1" max="10" @bind:event="oninput" @bind="speed" />
+            <span class="val">@speed</span>
+        </label>
+        <label class="color">
+            Color
+            <input type="color" @bind="color" />
+        </label>
+        @if (Canonical == "Lover")
+        {
+            <label class="text">
+                Text
+                <input type="text" maxlength="6" @bind:event="oninput" @bind="text" />
+            </label>
+        }
+    </div>
+
+    <section class="detail-stage" style="color: @color;">
+        @switch (Canonical)
+        {
+            case "Runner":      <Runner Size="@size" Speed="@speed" /> break;
+            case "JackSparrow": <JackSparrow Size="@size" Speed="@speed" /> break;
+            case "Celebrator":  <Celebrator Size="@size" Speed="@speed" /> break;
+            case "Waiting":     <Waiting Size="@size" Speed="@speed" /> break;
+            case "Lover":       <Lover Size="@size" Speed="@speed" Text="@text" /> break;
+            case "Githubber":   <Githubber Size="@size" Speed="@speed" /> break;
+            case "Cloner":      <Cloner Size="@size" Speed="@speed" /> break;
+            case "Locksmith":   <Locksmith Size="@size" Speed="@speed" /> break;
+            case "Scientist":   <Scientist Size="@size" Speed="@speed" /> break;
+            case "Searcher":    <Searcher Size="@size" Speed="@speed" /> break;
+            case "Teacher":     <Teacher Size="@size" Speed="@speed" /> break;
+        }
+    </section>
+
+    <code class="snippet">@((MarkupString)Formatter.GetHtmlString(Snippet, Languages.Html))</code>
+}
+
+@code {
+    [Parameter] public string? Name { get; set; }
+
+    private int size = 192;
+    private int speed = 5;
+    private string color = "#1a1a1a";
+    private string text = "M3";
+
+    private static readonly string[] Components =
+    [
+        "Runner", "JackSparrow", "Celebrator", "Waiting", "Lover",
+        "Githubber", "Cloner", "Locksmith", "Scientist", "Searcher", "Teacher",
+    ];
+
+    private string? Canonical =>
+        Components.FirstOrDefault(c => string.Equals(c, Name, StringComparison.OrdinalIgnoreCase));
+
+    private string Snippet => Canonical switch
+    {
+        "Lover" => $"<Lover Size=\"{size}\" Speed=\"{speed}\" Text=\"{text}\" />",
+        _       => $"<{Canonical} Size=\"{size}\" Speed=\"{speed}\" />",
+    };
+}

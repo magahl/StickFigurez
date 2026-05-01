@@ -29,13 +29,15 @@
 <section class="grid" style="color: @color;">
     @foreach (var f in Filtered)
     {
-        <article class="card">
-            <div class="stage">@f.Render(size, speed)</div>
-            <header>
-                <h2>@f.Name</h2>
-                <code class="snippet">@((MarkupString)Formatter.GetHtmlString(f.Snippet(size, speed), Languages.Html))</code>
-            </header>
-        </article>
+        <a class="card-link" href="@($"/{f.Name.ToLowerInvariant()}")">
+            <article class="card">
+                <div class="stage">@f.Render(size, speed)</div>
+                <header>
+                    <h2>@f.Name</h2>
+                    <code class="snippet">@((MarkupString)Formatter.GetHtmlString(f.Snippet(size, speed), Languages.Html))</code>
+                </header>
+            </article>
+        </a>
     }
 </section>
 
@@ -59,6 +61,8 @@
             (s, sp) => @<Waiting Size="@s" Speed="@sp" />,               (s, sp) => $"<Waiting Size=\"{s}\" Speed=\"{sp}\" />"),
         new("Lover",       ["love", "heart", "like", "favorite", "romance"],
             (s, sp) => @<Lover Size="@s" Speed="@sp" Text="M3" />,       (s, sp) => $"<Lover Size=\"{s}\" Speed=\"{sp}\" Text=\"M3\" />"),
+        new("Githubber",   ["github", "octocat", "git", "open source", "fan"],
+            (s, sp) => @<Githubber Size="@s" Speed="@sp" />,             (s, sp) => $"<Githubber Size=\"{s}\" Speed=\"{sp}\" />"),
         new("Cloner",      ["clone", "copy", "duplicate", "split", "multiply"],
             (s, sp) => @<Cloner Size="@s" Speed="@sp" />,                (s, sp) => $"<Cloner Size=\"{s}\" Speed=\"{sp}\" />"),
         new("Locksmith",   ["lock", "secure", "auth", "key", "knock", "password"],
