@@ -1,9 +1,9 @@
 @using System.Globalization
 
-<svg class="running-stick-man"
+<svg class="jack-sparrow"
      width="@Size" height="@Size"
      viewBox="0 0 25 22"
-     style="--run-duration: @AnimDuration; --shoulder-x: @ShoulderXPx;"
+     style="--run-duration: @AnimDuration; --shoulder-x: @ShoulderXPx; --lean-deg: @LeanDeg;"
      xmlns="http://www.w3.org/2000/svg"
      stroke="currentColor"
      stroke-width="2"
@@ -67,4 +67,8 @@
 
     private string ShoulderXPx =>
         $"{(12.5 + LeanOffset).ToString("F2", CultureInfo.InvariantCulture)}px";
+
+    // Angle the body line makes from vertical (hip to head), used to cancel forward lean
+    private string LeanDeg =>
+        $"{(Math.Atan2(LeanOffset, 8.0) * 180.0 / Math.PI).ToString("F1", CultureInfo.InvariantCulture)}deg";
 }

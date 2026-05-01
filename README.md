@@ -25,14 +25,15 @@ In a page or component:
 
 ```razor
 <Runner Size="32" Speed="7" />
-<Celebration Size="48" Speed="5" />
-<WaitingMan Size="32" Speed="5" />
-<LoveMan Size="32" Text="❤" />
+<JackSparrow Size="32" Speed="7" />
+<Celebrator Size="48" Speed="5" />
+<Waiting Size="32" Speed="5" />
+<Lover Size="32" Text="❤" />
 <Cloner Size="32" Speed="6" />
 <Locker Size="32" Speed="5" />
-<Labman Size="32" Speed="5" />
-<QueryMan Size="32" Speed="5" />
-<Statsman Size="32" Speed="5" />
+<Scientist Size="32" Speed="5" />
+<Searcher Size="32" Speed="5" />
+<Teacher Size="32" Speed="5" />
 ```
 
 Color follows `currentColor` — set CSS `color` on a parent.
@@ -41,15 +42,16 @@ Color follows `currentColor` — set CSS `color` on a parent.
 
 | Component      | Notable parameters                          |
 |----------------|---------------------------------------------|
-| `Celebration`  | `Size`, `Speed` (1–10)                      |
+| `Celebrator`   | `Size`, `Speed` (1–10)                      |
 | `Cloner`       | `Size`, `Speed` (1–10)                      |
-| `Labman`       | `Size`, `Speed` (1–10)                      |
+| `Scientist`    | `Size`, `Speed` (1–10)                      |
 | `Locker`       | `Size`, `Speed` (1–10)                      |
-| `LoveMan`      | `Size`, `Speed` (1–10), `Text`              |
-| `QueryMan`     | `Size`, `Speed` (1–10)                      |
-| `Runner`       | `Size`, `Speed` (1–10), `JackSparrow`       |
-| `Statsman`     | `Size`, `Speed` (1–10)                      |
-| `WaitingMan`   | `Size`, `Speed` (1–10)                      |
+| `Lover`        | `Size`, `Speed` (1–10), `Text`              |
+| `Searcher`     | `Size`, `Speed` (1–10)                      |
+| `JackSparrow`  | `Size`, `Speed` (1–10)                      |
+| `Runner`       | `Size`, `Speed` (1–10)                      |
+| `Teacher`      | `Size`, `Speed` (1–10)                      |
+| `Waiting`      | `Size`, `Speed` (1–10)                      |
 
 ## Demo
 

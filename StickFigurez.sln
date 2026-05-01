@@ -4,6 +4,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StickFigurez", "src\StickFi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StickFigurez.Demo", "samples\StickFigurez.Demo\StickFigurez.Demo.csproj", "{A1B2C3D4-E5F6-4789-9012-345678902222}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{B1CBE16A-79B1-4446-AEF9-7185505F5AFC}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+		.github\workflows\deploy-pages.yml = .github\workflows\deploy-pages.yml
+		.github\workflows\publish-nuget.yml = .github\workflows\publish-nuget.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

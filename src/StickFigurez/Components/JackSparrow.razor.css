@@ -1,0 +1,75 @@
+/* =====================================================================
+   JACK SPARROW
+   Whole body lurches side-to-side; arms fling out to the sides and
+   flail up-down rather than pumping front-to-back. Legs keep running
+   normally underneath the sway.
+   ===================================================================== */
+
+/* Thigh pivots at hip (12, 14) */
+@keyframes upper-leg-swing {
+    0%, 100% { transform: translate(12px, 14px) rotate(-40deg); }
+    50%       { transform: translate(12px, 14px) rotate( 40deg); }
+}
+
+/* Shin pivots at knee — end of 4.5-unit thigh */
+@keyframes shin-bend {
+    0%, 100% { transform: translate(0px, 4.5px) rotate(55deg); }
+    50%       { transform: translate(0px, 4.5px) rotate( 5deg); }
+}
+
+.leg-left-upper   { animation: upper-leg-swing var(--run-duration, 0.38s) ease-in-out infinite; }
+.leg-left-lower   { animation: shin-bend       var(--run-duration, 0.38s) ease-in-out infinite; }
+.leg-right-upper  { animation: upper-leg-swing var(--run-duration, 0.38s) ease-in-out infinite; animation-delay: calc(var(--run-duration, 0.38s) * -0.5); }
+.leg-right-lower  { animation: shin-bend       var(--run-duration, 0.38s) ease-in-out infinite; animation-delay: calc(var(--run-duration, 0.38s) * -0.5); }
+
+/* Drunken lurch — pivots around the hip (12, 14).
+   calc() subtracts --lean-deg to cancel the speed-dependent forward lean of the
+   body geometry, then adds a small extra backward bias for Jack Sparrow's posture. */
+@keyframes jack-sway {
+    0%   { transform: rotate(calc(var(--lean-deg, 0deg) * -1 - 6deg)); }
+    20%  { transform: rotate(calc(var(--lean-deg, 0deg) * -1 + 5deg)); }
+    45%  { transform: rotate(calc(var(--lean-deg, 0deg) * -1 - 8deg)); }
+    70%  { transform: rotate(calc(var(--lean-deg, 0deg) * -1 + 6deg)); }
+    100% { transform: rotate(calc(var(--lean-deg, 0deg) * -1 - 6deg)); }
+}
+
+.runner-body {
+    animation: jack-sway calc(var(--run-duration, 0.38s) * 1.5) ease-in-out infinite;
+    transform-box:    fill-box;
+    transform-origin: 12px 14px; /* pivot at the hip */
+}
+
+/* Right arm flings out to the right, flailing between right-down and right-up.
+   72°  → (0,4) ends at (+3.80, +1.24) — pointing right-and-slightly-down
+   95°  → (0,4) ends at (+3.99, -0.35) — pointing right-and-just-past-horizontal */
+@keyframes jack-arm-right {
+    0%   { transform: translate(var(--shoulder-x, 12.5px), 8px) rotate( 72deg); }
+    35%  { transform: translate(var(--shoulder-x, 12.5px), 8px) rotate( 95deg); }
+    65%  { transform: translate(var(--shoulder-x, 12.5px), 8px) rotate( 58deg); }
+    100% { transform: translate(var(--shoulder-x, 12.5px), 8px) rotate( 72deg); }
+}
+
+/* Left arm is the mirror */
+@keyframes jack-arm-left {
+    0%   { transform: translate(var(--shoulder-x, 12.5px), 8px) rotate( -72deg); }
+    35%  { transform: translate(var(--shoulder-x, 12.5px), 8px) rotate( -95deg); }
+    65%  { transform: translate(var(--shoulder-x, 12.5px), 8px) rotate( -58deg); }
+    100% { transform: translate(var(--shoulder-x, 12.5px), 8px) rotate( -72deg); }
+}
+
+/* Forearms flail loosely from the elbow */
+@keyframes jack-forearm-right {
+    0%   { transform: translate(0px, 4px) rotate( 40deg); }
+    50%  { transform: translate(0px, 4px) rotate(-30deg); }
+    100% { transform: translate(0px, 4px) rotate( 40deg); }
+}
+@keyframes jack-forearm-left {
+    0%   { transform: translate(0px, 4px) rotate(-40deg); }
+    50%  { transform: translate(0px, 4px) rotate( 30deg); }
+    100% { transform: translate(0px, 4px) rotate(-40deg); }
+}
+
+.arm-right-upper { animation: jack-arm-right    var(--run-duration, 0.38s) ease-in-out infinite; }
+.arm-right-lower { animation: jack-forearm-right var(--run-duration, 0.38s) ease-in-out infinite; }
+.arm-left-upper  { animation: jack-arm-left      var(--run-duration, 0.38s) ease-in-out infinite; animation-delay: calc(var(--run-duration, 0.38s) * -0.3); }
+.arm-left-lower  { animation: jack-forearm-left  var(--run-duration, 0.38s) ease-in-out infinite; animation-delay: calc(var(--run-duration, 0.38s) * -0.3); }

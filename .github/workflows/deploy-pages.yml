@@ -30,10 +30,6 @@ jobs:
       - name: Publish demo
         run: dotnet publish samples/StickFigurez.Demo/StickFigurez.Demo.csproj -c Release -o publish
 
-      - name: Rewrite base href for project pages
-        run: |
-          sed -i 's|<base href="/" />|<base href="/StickFigurez/" />|g' publish/wwwroot/index.html
-
       - name: Add SPA fallback + .nojekyll
         run: |
           cp publish/wwwroot/index.html publish/wwwroot/404.html

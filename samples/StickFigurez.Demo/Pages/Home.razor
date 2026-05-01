@@ -3,7 +3,7 @@
 @using StickFigurez.Components
 @inject HtmlClassFormatter Formatter
 
-<PageTitle>StickFigurez — demo</PageTitle>
+<PageTitle>StickFigurez — Demo</PageTitle>
 
 <div class="controls">
     <label>
@@ -51,24 +51,24 @@
     [
         new("Runner",      ["run", "jog", "sprint", "fast", "move", "exercise"],
             (s, sp) => @<Runner Size="@s" Speed="@sp" />,                (s, sp) => $"<Runner Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("Runner (Jack Sparrow)", ["run", "pirate", "sparrow", "jack", "sway", "drunk"],
-            (s, sp) => @<Runner Size="@s" Speed="@sp" JackSparrow="true" />, (s, sp) => $"<Runner Size=\"{s}\" Speed=\"{sp}\" JackSparrow=\"true\" />"),
-        new("Celebration", ["win", "victory", "trophy", "happy", "cheer", "success"],
-            (s, sp) => @<Celebration Size="@s" Speed="@sp" />,           (s, sp) => $"<Celebration Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("WaitingMan",  ["wait", "clock", "time", "idle", "patience", "delay"],
-            (s, sp) => @<WaitingMan Size="@s" Speed="@sp" />,            (s, sp) => $"<WaitingMan Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("LoveMan",     ["love", "heart", "like", "favorite", "romance"],
-            (s, sp) => @<LoveMan Size="@s" Speed="@sp" Text="M3" />,     (s, sp) => $"<LoveMan Size=\"{s}\" Speed=\"{sp}\" Text=\"M3\" />"),
+        new("JackSparrow",  ["run", "pirate", "sparrow", "jack", "sway", "drunk"],
+            (s, sp) => @<JackSparrow Size="@s" Speed="@sp" />,            (s, sp) => $"<JackSparrow Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("Celebrator",  ["win", "victory", "trophy", "happy", "cheer", "success"],
+            (s, sp) => @<Celebrator Size="@s" Speed="@sp" />,            (s, sp) => $"<Celebrator Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("Waiting",     ["wait", "clock", "time", "idle", "patience", "delay"],
+            (s, sp) => @<Waiting Size="@s" Speed="@sp" />,               (s, sp) => $"<Waiting Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("Lover",       ["love", "heart", "like", "favorite", "romance"],
+            (s, sp) => @<Lover Size="@s" Speed="@sp" Text="M3" />,       (s, sp) => $"<Lover Size=\"{s}\" Speed=\"{sp}\" Text=\"M3\" />"),
         new("Cloner",      ["clone", "copy", "duplicate", "split", "multiply"],
             (s, sp) => @<Cloner Size="@s" Speed="@sp" />,                (s, sp) => $"<Cloner Size=\"{s}\" Speed=\"{sp}\" />"),
         new("Locker",      ["lock", "secure", "auth", "key", "knock", "password"],
             (s, sp) => @<Locker Size="@s" Speed="@sp" />,                (s, sp) => $"<Locker Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("Labman",      ["test", "lab", "science", "experiment", "research", "flask", "chemistry"],
-            (s, sp) => @<Labman Size="@s" Speed="@sp" />,                (s, sp) => $"<Labman Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("QueryMan",    ["query", "search", "find", "magnify", "investigate", "lookup"],
-            (s, sp) => @<QueryMan Size="@s" Speed="@sp" />,              (s, sp) => $"<QueryMan Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("Statsman",    ["stats", "chart", "data", "analytics", "graph", "report", "metrics"],
-            (s, sp) => @<Statsman Size="@s" Speed="@sp" />,              (s, sp) => $"<Statsman Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("Scientist",   ["test", "lab", "science", "experiment", "research", "flask", "chemistry"],
+            (s, sp) => @<Scientist Size="@s" Speed="@sp" />,             (s, sp) => $"<Scientist Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("Searcher",    ["query", "search", "find", "magnify", "investigate", "lookup"],
+            (s, sp) => @<Searcher Size="@s" Speed="@sp" />,              (s, sp) => $"<Searcher Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("Teacher",     ["stats", "chart", "data", "analytics", "graph", "report", "metrics"],
+            (s, sp) => @<Teacher Size="@s" Speed="@sp" />,               (s, sp) => $"<Teacher Size=\"{s}\" Speed=\"{sp}\" />"),
     ];
 
     private IEnumerable<Figure> Filtered
