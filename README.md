@@ -24,12 +24,12 @@ In `_Imports.razor`:
 In a page or component:
 
 ```razor
-<Runner Size="32" RunSpeed="7" />
-<Celebration Size="48" />
+<Runner Size="32" Speed="7" />
+<Celebration Size="48" Speed="5" />
 <WaitingMan Size="32" Speed="5" />
 <LoveMan Size="32" Text="❤" />
-<Cloner Size="32" CloneSpeed="6" />
-<Locker Size="32" KnockSpeed="5" />
+<Cloner Size="32" Speed="6" />
+<Locker Size="32" Speed="5" />
 <Labman Size="32" Speed="5" />
 <QueryMan Size="32" Speed="5" />
 <Statsman Size="32" Speed="5" />
@@ -41,13 +41,13 @@ Color follows `currentColor` — set CSS `color` on a parent.
 
 | Component      | Notable parameters                          |
 |----------------|---------------------------------------------|
-| `Celebration`  | `Size`                                      |
-| `Cloner`       | `Size`, `CloneSpeed` (1–10)                 |
+| `Celebration`  | `Size`, `Speed` (1–10)                      |
+| `Cloner`       | `Size`, `Speed` (1–10)                      |
 | `Labman`       | `Size`, `Speed` (1–10)                      |
-| `Locker`       | `Size`, `KnockSpeed` (1–10)                 |
+| `Locker`       | `Size`, `Speed` (1–10)                      |
 | `LoveMan`      | `Size`, `Speed` (1–10), `Text`              |
 | `QueryMan`     | `Size`, `Speed` (1–10)                      |
-| `Runner`       | `Size`, `RunSpeed` (1–10), `JackSparrow`    |
+| `Runner`       | `Size`, `Speed` (1–10), `JackSparrow`       |
 | `Statsman`     | `Size`, `Speed` (1–10)                      |
 | `WaitingMan`   | `Size`, `Speed` (1–10)                      |
 

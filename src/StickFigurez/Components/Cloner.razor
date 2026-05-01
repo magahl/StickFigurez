@@ -38,13 +38,13 @@
 
 @code {
     [Parameter] public int Size { get; set; } = 24;
-    [Parameter] public int CloneSpeed { get; set; } = 5;
+    [Parameter] public int Speed { get; set; } = 5;
 
-    private int Speed => Math.Clamp(CloneSpeed, 1, 10);
+    private int Clamped => Math.Clamp(Speed, 1, 10);
 
     // 7.0 s at speed 1 (slow), 5.0 s at speed 5 (default), 2.5 s at speed 10 (fast)
     private string CycleDuration =>
-        $"{(7.0 - (Speed - 1) * 0.5).ToString("F2", CultureInfo.InvariantCulture)}s";
+        $"{(7.0 - (Clamped - 1) * 0.5).ToString("F2", CultureInfo.InvariantCulture)}s";
 
     private int Width => Size * 2;
 }

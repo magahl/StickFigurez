@@ -51,17 +51,17 @@
 
 @code {
     [Parameter] public int Size { get; set; } = 16;
-    [Parameter] public int RunSpeed { get; set; } = 5;
+    [Parameter] public int Speed { get; set; } = 5;
     [Parameter] public bool JackSparrow { get; set; }
 
-    private int Speed => Math.Clamp(RunSpeed, 1, 10);
+    private int Clamped => Math.Clamp(Speed, 1, 10);
 
     // Each step adds 0.35 SVG units of forward lean (head/shoulder x offset)
-    private double LeanOffset => (Speed - 1) * 0.35;
+    private double LeanOffset => (Clamped - 1) * 0.35;
 
     // 0.65 s at speed 1, down to ~0.25 s at speed 10
     private string AnimDuration =>
-        $"{(0.65 - (Speed - 1) * 0.045).ToString("F3", CultureInfo.InvariantCulture)}s";
+        $"{(0.65 - (Clamped - 1) * 0.045).ToString("F3", CultureInfo.InvariantCulture)}s";
 
     private string HeadCx =>
         (12.5 + LeanOffset).ToString("F2", CultureInfo.InvariantCulture);

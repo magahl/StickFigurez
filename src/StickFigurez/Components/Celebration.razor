@@ -1,3 +1,5 @@
+@using System.Globalization
+
 <svg class="celebrating-stick-man"
      viewBox="0 0 24 24"
      width="@Size"
@@ -6,7 +8,7 @@
      stroke="currentColor"
      stroke-width="1.5"
      stroke-linecap="round"
-     style="overflow: visible;"
+     style="overflow: visible; --cel-duration: @CycleDuration;"
      xmlns="http://www.w3.org/2000/svg">
 
     <g class="cel-body-group">
@@ -59,5 +61,11 @@
 
 @code {
     [Parameter] public int Size { get; set; } = 16;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int Clamped => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(0.95 - (Clamped - 1) * 0.06).ToString("F3", CultureInfo.InvariantCulture)}s";
 }
 

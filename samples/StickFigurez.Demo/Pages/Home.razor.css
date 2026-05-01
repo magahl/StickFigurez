@@ -22,6 +22,29 @@
     width: 140px;
 }
 
+.controls .search {
+    margin-left: auto;
+}
+
+.controls .search {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.controls input[type=search] {
+    padding: .65rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    min-width: 320px;
+}
+
+.controls input[type=search]:focus {
+    outline: none;
+    border-color: #2b6cb0;
+    box-shadow: 0 0 0 3px rgba(43, 108, 176, .15);
+}
+
 .controls .val {
     min-width: 2.5rem;
     color: #888;
@@ -30,7 +53,7 @@
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
 }
 
@@ -72,4 +95,17 @@ header code {
     background: #f7f7f7;
     padding: .35rem .5rem;
     border-radius: 6px;
+}
+
+::deep .snippet .htmlTagDelimiter,
+::deep .snippet .htmlOperator { color: #6b7280; }
+::deep .snippet .htmlElementName { color: #2563eb; }
+::deep .snippet .htmlAttributeName { color: #b45309; }
+::deep .snippet .htmlAttributeValue { color: #047857; }
+::deep .snippet .htmlComment { color: #9ca3af; font-style: italic; }
+::deep .snippet div {
+    background: transparent;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-family: inherit;
 }

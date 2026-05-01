@@ -8,7 +8,7 @@
 }
 
 .cel-body-group {
-    animation: celebrate-jump 0.65s ease-in-out infinite;
+    animation: celebrate-jump var(--cel-duration) ease-in-out infinite;
 }
 
 /* ============================================================
@@ -64,13 +64,13 @@
    Apply animations — left side offset by ~⅓ period for a
    natural, jubilant wiggle rather than a locked-in mirror.
    ============================================================ */
-.cel-arm-right-upper { animation: cel-arm-right-upper-wave 0.65s ease-in-out infinite; }
-.cel-arm-right-lower { animation: cel-forearm-right-wave   0.65s ease-in-out infinite; }
-.cel-arm-left-upper  { animation: cel-arm-left-upper-wave  0.65s ease-in-out infinite; animation-delay: -0.22s; }
-.cel-arm-left-lower  { animation: cel-forearm-left-wave    0.65s ease-in-out infinite; animation-delay: -0.22s; }
+.cel-arm-right-upper { animation: cel-arm-right-upper-wave var(--cel-duration) ease-in-out infinite; }
+.cel-arm-right-lower { animation: cel-forearm-right-wave   var(--cel-duration) ease-in-out infinite; }
+.cel-arm-left-upper  { animation: cel-arm-left-upper-wave  var(--cel-duration) ease-in-out infinite; animation-delay: calc(var(--cel-duration) * -0.34); }
+.cel-arm-left-lower  { animation: cel-forearm-left-wave    var(--cel-duration) ease-in-out infinite; animation-delay: calc(var(--cel-duration) * -0.34); }
 
-.cel-leg-right-upper { animation: cel-thigh-right-jump 0.65s ease-in-out infinite; }
-.cel-leg-right-lower { animation: cel-shin-right-jump  0.65s ease-in-out infinite; }
-.cel-leg-left-upper  { animation: cel-thigh-left-jump  0.65s ease-in-out infinite; animation-delay: -0.22s; }
-.cel-leg-left-lower  { animation: cel-shin-left-jump   0.65s ease-in-out infinite; animation-delay: -0.22s; }
+.cel-leg-right-upper { animation: cel-thigh-right-jump var(--cel-duration) ease-in-out infinite; }
+.cel-leg-right-lower { animation: cel-shin-right-jump  var(--cel-duration) ease-in-out infinite; }
+.cel-leg-left-upper  { animation: cel-thigh-left-jump  var(--cel-duration) ease-in-out infinite; animation-delay: calc(var(--cel-duration) * -0.34); }
+.cel-leg-left-lower  { animation: cel-shin-left-jump   var(--cel-duration) ease-in-out infinite; animation-delay: calc(var(--cel-duration) * -0.34); }
 

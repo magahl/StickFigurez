@@ -1,12 +1,14 @@
 @page "/"
+@using ColorCode
 @using StickFigurez.Components
+@inject HtmlClassFormatter Formatter
 
 <PageTitle>StickFigurez — demo</PageTitle>
 
 <div class="controls">
     <label>
         Size
-        <input type="range" min="16" max="96" step="4" @bind:event="oninput" @bind="size" />
+        <input type="range" min="16" max="192" step="4" @bind:event="oninput" @bind="size" />
         <span class="val">@size px</span>
     </label>
     <label>
@@ -18,16 +20,20 @@
         Color
         <input type="color" @bind="color" />
     </label>
+    <label class="search">
+        Search
+        <input type="search" placeholder="run, lock, stats…" @bind:event="oninput" @bind="query" />
+    </label>
 </div>
 
 <section class="grid" style="color: @color;">
-    @foreach (var f in figures)
+    @foreach (var f in Filtered)
     {
         <article class="card">
             <div class="stage">@f.Render(size, speed)</div>
             <header>
                 <h2>@f.Name</h2>
-                <code>@f.Snippet(size, speed)</code>
+                <code class="snippet">@((MarkupString)Formatter.GetHtmlString(f.Snippet(size, speed), Languages.Html))</code>
             </header>
         </article>
     }
@@ -37,20 +43,43 @@
     private int size = 48;
     private int speed = 5;
     private string color = "#1a1a1a";
+    private string query = "";
 
-    private record Figure(string Name, Func<int, int, RenderFragment> Render, Func<int, int, string> Snippet);
+    private record Figure(string Name, string[] Keywords, Func<int, int, RenderFragment> Render, Func<int, int, string> Snippet);
 
     private readonly Figure[] figures =
     [
-        new("Runner",      (s, sp) => @<Runner Size="@s" RunSpeed="@sp" />,             (s, sp) => $"<Runner Size=\"{s}\" RunSpeed=\"{sp}\" />"),
-        new("Runner (Jack Sparrow)", (s, sp) => @<Runner Size="@s" RunSpeed="@sp" JackSparrow="true" />, (s, sp) => $"<Runner Size=\"{s}\" RunSpeed=\"{sp}\" JackSparrow=\"true\" />"),
-        new("Celebration", (s, _)  => @<Celebration Size="@s" />,                       (s, _)  => $"<Celebration Size=\"{s}\" />"),
-        new("WaitingMan",  (s, sp) => @<WaitingMan Size="@s" Speed="@sp" />,            (s, sp) => $"<WaitingMan Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("LoveMan",     (s, sp) => @<LoveMan Size="@s" Speed="@sp" Text="M3" />,     (s, sp) => $"<LoveMan Size=\"{s}\" Speed=\"{sp}\" Text=\"M3\" />"),
-        new("Cloner",      (s, sp) => @<Cloner Size="@s" CloneSpeed="@sp" />,           (s, sp) => $"<Cloner Size=\"{s}\" CloneSpeed=\"{sp}\" />"),
-        new("Locker",      (s, sp) => @<Locker Size="@s" KnockSpeed="@sp" />,           (s, sp) => $"<Locker Size=\"{s}\" KnockSpeed=\"{sp}\" />"),
-        new("Labman",      (s, sp) => @<Labman Size="@s" Speed="@sp" />,                (s, sp) => $"<Labman Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("QueryMan",    (s, sp) => @<QueryMan Size="@s" Speed="@sp" />,              (s, sp) => $"<QueryMan Size=\"{s}\" Speed=\"{sp}\" />"),
-        new("Statsman",    (s, sp) => @<Statsman Size="@s" Speed="@sp" />,              (s, sp) => $"<Statsman Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("Runner",      ["run", "jog", "sprint", "fast", "move", "exercise"],
+            (s, sp) => @<Runner Size="@s" Speed="@sp" />,                (s, sp) => $"<Runner Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("Runner (Jack Sparrow)", ["run", "pirate", "sparrow", "jack", "sway", "drunk"],
+            (s, sp) => @<Runner Size="@s" Speed="@sp" JackSparrow="true" />, (s, sp) => $"<Runner Size=\"{s}\" Speed=\"{sp}\" JackSparrow=\"true\" />"),
+        new("Celebration", ["win", "victory", "trophy", "happy", "cheer", "success"],
+            (s, sp) => @<Celebration Size="@s" Speed="@sp" />,           (s, sp) => $"<Celebration Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("WaitingMan",  ["wait", "clock", "time", "idle", "patience", "delay"],
+            (s, sp) => @<WaitingMan Size="@s" Speed="@sp" />,            (s, sp) => $"<WaitingMan Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("LoveMan",     ["love", "heart", "like", "favorite", "romance"],
+            (s, sp) => @<LoveMan Size="@s" Speed="@sp" Text="M3" />,     (s, sp) => $"<LoveMan Size=\"{s}\" Speed=\"{sp}\" Text=\"M3\" />"),
+        new("Cloner",      ["clone", "copy", "duplicate", "split", "multiply"],
+            (s, sp) => @<Cloner Size="@s" Speed="@sp" />,                (s, sp) => $"<Cloner Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("Locker",      ["lock", "secure", "auth", "key", "knock", "password"],
+            (s, sp) => @<Locker Size="@s" Speed="@sp" />,                (s, sp) => $"<Locker Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("Labman",      ["test", "lab", "science", "experiment", "research", "flask", "chemistry"],
+            (s, sp) => @<Labman Size="@s" Speed="@sp" />,                (s, sp) => $"<Labman Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("QueryMan",    ["query", "search", "find", "magnify", "investigate", "lookup"],
+            (s, sp) => @<QueryMan Size="@s" Speed="@sp" />,              (s, sp) => $"<QueryMan Size=\"{s}\" Speed=\"{sp}\" />"),
+        new("Statsman",    ["stats", "chart", "data", "analytics", "graph", "report", "metrics"],
+            (s, sp) => @<Statsman Size="@s" Speed="@sp" />,              (s, sp) => $"<Statsman Size=\"{s}\" Speed=\"{sp}\" />"),
     ];
+
+    private IEnumerable<Figure> Filtered
+    {
+        get
+        {
+            var q = query?.Trim();
+            if (string.IsNullOrEmpty(q)) return figures;
+            return figures.Where(f =>
+                f.Name.Contains(q, StringComparison.OrdinalIgnoreCase) ||
+                f.Keywords.Any(k => k.Contains(q, StringComparison.OrdinalIgnoreCase)));
+        }
+    }
 }
