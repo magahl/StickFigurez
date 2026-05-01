@@ -35,3 +35,16 @@
 .footer a:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 640px) {
+    .page {
+        padding: 1.25rem .9rem 3rem;
+    }
+    .topbar h1 {
+        font-size: 1.6rem;
+    }
+    .topbar .tagline {
+        margin-bottom: 1.25rem;
+        font-size: .95rem;
+    }
+}
