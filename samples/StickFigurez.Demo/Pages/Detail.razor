@@ -1,6 +1,7 @@
 @page "/{Name}"
 @using ColorCode
 @inject HtmlClassFormatter Formatter
+@inject NavigationManager Nav
 
 @{
     var figure = FigureCatalog.Find(Name);
@@ -23,17 +24,19 @@ else
     <div class="controls controls--detail">
         <label>
             Size
-            <input type="range" min="64" max="384" step="8" @bind:event="oninput" @bind="size" />
+            <input type="range" min="64" max="384" step="8"
+                   @bind:event="oninput" @bind="size" @bind:after="SyncUrl" />
             <span class="val">@size px</span>
         </label>
         <label>
             Speed
-            <input type="range" min="1" max="10" @bind:event="oninput" @bind="speed" />
+            <input type="range" min="1" max="10"
+                   @bind:event="oninput" @bind="speed" @bind:after="SyncUrl" />
             <span class="val">@speed</span>
         </label>
         <label class="color">
             Color
-            <input type="color" @bind="color" />
+            <input type="color" @bind="color" @bind:after="SyncUrl" />
         </label>
         @if (figure.Name == "Lover")
         {
@@ -54,8 +57,31 @@ else
 @code {
     [Parameter] public string? Name { get; set; }
 
+    [SupplyParameterFromQuery(Name = "s")] public int? S { get; set; }
+    [SupplyParameterFromQuery(Name = "v")] public int? V { get; set; }
+    [SupplyParameterFromQuery(Name = "c")] public string? C { get; set; }
+
     private int size = 192;
     private int speed = 5;
     private string color = "#1a1a1a";
     private string text = "M3";
+
+    protected override void OnParametersSet()
+    {
+        if (S is { } s) size = s;
+        if (V is { } v) speed = v;
+        if (!string.IsNullOrEmpty(C))
+            color = C.StartsWith('#') ? C : "#" + C;
+    }
+
+    private void SyncUrl()
+    {
+        var url = Nav.GetUriWithQueryParameters(new Dictionary<string, object?>
+        {
+            ["s"] = size,
+            ["v"] = speed,
+            ["c"] = color.TrimStart('#'),
+        });
+        Nav.NavigateTo(url, replace: true);
+    }
 }
