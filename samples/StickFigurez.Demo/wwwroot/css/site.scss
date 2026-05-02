@@ -1,0 +1,284 @@
+// StickFigurez demo site — shared stylesheet.
+// Compile in place to site.css / site.min.css; index.html loads site.min.css.
+
+// ---- Tokens ----
+$accent:           #2b6cb0;
+$text:             #1a1a1a;
+$muted:            #555;
+$muted-2:          #888;
+$label:            #444; 
+
+$border:           #eee;
+$bg-page:          #fff;
+$bg-soft:          #fafafa;
+$bg-card:          #fff;
+$bg-snippet:       #f7f7f7;
+$input-border:     #ddd;
+
+$stripe-1:         #fafafa;
+$stripe-2:         #f4f4f4;
+
+$radius-md:        12px;
+$radius-sm:        8px;
+$radius-xs:        6px;
+
+$bp-mobile:        640px;
+$bp-md:            960px;
+$bp-lg:            1280px;
+
+@mixin striped-stage {
+    background: repeating-linear-gradient(45deg, $stripe-1 0 8px, $stripe-2 8px 16px);
+}
+
+// ---- Reset + page chrome ----
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: $text;
+    background: $bg-page;
+}
+
+.page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+}
+
+.topbar {
+    h1 {
+        font-size: 2.25rem;
+        margin: 0 0 .25rem;
+        letter-spacing: -0.02em;
+    }
+    .tagline {
+        margin: 0 0 2rem;
+        color: $muted;
+    }
+}
+
+.footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid $border;
+    color: $muted-2;
+    font-size: .85rem;
+    display: flex;
+    gap: .5rem;
+
+    a {
+        color: $accent;
+        text-decoration: none;
+        &:hover { text-decoration: underline; }
+    }
+}
+
+// ---- Controls bar ----
+.controls {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1rem 1.25rem;
+    background: $bg-soft;
+    border: 1px solid $border;
+    border-radius: $radius-md;
+    margin-bottom: 1.5rem;
+    font-size: .9rem;
+
+    label {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        color: $label; 
+    }
+
+    input[type=range] { width: 140px; }
+
+    input[type=text] {
+        padding: .4rem .6rem;
+        border: 1px solid $input-border;
+        border-radius: $radius-xs;
+        font-size: .9rem;
+        width: 6rem;
+    }
+
+    input[type=search] {
+        padding: .65rem 1rem;
+        border: 1px solid $input-border;
+        border-radius: $radius-sm;
+        font-size: 1rem;
+        min-width: 320px;
+
+        &:focus {
+            outline: none;
+            border-color: $accent;
+            box-shadow: 0 0 0 3px rgba(43, 108, 176, .15);
+        }
+    }
+
+    .search {
+        margin-left: auto;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .val {
+        min-width: 2.5rem;
+        color: $muted-2;
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+// Detail page uses wider sliders.
+.controls.controls--detail {
+    input[type=range] { width: 200px; }
+    .val { min-width: 3rem; }
+}
+
+// ---- Home grid + cards ----
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: $bp-mobile) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: $bp-md)     { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: $bp-lg)     { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    border-radius: $radius-md;
+    transition: transform .12s ease, box-shadow .12s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+    }
+    &:focus-visible {
+        outline: 2px solid $accent;
+        outline-offset: 2px;
+    }
+}
+
+.card {
+    border: 1px solid $border;
+    border-radius: $radius-md;
+    background: $bg-card;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    header {
+        padding: .75rem 1rem;
+        border-top: 1px solid $border;
+        background: $bg-card;
+
+        h2 {
+            font-size: 1rem;
+            margin: 0 0 .35rem;
+            color: $text;
+        }
+    }
+}
+
+.stage {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    min-height: 140px;
+    @include striped-stage;
+}
+
+// ---- Detail-page bits ----
+.back {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: $accent;
+    text-decoration: none;
+    font-size: .9rem;
+    &:hover { text-decoration: underline; }
+}
+
+.detail-title {
+    font-size: 2rem;
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+}
+
+.detail-stage {
+    display: grid;
+    place-items: center;
+    padding: 3rem 1.5rem;
+    min-height: 420px;
+    border: 1px solid $border;
+    border-radius: $radius-md;
+    margin-bottom: 1.5rem;
+    @include striped-stage;
+}
+
+.missing {
+    padding: 1rem;
+    border: 1px dashed #e0a;
+    border-radius: $radius-sm;
+    color: #b00;
+}
+
+// ---- Snippets + ColorCode syntax highlight ----
+.snippet {
+    display: block;
+    font-size: .9rem;
+    color: $muted;
+    word-break: break-all;
+    background: $bg-snippet;
+    padding: .75rem 1rem;
+    border-radius: $radius-sm;
+
+    .htmlTagDelimiter,
+    .htmlOperator       { color: #6b7280; }
+    .htmlElementName    { color: #2563eb; }
+    .htmlAttributeName  { color: #b45309; }
+    .htmlAttributeValue { color: #047857; }
+    .htmlComment        { color: #9ca3af; font-style: italic; }
+
+    div {
+        background: transparent;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-family: inherit;
+    }
+}
+
+// Card snippets are smaller / tighter.
+.card .snippet {
+    font-size: .75rem;
+    padding: .35rem .5rem;
+    border-radius: $radius-xs;
+}
+
+// ---- Mobile ----
+@media (max-width: $bp-mobile) {
+    .page {
+        padding: 1.25rem .9rem 3rem;
+    }
+    .topbar {
+        h1 { font-size: 1.6rem; }
+        .tagline { margin-bottom: 1.25rem; font-size: .95rem; }
+    }
+    .controls {
+        gap: .75rem;
+        padding: .75rem 1rem;
+        label { width: 100%; }
+        .search { margin-left: 0; }
+        input[type=range] { flex: 1; width: auto; }
+        input[type=search] { min-width: 0; width: 100%; }
+    }
+    .detail-stage {
+        padding: 2rem 1rem;
+        min-height: 280px;
+    }
+}

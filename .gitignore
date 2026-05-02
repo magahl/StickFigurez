@@ -25,3 +25,7 @@ publish/
 ## OS
 .DS_Store
 Thumbs.db
+
+## SCSS build artifacts — only site.scss and site.min.css are tracked
+*.css.map
+samples/StickFigurez.Demo/wwwroot/css/site.css
