@@ -9,7 +9,7 @@
 
 <PageTitle>StickFigurez — @(figure?.Name ?? Name)</PageTitle>
 
-<a class="back" href="/">← All components</a>
+<a class="back" href="@HomeUrl">← All components</a>
 
 @if (figure is null)
 {
@@ -73,6 +73,9 @@ else
         if (!string.IsNullOrEmpty(C))
             color = C.StartsWith('#') ? C : "#" + C;
     }
+
+    private string HomeUrl =>
+        $"/?s={size}&v={speed}&c={color.TrimStart('#')}";
 
     private void SyncUrl()
     {

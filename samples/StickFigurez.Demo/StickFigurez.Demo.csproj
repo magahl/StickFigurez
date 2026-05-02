@@ -5,7 +5,7 @@
     <RootNamespace>StickFigurez.Demo</RootNamespace>
     <AssemblyName>StickFigurez.Demo</AssemblyName>
     <IsPackable>false</IsPackable>
-    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    <WasmFingerprintAssets Condition="'$(Configuration)' == 'Debug'">false</WasmFingerprintAssets>
   </PropertyGroup>
 
   <ItemGroup>
