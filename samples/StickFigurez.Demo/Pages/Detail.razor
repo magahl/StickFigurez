@@ -57,6 +57,8 @@ else
 @code {
     [Parameter] public string? Name { get; set; }
 
+    [CascadingParameter(Name = "Theme")] public string Theme { get; set; } = "light";
+
     [SupplyParameterFromQuery(Name = "s")] public int? S { get; set; }
     [SupplyParameterFromQuery(Name = "v")] public int? V { get; set; }
     [SupplyParameterFromQuery(Name = "c")] public string? C { get; set; }
@@ -70,8 +72,9 @@ else
     {
         if (S is { } s) size = s;
         if (V is { } v) speed = v;
-        if (!string.IsNullOrEmpty(C))
-            color = C.StartsWith('#') ? C : "#" + C;
+        color = !string.IsNullOrEmpty(C)
+            ? (C.StartsWith('#') ? C : "#" + C)
+            : (Theme == "dark" ? "#e5e7eb" : "#1a1a1a");
     }
 
     private string HomeUrl =>

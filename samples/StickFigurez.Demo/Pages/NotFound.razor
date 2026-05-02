@@ -1,0 +1,11 @@
+@page "/{*Route}"
+
+<PageTitle>StickFigurez — Not found</PageTitle>
+
+<a class="back" href="/">← All components</a>
+
+<p class="missing">Page not found: <code>/@Route</code></p>
+
+@code {
+    [Parameter] public string? Route { get; set; }
+}

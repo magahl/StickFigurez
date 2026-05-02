@@ -35,7 +35,9 @@
         </button>
     </header>
     <main>
-        @Body
+        <CascadingValue Value="@theme" Name="Theme">
+            @Body
+        </CascadingValue>
     </main>
     <footer class="footer">
         <a href="https://github.com/magahl/StickFigurez">GitHub</a>
@@ -51,12 +53,11 @@
 @code {
     private string theme = "light";
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnInitialized()
     {
-        if (firstRender)
+        if (JS is IJSInProcessRuntime sync)
         {
-            theme = await JS.InvokeAsync<string>("stickTheme.get");
-            StateHasChanged();
+            theme = sync.Invoke<string>("stickTheme.get");
         }
     }
 
