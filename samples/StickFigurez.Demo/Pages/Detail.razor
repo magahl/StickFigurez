@@ -26,7 +26,7 @@ else
                     DefaultSize="192" DefaultColor="@ThemeDefaultColor"
                     CssClass="controls--detail"
                     OnChanged="SyncUrl"
-                    OnReset="ResetText">
+                    OnReset="HandleReset">
         @if (figure.Name == "Lover")
         {
             <label class="text">
@@ -82,5 +82,15 @@ else
         Nav.NavigateTo(url, replace: true);
     }
 
-    private void ResetText() => text = "M3";
+    private void HandleReset()
+    {
+        text = "M3";
+        var url = Nav.GetUriWithQueryParameters(new Dictionary<string, object?>
+        {
+            ["s"] = null,
+            ["v"] = null,
+            ["c"] = null,
+        });
+        Nav.NavigateTo(url, replace: true);
+    }
 }

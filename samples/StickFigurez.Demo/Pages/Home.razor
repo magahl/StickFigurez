@@ -8,7 +8,7 @@
 <FigureControls @bind-Size="size" @bind-Speed="speed" @bind-Color="color"
                 MinSize="16" MaxSize="192" SizeStep="4"
                 DefaultSize="48" DefaultColor="@ThemeDefaultColor"
-                OnChanged="SyncUrl">
+                OnChanged="SyncUrl" OnReset="ClearUrl">
     <label class="search">
         Search
         <input type="search" placeholder="run, lock, stats…" @bind:event="oninput" @bind="query" />
@@ -61,6 +61,17 @@
             ["s"] = size,
             ["v"] = speed,
             ["c"] = color.TrimStart('#'),
+        });
+        Nav.NavigateTo(url, replace: true);
+    }
+
+    private void ClearUrl()
+    {
+        var url = Nav.GetUriWithQueryParameters(new Dictionary<string, object?>
+        {
+            ["s"] = null,
+            ["v"] = null,
+            ["c"] = null,
         });
         Nav.NavigateTo(url, replace: true);
     }
