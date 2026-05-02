@@ -7,7 +7,7 @@
 
 <FigureControls @bind-Size="size" @bind-Speed="speed" @bind-Color="color"
                 MinSize="16" MaxSize="192" SizeStep="4"
-                DefaultSize="48" DefaultColor="@ThemeDefaultColor"
+                DefaultSize="100" DefaultColor="@ThemeDefaultColor"
                 OnChanged="SyncUrl" OnReset="ClearUrl">
     <label class="search">
         Search
@@ -38,7 +38,7 @@
     [SupplyParameterFromQuery(Name = "v")] public int? V { get; set; }
     [SupplyParameterFromQuery(Name = "c")] public string? C { get; set; }
 
-    private int size = 48;
+    private int size = 100;
     private int speed = 5;
     private string color = "#1a1a1a";
     private string query = "";
