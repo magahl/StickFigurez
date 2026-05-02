@@ -1,23 +1,26 @@
 @page "/"
 @using ColorCode
 @inject HtmlClassFormatter Formatter
+@inject NavigationManager Nav
 
 <PageTitle>StickFigurez — Demo</PageTitle>
 
 <div class="controls">
     <label>
         Size
-        <input type="range" min="16" max="192" step="4" @bind:event="oninput" @bind="size" />
+        <input type="range" min="16" max="192" step="4"
+               @bind:event="oninput" @bind="size" @bind:after="SyncUrl" />
         <span class="val">@size px</span>
     </label>
     <label>
         Speed
-        <input type="range" min="1" max="10" @bind:event="oninput" @bind="speed" />
+        <input type="range" min="1" max="10"
+               @bind:event="oninput" @bind="speed" @bind:after="SyncUrl" />
         <span class="val">@speed</span>
     </label>
     <label class="color">
         Color
-        <input type="color" @bind="color" />
+        <input type="color" @bind="color" @bind:after="SyncUrl" />
     </label>
     <label class="search">
         Search
@@ -29,7 +32,7 @@
     @foreach (var f in Filtered)
     {
         var args = new FigureCatalog.FigureArgs(size, speed);
-        <a class="card-link" href="@($"/{f.Name.ToLowerInvariant()}")">
+        <a class="card-link" href="@DetailUrl(f.Name)">
             <article class="card">
                 <div class="stage">@f.Render(args)</div>
                 <header>
@@ -42,10 +45,36 @@
 </section>
 
 @code {
+    [SupplyParameterFromQuery(Name = "s")] public int? S { get; set; }
+    [SupplyParameterFromQuery(Name = "v")] public int? V { get; set; }
+    [SupplyParameterFromQuery(Name = "c")] public string? C { get; set; }
+
     private int size = 48;
     private int speed = 5;
     private string color = "#1a1a1a";
     private string query = "";
+
+    protected override void OnParametersSet()
+    {
+        if (S is { } s) size = s;
+        if (V is { } v) speed = v;
+        if (!string.IsNullOrEmpty(C))
+            color = C.StartsWith('#') ? C : "#" + C;
+    }
+
+    private void SyncUrl()
+    {
+        var url = Nav.GetUriWithQueryParameters(new Dictionary<string, object?>
+        {
+            ["s"] = size,
+            ["v"] = speed,
+            ["c"] = color.TrimStart('#'),
+        });
+        Nav.NavigateTo(url, replace: true);
+    }
+
+    private string DetailUrl(string name) =>
+        $"/{name.ToLowerInvariant()}?s={size}&v={speed}&c={color.TrimStart('#')}";
 
     private IEnumerable<FigureCatalog.Figure> Filtered
     {
