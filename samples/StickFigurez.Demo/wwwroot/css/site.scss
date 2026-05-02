@@ -6,7 +6,7 @@ $radius-md:        12px;
 $radius-sm:        8px;
 $radius-xs:        6px;
 
-$bp-mobile:        640px;
+$bp-mobile:        640px; 
 $bp-md:            960px; 
 $bp-lg:            1280px;
 
@@ -211,7 +211,7 @@ body {
 // ---- Home grid + cards ----
 .grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
 }
 
@@ -265,6 +265,8 @@ body {
     padding: 1.5rem;
     min-height: 140px;
     @include striped-stage;
+
+    svg { max-width: 100%; height: auto; }
 }
 
 // ---- Detail-page bits ----
@@ -292,6 +294,8 @@ body {
     border-radius: $radius-md;
     margin-bottom: 1.5rem;
     @include striped-stage;
+
+    svg { max-width: 100%; height: auto; }
 }
 
 .missing {
