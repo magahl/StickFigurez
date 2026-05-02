@@ -1,0 +1,87 @@
+@using System.Globalization
+
+<div class="controls @CssClass">
+    <label>
+        Size
+        <input type="range" min="@MinSize" max="@MaxSize" step="@SizeStep"
+               value="@Size" @oninput="HandleSize" />
+        <span class="val">@Size px</span>
+    </label>
+    <label>
+        Speed
+        <input type="range" min="1" max="10"
+               value="@Speed" @oninput="HandleSpeed" />
+        <span class="val">@Speed</span>
+    </label>
+    <label class="color">
+        Color
+        <input type="color" value="@Color" @onchange="HandleColor" />
+    </label>
+    @ChildContent
+    <button type="button" class="reset" @onclick="HandleReset">Reset</button>
+</div>
+
+@code {
+    [Parameter] public int Size { get; set; }
+    [Parameter] public EventCallback<int> SizeChanged { get; set; }
+
+    [Parameter] public int Speed { get; set; }
+    [Parameter] public EventCallback<int> SpeedChanged { get; set; }
+
+    [Parameter] public string Color { get; set; } = "#1a1a1a";
+    [Parameter] public EventCallback<string> ColorChanged { get; set; }
+
+    [Parameter] public int MinSize { get; set; } = 16;
+    [Parameter] public int MaxSize { get; set; } = 192;
+    [Parameter] public int SizeStep { get; set; } = 4;
+
+    [Parameter] public int DefaultSize { get; set; } = 48;
+    [Parameter] public int DefaultSpeed { get; set; } = 5;
+    [Parameter] public string DefaultColor { get; set; } = "#1a1a1a";
+
+    [Parameter] public EventCallback OnChanged { get; set; }
+    [Parameter] public EventCallback OnReset { get; set; }
+
+    [Parameter] public string? CssClass { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private async Task HandleSize(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var v))
+        {
+            Size = v;
+            await SizeChanged.InvokeAsync(v);
+            await OnChanged.InvokeAsync();
+        }
+    }
+
+    private async Task HandleSpeed(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var v))
+        {
+            Speed = v;
+            await SpeedChanged.InvokeAsync(v);
+            await OnChanged.InvokeAsync();
+        }
+    }
+
+    private async Task HandleColor(ChangeEventArgs e)
+    {
+        var v = e.Value?.ToString() ?? Color;
+        Color = v;
+        await ColorChanged.InvokeAsync(v);
+        await OnChanged.InvokeAsync();
+    }
+
+    private async Task HandleReset()
+    {
+        Size = DefaultSize;
+        Speed = DefaultSpeed;
+        Color = DefaultColor;
+        await SizeChanged.InvokeAsync(Size);
+        await SpeedChanged.InvokeAsync(Speed);
+        await ColorChanged.InvokeAsync(Color);
+        await OnReset.InvokeAsync();
+        await OnChanged.InvokeAsync();
+    }
+}

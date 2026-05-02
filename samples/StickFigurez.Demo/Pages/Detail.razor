@@ -21,23 +21,12 @@ else
 
     <h1 class="detail-title">@figure.Name</h1>
 
-    <div class="controls controls--detail">
-        <label>
-            Size
-            <input type="range" min="64" max="384" step="8"
-                   @bind:event="oninput" @bind="size" @bind:after="SyncUrl" />
-            <span class="val">@size px</span>
-        </label>
-        <label>
-            Speed
-            <input type="range" min="1" max="10"
-                   @bind:event="oninput" @bind="speed" @bind:after="SyncUrl" />
-            <span class="val">@speed</span>
-        </label>
-        <label class="color">
-            Color
-            <input type="color" @bind="color" @bind:after="SyncUrl" />
-        </label>
+    <FigureControls @bind-Size="size" @bind-Speed="speed" @bind-Color="color"
+                    MinSize="64" MaxSize="384" SizeStep="8"
+                    DefaultSize="192" DefaultColor="@ThemeDefaultColor"
+                    CssClass="controls--detail"
+                    OnChanged="SyncUrl"
+                    OnReset="ResetText">
         @if (figure.Name == "Lover")
         {
             <label class="text">
@@ -45,7 +34,7 @@ else
                 <input type="text" maxlength="6" @bind:event="oninput" @bind="text" />
             </label>
         }
-    </div>
+    </FigureControls>
 
     <section class="detail-stage" style="color: @color;">
         @figure.Render(args)
@@ -68,13 +57,15 @@ else
     private string color = "#1a1a1a";
     private string text = "M3";
 
+    private string ThemeDefaultColor => Theme == "dark" ? "#e5e7eb" : "#1a1a1a";
+
     protected override void OnParametersSet()
     {
         if (S is { } s) size = s;
         if (V is { } v) speed = v;
         color = !string.IsNullOrEmpty(C)
             ? (C.StartsWith('#') ? C : "#" + C)
-            : (Theme == "dark" ? "#e5e7eb" : "#1a1a1a");
+            : ThemeDefaultColor;
     }
 
     private string HomeUrl =>
@@ -90,4 +81,6 @@ else
         });
         Nav.NavigateTo(url, replace: true);
     }
+
+    private void ResetText() => text = "M3";
 }

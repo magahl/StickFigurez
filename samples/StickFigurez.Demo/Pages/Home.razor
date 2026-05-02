@@ -5,28 +5,15 @@
 
 <PageTitle>StickFigurez — Demo</PageTitle>
 
-<div class="controls">
-    <label>
-        Size
-        <input type="range" min="16" max="192" step="4"
-               @bind:event="oninput" @bind="size" @bind:after="SyncUrl" />
-        <span class="val">@size px</span>
-    </label>
-    <label>
-        Speed
-        <input type="range" min="1" max="10"
-               @bind:event="oninput" @bind="speed" @bind:after="SyncUrl" />
-        <span class="val">@speed</span>
-    </label>
-    <label class="color">
-        Color
-        <input type="color" @bind="color" @bind:after="SyncUrl" />
-    </label>
+<FigureControls @bind-Size="size" @bind-Speed="speed" @bind-Color="color"
+                MinSize="16" MaxSize="192" SizeStep="4"
+                DefaultSize="48" DefaultColor="@ThemeDefaultColor"
+                OnChanged="SyncUrl">
     <label class="search">
         Search
         <input type="search" placeholder="run, lock, stats…" @bind:event="oninput" @bind="query" />
     </label>
-</div>
+</FigureControls>
 
 <section class="grid" style="color: @color;">
     @foreach (var f in Filtered)
@@ -56,13 +43,15 @@
     private string color = "#1a1a1a";
     private string query = "";
 
+    private string ThemeDefaultColor => Theme == "dark" ? "#e5e7eb" : "#1a1a1a";
+
     protected override void OnParametersSet()
     {
         if (S is { } s) size = s;
         if (V is { } v) speed = v;
         color = !string.IsNullOrEmpty(C)
             ? (C.StartsWith('#') ? C : "#" + C)
-            : (Theme == "dark" ? "#e5e7eb" : "#1a1a1a");
+            : ThemeDefaultColor;
     }
 
     private void SyncUrl()

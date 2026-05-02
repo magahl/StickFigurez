@@ -25,6 +25,7 @@ In a page or component:
 
 ```razor
 <Celebrator Size="48" Speed="5" />
+<Chef Size="32" Speed="5" />
 <Cloner Size="32" Speed="6" />
 <Githubber Size="32" Speed="5" />
 <JackSparrow Size="32" Speed="7" />
@@ -44,6 +45,7 @@ Color follows `currentColor` — set CSS `color` on a parent.
 | Component      | Notable parameters                          |
 |----------------|---------------------------------------------|
 | `Celebrator`   | `Size`, `Speed` (1–10)                      |
+| `Chef`         | `Size`, `Speed` (1–10)                      |
 | `Cloner`       | `Size`, `Speed` (1–10)                      |
 | `Githubber`    | `Size`, `Speed` (1–10)                      |
 | `JackSparrow`  | `Size`, `Speed` (1–10)                      |
@@ -82,13 +84,7 @@ Versioning via [Nerdbank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVe
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=magahl%2FStickFigurez&type=date&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=magahl/StickFigurez&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=magahl/StickFigurez&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=magahl/StickFigurez&type=date&legend=top-left" />
- </picture>
-</a>
+[![Star History Chart](https://api.star-history.com/chart?repos=magahl/StickFigurez&type=date&legend=top-left)](https://www.star-history.com/?repos=magahl%2FStickFigurez&type=date&legend=top-left)
 
 ## License
 

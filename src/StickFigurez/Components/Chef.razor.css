@@ -1,0 +1,44 @@
+/* Whole arm shakes horizontally during sauté */
+
+.chef-arm {
+    will-change: transform;
+    animation: chef-arm var(--cook-duration, 1.6s) ease-in-out infinite;
+}
+
+@keyframes chef-arm {
+    0%, 16%, 32%, 48%, 100% { transform: translateX(0); }
+    8%, 24%, 40%             { transform: translateX(1.2px); }
+}
+
+/* Forearm pivots at the elbow — only fires during the flip half */
+
+.chef-forearm {
+    will-change: transform;
+    transform-origin: 10.5px 10px;
+    animation: chef-forearm var(--cook-duration, 1.6s) ease-in-out infinite;
+}
+
+@keyframes chef-forearm {
+    0%, 48% { transform: rotate(0deg); }
+    55%     { transform: rotate(-15deg); }
+    72%     { transform: rotate(-6deg); }
+    88%     { transform: rotate(-2deg); }
+    100%    { transform: rotate(0deg); }
+}
+
+/* Pancake — rests on the pan during the sauté, then flips twice in the second half */
+
+.chef-pancake {
+    will-change: transform;
+    transform-origin: 15.3px 10.15px;
+    animation: chef-pancake var(--cook-duration, 1.6s) ease-in-out infinite;
+}
+
+@keyframes chef-pancake {
+    0%, 16%, 32%, 45% { transform: translate(0, 0)       rotate(0deg); }
+    8%, 24%, 40%      { transform: translate(1.2px, 0)   rotate(0deg); }
+    55%               { transform: translate(0, -2.5px)  rotate(180deg); }
+    72%               { transform: translate(0, -3px)    rotate(360deg); }
+    88%               { transform: translate(0, -1px)    rotate(540deg); }
+    100%              { transform: translate(0, 0)       rotate(720deg); }
+}
