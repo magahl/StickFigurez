@@ -1,0 +1,20 @@
+/* Forearms tap the keyboard — small rotation around the elbow.
+   Front + back arms run in opposite phase so the hands alternate. */
+
+.coder-forearm-back {
+    will-change: transform;
+    transform-origin: 12px 13px;
+    animation: coder-tap var(--tap-duration, 0.5s) ease-in-out infinite;
+}
+
+.coder-forearm-front {
+    will-change: transform;
+    transform-origin: 12.5px 13.3px;
+    animation: coder-tap var(--tap-duration, 0.5s) ease-in-out infinite;
+    animation-delay: calc(var(--tap-duration, 0.5s) * -0.5);
+}
+
+@keyframes coder-tap {
+    0%, 100% { transform: rotate(-15deg); }   /* hand lifted */
+    50%      { transform: rotate(5deg); }      /* hand on keyboard */
+}

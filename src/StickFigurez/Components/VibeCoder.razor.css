@@ -1,0 +1,26 @@
+/* Lazy tap on one forearm — small, slow lift around the elbow.
+   Hand rests on the keys at neutral and only rises briefly, so it never
+   pushes through the desk surface. Whole figure rocks with the chair. */
+
+.vibecoder-forearm {
+    will-change: transform;
+    transform-origin: 10px 13px;
+    animation: vibecoder-tap var(--tap-duration, 1.5s) ease-in-out infinite;
+}
+
+.vibecoder-figure {
+    will-change: transform;
+    transform-origin: 9.5px 16px;
+    animation: vibecoder-rock var(--rock-duration, 3s) ease-in-out infinite;
+}
+
+@keyframes vibecoder-tap {
+    0%, 60%, 100% { transform: rotate(0deg); }
+    30%           { transform: rotate(-5deg); }
+    80%           { transform: rotate(-3deg); }
+}
+
+@keyframes vibecoder-rock {
+    0%, 100% { transform: rotate(-1deg); }
+    50%      { transform: rotate(0.6deg); }
+}

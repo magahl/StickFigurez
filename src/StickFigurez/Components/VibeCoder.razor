@@ -1,0 +1,92 @@
+@using System.Globalization
+
+<svg class="vibecoder-svg"
+     width="@Size" height="@Size"
+     viewBox="0 0 30 24"
+     overflow="visible"
+     style="--tap-duration: @TapDuration; --rock-duration: @RockDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+    @* Reclined office chair *@
+    <g class="vibecoder-chair" stroke-width="1.1">
+        @* Backrest — tilts back, ends below the head so the head sits clear above it *@
+        <line x1="7" y1="16" x2="4" y2="10"/>
+        @* Seat *@
+        <line x1="7" y1="16" x2="12.5" y2="16"/>
+        @* Center post *@
+        <line x1="9.5" y1="16" x2="9.5" y2="19"/>
+        @* Wheel struts *@
+        <line x1="9.5" y1="19" x2="7" y2="20.8"/>
+        <line x1="9.5" y1="19" x2="12" y2="20.8"/>
+        @* Wheels *@
+        <circle cx="7" cy="21.2" r="0.4" fill="currentColor" stroke="none"/>
+        <circle cx="12" cy="21.2" r="0.4" fill="currentColor" stroke="none"/>
+    </g>
+
+    @* Whole figure rocks gently with the chair *@
+    <g class="vibecoder-figure">
+
+        @* Spine — hip up to shoulder along the recline *@
+        <line x1="10" y1="15.5" x2="5.7" y2="11.2"/>
+
+        @* Neck — small connector from shoulder to head bottom *@
+        <line x1="5.7" y1="11.2" x2="5.2" y2="9.7" stroke-width="1.6"/>
+
+        @* Head — sits clearly above the backrest, slight gap from neck *@
+        <circle cx="4.9" cy="8.4" r="1.6" fill="currentColor" stroke="none"/>
+
+        @* Single leg stretched under the desk, with a foot *@
+        @* Thigh *@
+        <line x1="10" y1="15.5" x2="15" y2="17.2"/>
+        @* Shin *@
+        <line x1="15" y1="17.2" x2="19" y2="20.5"/>
+        @* Foot — flat, toes forward *@
+        <line x1="19" y1="20.5" x2="20.7" y2="20.5" stroke-width="1.6"/>
+
+        @* Relaxed arm — folds across to rest on the lap *@
+        <g class="vibecoder-arm-relaxed">
+            <line x1="5.9" y1="11.4" x2="7.5" y2="13.3"/>
+            <line x1="7.5" y1="13.3" x2="9" y2="15.3"/>
+        </g>
+
+        @* Lazy tapping arm — reaches forward to the laptop *@
+        <g class="vibecoder-arm-tap">
+            <line x1="6.1" y1="11.4" x2="10" y2="13"/>
+            <g class="vibecoder-forearm">
+                <line x1="10" y1="13" x2="15.5" y2="14.5" stroke-width="1.4"/>
+            </g>
+        </g>
+    </g>
+
+    @* Desk + laptop *@
+    <g class="vibecoder-desk" stroke-width="1.1">
+        @* Desk surface *@
+        <line x1="13.5" y1="14.8" x2="22" y2="14.8"/>
+        @* Desk leg *@
+        <line x1="22" y1="14.8" x2="22" y2="21"/>
+        @* Laptop keyboard base *@
+        <line x1="14.5" y1="14.5" x2="17.5" y2="14.5"/>
+        @* Laptop screen *@
+        <line x1="17.5" y1="14.5" x2="19.5" y2="11.7"/>
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int Clamped => Math.Clamp(Speed, 1, 10);
+
+    // Lazy tap: 2.4 s at speed 1, ~0.7 s at speed 10
+    private string TapDuration =>
+        $"{(2.4 - (Clamped - 1) * 0.19).ToString("F3", CultureInfo.InvariantCulture)}s";
+
+    // Chair rocks half as often as the tap
+    private string RockDuration =>
+        $"{(4.8 - (Clamped - 1) * 0.38).ToString("F3", CultureInfo.InvariantCulture)}s";
+}
