@@ -89,10 +89,12 @@ body {
     position: relative;
 
     .brand {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: .75rem;
         margin: 0 0 .25rem;
+        color: inherit;
+        text-decoration: none;
     }
     .logo {
         width: 2.75rem;
