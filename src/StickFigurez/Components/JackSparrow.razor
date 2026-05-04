@@ -1,7 +1,7 @@
 @using System.Globalization
 
 <svg class="jack-sparrow"
-     width="@Size" height="@Size"
+     width="@Width" height="@Size"
      viewBox="0 0 25 22"
      overflow="visible"
      style="--run-duration: @AnimDuration; --shoulder-x: @ShoulderXPx; --lean-deg: @LeanDeg;"
@@ -72,4 +72,6 @@
     // Angle the body line makes from vertical (hip to head), used to cancel forward lean
     private string LeanDeg =>
         $"{(Math.Atan2(LeanOffset, 8.0) * 180.0 / Math.PI).ToString("F1", CultureInfo.InvariantCulture)}deg";
+
+    private int Width => (int)(Size * 25.0 / 22.0);
 }

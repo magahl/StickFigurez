@@ -1,7 +1,7 @@
 @using System.Globalization
 
 <svg class="vibecoder-svg"
-     width="@Size" height="@Size"
+     width="@Width" height="@Size"
      viewBox="0 0 30 24"
      overflow="visible"
      style="--tap-duration: @TapDuration; --rock-duration: @RockDuration;"
@@ -89,4 +89,6 @@
     // Chair rocks half as often as the tap
     private string RockDuration =>
         $"{(4.8 - (Clamped - 1) * 0.38).ToString("F3", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 30.0 / 24.0);
 }

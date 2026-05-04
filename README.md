@@ -1,6 +1,6 @@
 # StickFigurez
 
-<img src="assets/logo.svg" alt="StickFigurez" width="320" />
+![StickFigurez](https://raw.githubusercontent.com/magahl/StickFigurez/master/assets/logo.png)
 
 Animated SVG stick-figure components for Blazor.
 
@@ -41,6 +41,16 @@ In a page or component:
 ```
 
 Color follows `currentColor` — set CSS `color` on a parent.
+
+## Sizing
+
+`Size` sets the rendered **height** in pixels. The rendered width is derived
+from each figure's viewBox aspect, so wider figures (Cloner, Teacher,
+Scientist, Locksmith, Coder, VibeCoder, Runner, JackSparrow, Investigator,
+Waiting) keep correct proportions instead of being squashed into a square.
+Square figures (Celebrator, Chef) render at `Size × Size`. Reserve a
+slightly wider slot for non-square figures, or constrain via CSS on the
+parent if you need a fixed bounding box.
 
 ## Components
 

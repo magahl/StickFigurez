@@ -1,7 +1,7 @@
 @using System.Globalization
 
 <svg class="queryman-svg"
-     width="@Size"
+     width="@Width"
      height="@Size"
      viewBox="0 0 24 22"
      style="--query-duration: @CycleDuration;"
@@ -47,4 +47,6 @@
 
     private string CycleDuration =>
         $"{(3.0 - (ClampedSpeed - 1) * 0.2).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 24.0 / 22.0);
 }

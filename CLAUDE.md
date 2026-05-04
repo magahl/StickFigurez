@@ -42,6 +42,8 @@ Two conventions for new figure:
 1. **Color follows `currentColor`.** SVG stroke/fill use `currentColor`; consumer set `color:` on parent. No hard-code colors.
 2. **Speed → duration mapping in C#**, not CSS. Razor file format duration with `CultureInfo.InvariantCulture` (comma-decimal locales break inline style otherwise), expose as CSS custom property.
 3. **Off-origin rotations use translate–rotate–translate trick** (see `Locksmith.razor.css` `key-turn`, `Runner.razor` nested joint groups). SVG no `transform-origin` for inline `<g>` in older Safari; portable workaround.
+4. **`viewBox` start at `0 0`.** No non-zero origin (no `viewBox="2 0 …"`). Translate content with `<g transform="translate(…)">` instead — keeps render math obvious for consumers.
+5. **`Size` set rendered height; width track viewBox aspect.** `height="@Size"`, `width="@Width"` where `private int Width => (int)(Size * vbW / vbH);`. Square figure (vbW == vbH) can use `width="@Size" height="@Size"`. No `width="@Size" height="@Size"` for non-square viewBox — squashes content.
 
 ### Adding a new figure
 

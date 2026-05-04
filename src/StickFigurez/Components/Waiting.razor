@@ -1,7 +1,7 @@
 @using System.Globalization
 
 <svg class="waitingman-svg"
-     width="@Size"
+     width="@Width"
      height="@Size"
      viewBox="0 0 24 22"
      style="--wait-duration: @CycleDuration;"
@@ -56,4 +56,6 @@
 
     private string CycleDuration =>
         $"{(2.4 - (ClampedSpeed - 1) * 0.18).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 24.0 / 22.0);
 }

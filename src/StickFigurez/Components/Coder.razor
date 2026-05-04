@@ -1,7 +1,7 @@
 @using System.Globalization
 
 <svg class="coder-svg"
-     width="@Size" height="@Size"
+     width="@Width" height="@Size"
      viewBox="0 0 30 24"
      overflow="visible"
      style="--tap-duration: @TapDuration;"
@@ -78,4 +78,6 @@
     // 0.7 s at speed 1, ~0.18 s at speed 10
     private string TapDuration =>
         $"{(0.7 - (Clamped - 1) * 0.058).ToString("F3", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 30.0 / 24.0);
 }

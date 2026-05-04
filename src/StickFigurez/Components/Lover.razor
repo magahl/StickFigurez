@@ -3,12 +3,14 @@
 <svg class="mihugger-svg"
      width="@Width"
      height="@Size"
-     viewBox="2 0 22 24"
+     viewBox="0 0 22 24"
      overflow="visible"
      style="--dream-duration: @CycleDuration;"
      xmlns="http://www.w3.org/2000/svg"
      stroke="currentColor"
      stroke-linecap="round">
+
+  <g transform="translate(-2 0)">
 
     @* Thought heart *@
     <g class="thought-bubble">
@@ -36,6 +38,8 @@
     <line x1="8" y1="20" x2="6" y2="23.5" stroke-width="2"/>
     <line x1="8" y1="20" x2="10" y2="23.5" stroke-width="2"/>
 
+  </g>
+
 </svg>
 
 @code {
@@ -48,5 +52,5 @@
     private string CycleDuration =>
         $"{(4.0 - (ClampedSpeed - 1) * 0.25).ToString("F2", CultureInfo.InvariantCulture)}s";
 
-    private int Width => Size;
+    private int Width => (int)(Size * 22.0 / 24.0);
 }
