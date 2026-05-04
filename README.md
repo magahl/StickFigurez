@@ -1,8 +1,8 @@
 # StickFigurez
 
-Animated SVG stick-figure components for Blazor.
+<img src="assets/logo.svg" alt="StickFigurez" width="320" />
 
-> Placeholder logo — drop a real one at `assets/icon.png` and update the package.
+Animated SVG stick-figure components for Blazor.
 
 [![CI](https://github.com/magahl/StickFigurez/actions/workflows/ci.yml/badge.svg)](https://github.com/magahl/StickFigurez/actions/workflows/ci.yml)
 [![NuGet](https://img.shields.io/nuget/v/StickFigurez.svg)](https://www.nuget.org/packages/StickFigurez)
@@ -29,12 +29,12 @@ In a page or component:
 <Cloner Size="32" Speed="6" />
 <Coder Size="32" Speed="6" />
 <Githubber Size="32" Speed="5" />
+<Investigator Size="32" Speed="5" />
 <JackSparrow Size="32" Speed="7" />
 <Locksmith Size="32" Speed="5" />
 <Lover Size="32" Text="❤" />
 <Runner Size="32" Speed="7" />
 <Scientist Size="32" Speed="5" />
-<Searcher Size="32" Speed="5" />
 <Teacher Size="32" Speed="5" />
 <VibeCoder Size="32" Speed="4" />
 <Waiting Size="32" Speed="5" />
@@ -51,12 +51,12 @@ Color follows `currentColor` — set CSS `color` on a parent.
 | `Cloner`       | `Size`, `Speed` (1–10)                      |
 | `Coder`        | `Size`, `Speed` (1–10)                      |
 | `Githubber`    | `Size`, `Speed` (1–10)                      |
+| `Investigator` | `Size`, `Speed` (1–10)                      |
 | `JackSparrow`  | `Size`, `Speed` (1–10)                      |
 | `Locksmith`    | `Size`, `Speed` (1–10)                      |
 | `Lover`        | `Size`, `Speed` (1–10), `Text`              |
 | `Runner`       | `Size`, `Speed` (1–10)                      |
 | `Scientist`    | `Size`, `Speed` (1–10)                      |
-| `Searcher`     | `Size`, `Speed` (1–10)                      |
 | `Teacher`      | `Size`, `Speed` (1–10)                      |
 | `VibeCoder`    | `Size`, `Speed` (1–10)                      |
 | `Waiting`      | `Size`, `Speed` (1–10)                      |
