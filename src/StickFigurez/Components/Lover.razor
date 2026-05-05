@@ -5,7 +5,7 @@
      height="@Size"
      viewBox="0 0 22 24"
      overflow="visible"
-     style="--dream-duration: @CycleDuration;"
+     style="--dream-duration: @CycleDuration; --heart-duration: @HeartDuration;"
      xmlns="http://www.w3.org/2000/svg"
      stroke="currentColor"
      stroke-linecap="round">
@@ -51,6 +51,9 @@
 
     private string CycleDuration =>
         $"{(4.0 - (ClampedSpeed - 1) * 0.25).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private string HeartDuration =>
+        $"{(1.4 - (ClampedSpeed - 1) * 0.1).ToString("F2", CultureInfo.InvariantCulture)}s";
 
     private int Width => (int)(Size * 22.0 / 24.0);
 }

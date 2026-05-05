@@ -32,7 +32,7 @@
 .heart-pulse {
     will-change: transform;
     transform-origin: 14.5px 8px;
-    animation: heartbeat 0.8s ease-in-out infinite;
+    animation: heartbeat var(--heart-duration, 0.8s) ease-in-out infinite;
 }
 
 @keyframes heartbeat {
