@@ -1,0 +1,97 @@
+/* Body bob — heel-strikes at 0% and 50%, body sinks at impact */
+
+.moper-body {
+    will-change: transform;
+    animation: moper-bob var(--mope-duration, 3s) ease-in-out infinite;
+}
+
+@keyframes moper-bob {
+    0%   { transform: translateY(0.3px); }
+    25%  { transform: translateY(0); }
+    50%  { transform: translateY(0.3px); }
+    75%  { transform: translateY(0); }
+    100% { transform: translateY(0.3px); }
+}
+
+/* Thighs pivot at hip — L heel-strike at 0%, R heel-strike at 50% */
+
+.moper-leg-l,
+.moper-leg-r {
+    will-change: transform;
+    transform-origin: 5px 14px;
+    animation: moper-thigh-l var(--mope-duration, 3s) ease-in-out infinite;
+}
+
+.moper-leg-r {
+    animation-name: moper-thigh-r;
+}
+
+@keyframes moper-thigh-l {
+    0%   { transform: rotate(10deg); }
+    50%  { transform: rotate(-10deg); }
+    100% { transform: rotate(10deg); }
+}
+
+@keyframes moper-thigh-r {
+    0%   { transform: rotate(-10deg); }
+    50%  { transform: rotate(10deg); }
+    100% { transform: rotate(-10deg); }
+}
+
+/* Shins pivot at knee — bend during own swing phase */
+
+.moper-shin-l {
+    will-change: transform;
+    transform-origin: 4.5px 18.7px;
+    animation: moper-shin-l var(--mope-duration, 3s) ease-in-out infinite;
+}
+
+.moper-shin-r {
+    will-change: transform;
+    transform-origin: 5.5px 18.7px;
+    animation: moper-shin-r var(--mope-duration, 3s) ease-in-out infinite;
+}
+
+@keyframes moper-shin-l {
+    0%   { transform: rotate(0deg); }
+    50%  { transform: rotate(0deg); }
+    75%  { transform: rotate(18deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes moper-shin-r {
+    0%   { transform: rotate(0deg); }
+    25%  { transform: rotate(18deg); }
+    50%  { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Arms gently sway at shoulder pivot */
+
+.moper-arms {
+    will-change: transform;
+    transform-origin: 10px 7.5px;
+    animation: moper-sway var(--mope-duration, 3s) ease-in-out infinite;
+}
+
+@keyframes moper-sway {
+    0%   { transform: rotate(-2deg); }
+    50%  { transform: rotate(2deg); }
+    100% { transform: rotate(-2deg); }
+}
+
+/* Tear forms, falls, fades */
+
+.moper-tear {
+    will-change: transform, opacity;
+    animation: moper-tear var(--mope-duration, 3s) ease-in infinite;
+    opacity: 0;
+}
+
+@keyframes moper-tear {
+    0%   { transform: translateY(0); opacity: 0; }
+    20%  { transform: translateY(0); opacity: 1; }
+    70%  { transform: translateY(8px); opacity: 1; }
+    85%  { transform: translateY(11px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 0; }
+}
