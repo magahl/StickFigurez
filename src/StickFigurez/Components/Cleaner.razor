@@ -4,6 +4,7 @@
      width="@Width"
      height="@Size"
      viewBox="0 0 32 26"
+     overflow="visible"
      style="--cleaner-duration: @CycleDuration;"
      xmlns="http://www.w3.org/2000/svg"
      stroke="currentColor"
@@ -38,25 +39,31 @@
         @* Body — slight forward lean, top meets head bottom *@
         <line x1="26" y1="16" x2="27" y2="8" stroke-width="1.6"/>
 
-        @* Front arm — relaxed swing forward *@
-        <line x1="27" y1="8" x2="29" y2="13" stroke-width="1.6"/>
+        @* Front arm — Runner-style: upper pivots at shoulder, forearm at elbow *@
+        <g class="cleaner-arm-front">
+            <line x1="0" y1="0" x2="0" y2="3.5" stroke-width="1.6"/>
+            <g class="cleaner-forearm-front">
+                <line x1="0" y1="0" x2="0" y2="3.5" stroke-width="1.6"/>
+            </g>
+        </g>
 
         @* Back arm — gripping handle *@
         <line x1="27" y1="8" x2="24" y2="12" stroke-width="1.6"/>
 
-        @* Legs — straight at rest, knee bend during swing *@
+        @* Legs — Runner-style: vertical unit lines positioned via translate+rotate.
+           Both legs hip at (26, 16); symmetric ±25° absolute swing from vertical. *@
         <g class="cleaner-leg-l">
-            <line x1="26" y1="16" x2="25.5" y2="20.5" stroke-width="1.6"/>
+            <line x1="0" y1="0" x2="0" y2="4.5" stroke-width="1.6"/>
             <g class="cleaner-shin-l">
-                <line x1="25.5" y1="20.5" x2="25" y2="25" stroke-width="1.6"/>
-                <line x1="25" y1="25" x2="26.5" y2="25" stroke-width="1.5"/>
+                <line x1="0" y1="0" x2="0" y2="4.5" stroke-width="1.6"/>
+                <line x1="0" y1="4.5" x2="1.5" y2="4.5" stroke-width="1.5"/>
             </g>
         </g>
         <g class="cleaner-leg-r">
-            <line x1="26" y1="16" x2="26.5" y2="20.5" stroke-width="1.6"/>
+            <line x1="0" y1="0" x2="0" y2="4.5" stroke-width="1.6"/>
             <g class="cleaner-shin-r">
-                <line x1="26.5" y1="20.5" x2="27" y2="25" stroke-width="1.6"/>
-                <line x1="27" y1="25" x2="28.5" y2="25" stroke-width="1.5"/>
+                <line x1="0" y1="0" x2="0" y2="4.5" stroke-width="1.6"/>
+                <line x1="0" y1="4.5" x2="1.5" y2="4.5" stroke-width="1.5"/>
             </g>
         </g>
 
@@ -71,7 +78,7 @@
     private int ClampedSpeed => Math.Clamp(Speed, 1, 10);
 
     private string CycleDuration =>
-        $"{(3.0 - (ClampedSpeed - 1) * 0.22).ToString("F2", CultureInfo.InvariantCulture)}s";
+        $"{(2.2 - (ClampedSpeed - 1) * 0.18).ToString("F2", CultureInfo.InvariantCulture)}s";
 
     private int Width => (int)(Size * 32.0 / 26.0);
 }

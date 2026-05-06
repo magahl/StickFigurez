@@ -13,57 +13,75 @@
     100% { transform: translateY(0.3px); }
 }
 
-/* Walking gait — thighs at hip pivot, opposing phases */
+/* Walking gait — Runner-style translate+rotate. Both thighs share hip (26, 16).
+   Symmetric ±25° swing from vertical — equal forward & back stride. */
 
-.cleaner-leg-l,
-.cleaner-leg-r {
+.cleaner-leg-l {
     will-change: transform;
-    transform-origin: 26px 16px;
     animation: cleaner-thigh-l var(--cleaner-duration, 3s) ease-in-out infinite;
 }
 
 .cleaner-leg-r {
-    animation-name: cleaner-thigh-r;
+    will-change: transform;
+    animation: cleaner-thigh-r var(--cleaner-duration, 3s) ease-in-out infinite;
 }
 
 @keyframes cleaner-thigh-l {
-    0%   { transform: rotate(10deg); }
-    50%  { transform: rotate(-10deg); }
-    100% { transform: rotate(10deg); }
+    0%, 100% { transform: translate(26px, 16px) rotate(25deg); }
+    50%      { transform: translate(26px, 16px) rotate(-25deg); }
 }
 
 @keyframes cleaner-thigh-r {
-    0%   { transform: rotate(-10deg); }
-    50%  { transform: rotate(10deg); }
-    100% { transform: rotate(-10deg); }
+    0%, 100% { transform: translate(26px, 16px) rotate(-25deg); }
+    50%      { transform: translate(26px, 16px) rotate(25deg); }
 }
 
-/* Shins bend at knee during own swing */
+/* Shins pivot at knee (end of 4.5-unit thigh).
+   Knee flex peaks at midswing; small soft-knee flex through stance. */
 
 .cleaner-shin-l {
     will-change: transform;
-    transform-origin: 25.5px 20.5px;
     animation: cleaner-shin-l var(--cleaner-duration, 3s) ease-in-out infinite;
 }
 
 .cleaner-shin-r {
     will-change: transform;
-    transform-origin: 26.5px 20.5px;
     animation: cleaner-shin-r var(--cleaner-duration, 3s) ease-in-out infinite;
 }
 
 @keyframes cleaner-shin-l {
-    0%   { transform: rotate(0deg); }
-    50%  { transform: rotate(0deg); }
-    75%  { transform: rotate(18deg); }
-    100% { transform: rotate(0deg); }
+    0%   { transform: translate(0px, 4.5px) rotate(8deg); }
+    25%  { transform: translate(0px, 4.5px) rotate(45deg); }
+    50%  { transform: translate(0px, 4.5px) rotate(2deg); }
+    75%  { transform: translate(0px, 4.5px) rotate(6deg); }
+    100% { transform: translate(0px, 4.5px) rotate(8deg); }
 }
 
 @keyframes cleaner-shin-r {
-    0%   { transform: rotate(0deg); }
-    25%  { transform: rotate(18deg); }
-    50%  { transform: rotate(0deg); }
-    100% { transform: rotate(0deg); }
+    0%   { transform: translate(0px, 4.5px) rotate(2deg); }
+    25%  { transform: translate(0px, 4.5px) rotate(6deg); }
+    50%  { transform: translate(0px, 4.5px) rotate(8deg); }
+    75%  { transform: translate(0px, 4.5px) rotate(45deg); }
+    100% { transform: translate(0px, 4.5px) rotate(2deg); }
+}
+
+/* Front arm — Runner-style swing, opposite phase to R leg.
+   Upper pivots at shoulder (27, 8); forearm pivots at elbow (end of 3.5-unit upper). */
+
+.cleaner-arm-front {
+    will-change: transform;
+    animation: cleaner-arm-swing var(--cleaner-duration, 3s) ease-in-out infinite;
+}
+
+/* Forearm holds a constant slight forward bend at the elbow — arm swings as
+   a rigid bent unit at the shoulder, like a relaxed walking arm. */
+.cleaner-forearm-front {
+    transform: translate(0px, 3.5px) rotate(-20deg);
+}
+
+@keyframes cleaner-arm-swing {
+    0%, 100% { transform: translate(27px, 8px) rotate(20deg); }
+    50%      { transform: translate(27px, 8px) rotate(-20deg); }
 }
 
 /* Wheel spins constantly — linear timing */
