@@ -3,7 +3,7 @@
 <svg class="cloner-svg"
      width="@Width"
      height="@Size"
-     viewBox="0 0 44 22"
+     viewBox="0 0 44 24"
      style="--clone-duration: @CycleDuration;"
      xmlns="http://www.w3.org/2000/svg"
      stroke="currentColor"
@@ -14,24 +14,24 @@
     <g transform="translate(13, 0)">
         <g class="sm-crouch">
             <g class="sm-shake">
-                <circle cx="0" cy="3.5" r="2.5" fill="currentColor" stroke="none" />
-                <line x1="0" y1="6" x2="0" y2="14" />
-                <line x1="0" y1="8" x2="4" y2="11" />
-                <line x1="0" y1="8" x2="-4" y2="11" />
-                <line x1="0" y1="14" x2="3" y2="20" />
-                <line x1="0" y1="14" x2="-3" y2="20" />
+                <circle cx="0" cy="4.5" r="2.5" fill="currentColor" stroke="none" />
+                <line x1="0" y1="7" x2="0" y2="15" />
+                <line x1="0" y1="9" x2="4" y2="12" />
+                <line x1="0" y1="9" x2="-4" y2="12" />
+                <line x1="0" y1="15" x2="3" y2="21" />
+                <line x1="0" y1="15" x2="-3" y2="21" />
             </g>
         </g>
     </g>
 
     @* Clone: parked at same x as original (invisible), then slides out to the right *@
     <g class="sm-clone">
-        <circle cx="0" cy="3.5" r="2.5" fill="currentColor" stroke="none" />
-        <line x1="0" y1="6" x2="0" y2="14" />
-        <line x1="0" y1="8" x2="4" y2="11" />
-        <line x1="0" y1="8" x2="-4" y2="11" />
-        <line x1="0" y1="14" x2="3" y2="20" />
-        <line x1="0" y1="14" x2="-3" y2="20" />
+        <circle cx="0" cy="4.5" r="2.5" fill="currentColor" stroke="none" />
+        <line x1="0" y1="7" x2="0" y2="15" />
+        <line x1="0" y1="9" x2="4" y2="12" />
+        <line x1="0" y1="9" x2="-4" y2="12" />
+        <line x1="0" y1="15" x2="3" y2="21" />
+        <line x1="0" y1="15" x2="-3" y2="21" />
     </g>
 
 </svg>
@@ -46,5 +46,5 @@
     private string CycleDuration =>
         $"{(7.0 - (Clamped - 1) * 0.5).ToString("F2", CultureInfo.InvariantCulture)}s";
 
-    private int Width => Size * 2;
+    private int Width => (int)(Size * 44.0 / 24.0);
 }

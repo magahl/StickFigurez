@@ -12,7 +12,7 @@
    ===================================================================== */
 
 /* ---- Crouch: squish the whole figure downward from the feet ----
-   Fill-box: x ∈ [-4, 4] (w=8), y ∈ [1, 20] (h=19)
+   Fill-box: x ∈ [-4, 4] (w=8), y ∈ [2, 21] (h=19)
    transform-origin 50% 100% anchors at the feet.              */
 
 .sm-crouch {
