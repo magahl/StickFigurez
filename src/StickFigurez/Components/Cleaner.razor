@@ -1,0 +1,77 @@
+@using System.Globalization
+
+<svg class="cleaner-svg"
+     width="@Width"
+     height="@Size"
+     viewBox="0 0 32 26"
+     style="--cleaner-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     fill="none">
+
+    <g class="cleaner-rig">
+
+        @* Wheelie bin — tilted, top toward figure, wheel at far side *@
+        <g class="cleaner-bin">
+            @* Bin body outline (tilted parallelogram) *@
+            <path d="M 24 12 L 19 10 L 15 22 L 20 24 Z" stroke-width="1.6"/>
+            @* Lid — slight overhang past bin top *@
+            <line x1="18.5" y1="9.4" x2="24.6" y2="11.85" stroke-width="1.4"/>
+            <line x1="18.5" y1="9.4" x2="19" y2="10" stroke-width="1.2"/>
+            <line x1="24.6" y1="11.85" x2="24" y2="12" stroke-width="1.2"/>
+            @* Handle grip protruding toward figure *@
+            <line x1="24" y1="12" x2="25" y2="12.5" stroke-width="1.4"/>
+            @* Wheel — at bottom-near corner *@
+            <g class="cleaner-wheel">
+                <circle cx="20" cy="23.5" r="1.8" stroke-width="1.2"/>
+                <line x1="20" y1="21.7" x2="20" y2="25.3" stroke-width="0.6"/>
+                <line x1="18.2" y1="23.5" x2="21.8" y2="23.5" stroke-width="0.6"/>
+            </g>
+        </g>
+
+        @* Figure *@
+        @* Head — sits on body neck *@
+        <circle cx="27" cy="6" r="2" fill="currentColor" stroke="none"/>
+
+        @* Body — slight forward lean, top meets head bottom *@
+        <line x1="26" y1="16" x2="27" y2="8" stroke-width="1.6"/>
+
+        @* Front arm — relaxed swing forward *@
+        <line x1="27" y1="8" x2="29" y2="13" stroke-width="1.6"/>
+
+        @* Back arm — gripping handle *@
+        <line x1="27" y1="8" x2="24" y2="12" stroke-width="1.6"/>
+
+        @* Legs — straight at rest, knee bend during swing *@
+        <g class="cleaner-leg-l">
+            <line x1="26" y1="16" x2="25.5" y2="20.5" stroke-width="1.6"/>
+            <g class="cleaner-shin-l">
+                <line x1="25.5" y1="20.5" x2="25" y2="25" stroke-width="1.6"/>
+                <line x1="25" y1="25" x2="26.5" y2="25" stroke-width="1.5"/>
+            </g>
+        </g>
+        <g class="cleaner-leg-r">
+            <line x1="26" y1="16" x2="26.5" y2="20.5" stroke-width="1.6"/>
+            <g class="cleaner-shin-r">
+                <line x1="26.5" y1="20.5" x2="27" y2="25" stroke-width="1.6"/>
+                <line x1="27" y1="25" x2="28.5" y2="25" stroke-width="1.5"/>
+            </g>
+        </g>
+
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int ClampedSpeed => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(3.0 - (ClampedSpeed - 1) * 0.22).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 32.0 / 26.0);
+}

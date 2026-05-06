@@ -1,0 +1,80 @@
+/* Whole rig bobs subtly with the walk */
+
+.cleaner-rig {
+    will-change: transform;
+    animation: cleaner-bob var(--cleaner-duration, 3s) ease-in-out infinite;
+}
+
+@keyframes cleaner-bob {
+    0%   { transform: translateY(0.3px); }
+    25%  { transform: translateY(0); }
+    50%  { transform: translateY(0.3px); }
+    75%  { transform: translateY(0); }
+    100% { transform: translateY(0.3px); }
+}
+
+/* Walking gait — thighs at hip pivot, opposing phases */
+
+.cleaner-leg-l,
+.cleaner-leg-r {
+    will-change: transform;
+    transform-origin: 26px 16px;
+    animation: cleaner-thigh-l var(--cleaner-duration, 3s) ease-in-out infinite;
+}
+
+.cleaner-leg-r {
+    animation-name: cleaner-thigh-r;
+}
+
+@keyframes cleaner-thigh-l {
+    0%   { transform: rotate(10deg); }
+    50%  { transform: rotate(-10deg); }
+    100% { transform: rotate(10deg); }
+}
+
+@keyframes cleaner-thigh-r {
+    0%   { transform: rotate(-10deg); }
+    50%  { transform: rotate(10deg); }
+    100% { transform: rotate(-10deg); }
+}
+
+/* Shins bend at knee during own swing */
+
+.cleaner-shin-l {
+    will-change: transform;
+    transform-origin: 25.5px 20.5px;
+    animation: cleaner-shin-l var(--cleaner-duration, 3s) ease-in-out infinite;
+}
+
+.cleaner-shin-r {
+    will-change: transform;
+    transform-origin: 26.5px 20.5px;
+    animation: cleaner-shin-r var(--cleaner-duration, 3s) ease-in-out infinite;
+}
+
+@keyframes cleaner-shin-l {
+    0%   { transform: rotate(0deg); }
+    50%  { transform: rotate(0deg); }
+    75%  { transform: rotate(18deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes cleaner-shin-r {
+    0%   { transform: rotate(0deg); }
+    25%  { transform: rotate(18deg); }
+    50%  { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Wheel spins constantly — linear timing */
+
+.cleaner-wheel {
+    will-change: transform;
+    transform-origin: 20px 23.5px;
+    animation: cleaner-spin var(--cleaner-duration, 3s) linear infinite;
+}
+
+@keyframes cleaner-spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

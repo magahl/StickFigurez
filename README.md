@@ -26,6 +26,7 @@ In a page or component:
 ```razor
 <Celebrator Size="48" Speed="5" />
 <Chef Size="32" Speed="5" />
+<Cleaner Size="32" Speed="5" />
 <Cloner Size="32" Speed="6" />
 <Coder Size="32" Speed="6" />
 <Githubber Size="32" Speed="5" />
@@ -48,7 +49,7 @@ Color follows `currentColor` — set CSS `color` on a parent.
 `Size` sets the rendered **height** in pixels. The rendered width is derived
 from each figure's viewBox aspect, so wider figures (Cloner, Teacher,
 Scientist, Locksmith, Coder, VibeCoder, Runner, JackSparrow, Investigator,
-Moper, Waiting) keep correct proportions instead of being squashed into a square.
+Cleaner, Moper, Waiting) keep correct proportions instead of being squashed into a square.
 Square figures (Celebrator, Chef) render at `Size × Size`. Reserve a
 slightly wider slot for non-square figures, or constrain via CSS on the
 parent if you need a fixed bounding box.
@@ -59,6 +60,7 @@ parent if you need a fixed bounding box.
 |----------------|---------------------------------------------|
 | `Celebrator`   | `Size`, `Speed` (1–10)                      |
 | `Chef`         | `Size`, `Speed` (1–10)                      |
+| `Cleaner`      | `Size`, `Speed` (1–10)                      |
 | `Cloner`       | `Size`, `Speed` (1–10)                      |
 | `Coder`        | `Size`, `Speed` (1–10)                      |
 | `Githubber`    | `Size`, `Speed` (1–10)                      |
