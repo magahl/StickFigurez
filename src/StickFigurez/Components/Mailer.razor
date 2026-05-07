@@ -1,0 +1,88 @@
+@using System.Globalization
+
+<svg class="mailer-svg"
+     width="@Width" height="@Size"
+     viewBox="0 0 25 22"
+     overflow="visible"
+     style="--run-duration: @AnimDuration; --shoulder-x: @ShoulderXPx; --letter-x: @LetterXPx;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-width="2"
+     stroke-linecap="round"
+     fill="none">
+
+    @* Legs — both swing, opposite phase *@
+    <g class="leg-right-upper">
+        <line x1="0" y1="0" x2="0" y2="4.5"/>
+        <g class="leg-right-lower">
+            <line x1="0" y1="0" x2="0" y2="4.5"/>
+        </g>
+    </g>
+    <g class="leg-left-upper">
+        <line x1="0" y1="0" x2="0" y2="4.5"/>
+        <g class="leg-left-lower">
+            <line x1="0" y1="0" x2="0" y2="4.5"/>
+        </g>
+    </g>
+
+    <g class="runner-body">
+
+        @* Head *@
+        <circle cx="@HeadCx" cy="3.5" r="2.5" fill="currentColor" stroke="none"/>
+
+        @* Body *@
+        <line x1="@HeadCx" y1="6" x2="12" y2="14"/>
+
+        @* Right arm — raised, bent at elbow (longer bones for reach) *@
+        <g class="arm-right-raised">
+            <line x1="0" y1="0" x2="0" y2="5"/>
+            <g class="arm-right-forearm">
+                <line x1="0" y1="0" x2="0" y2="3.5"/>
+            </g>
+        </g>
+
+        @* Left arm — swings *@
+        <g class="arm-left-upper">
+            <line x1="0" y1="0" x2="0" y2="4"/>
+            <g class="arm-left-lower">
+                <line x1="0" y1="0" x2="0" y2="3"/>
+            </g>
+        </g>
+
+        @* Letter — portrait envelope, flap V along the long left edge.
+           Bottom-left corner at letter-local origin → hand grips bottom-left
+           and the envelope extends up-and-right, away from the head. *@
+        <g class="letter">
+            <rect x="0" y="-7" width="5" height="7" stroke-width="0.7"/>
+            <path d="M0,-7 L2.5,-3.5 L0,0" stroke-width="0.6"/>
+        </g>
+
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 16;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int Clamped => Math.Clamp(Speed, 1, 10);
+
+    private double LeanOffset => (Clamped - 1) * 0.35;
+
+    private string AnimDuration =>
+        $"{(0.65 - (Clamped - 1) * 0.045).ToString("F3", CultureInfo.InvariantCulture)}s";
+
+    private string HeadCx =>
+        (12.5 + LeanOffset).ToString("F2", CultureInfo.InvariantCulture);
+
+    private string ShoulderXPx =>
+        $"{(12.5 + LeanOffset).ToString("F2", CultureInfo.InvariantCulture)}px";
+
+    /* Letter group is translated so its bottom-right corner (rect x=0, y=0)
+       lands at the right hand. With shoulder at (12.5, 8), upper arm 5 @ -110°
+       and forearm 3.5 @ -45° rel, hand ≈ (18.68, 3.11). */
+    private string LetterXPx =>
+        $"{(12.5 + LeanOffset + 6.18).ToString("F2", CultureInfo.InvariantCulture)}px";
+
+    private int Width => (int)(Size * 25.0 / 22.0);
+}

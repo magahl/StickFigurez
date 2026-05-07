@@ -3,7 +3,7 @@
 <svg class="cleaner-svg"
      width="@Width"
      height="@Size"
-     viewBox="0 0 32 26"
+     viewBox="0 0 20 26"
      overflow="visible"
      style="--cleaner-duration: @CycleDuration;"
      xmlns="http://www.w3.org/2000/svg"
@@ -13,6 +13,7 @@
      fill="none">
 
     <g class="cleaner-rig">
+     <g transform="translate(-12, 0)">
 
         @* Wheelie bin — tilted, top toward figure, wheel at far side *@
         <g class="cleaner-bin">
@@ -67,6 +68,7 @@
             </g>
         </g>
 
+     </g>
     </g>
 
 </svg>
@@ -80,5 +82,5 @@
     private string CycleDuration =>
         $"{(2.2 - (ClampedSpeed - 1) * 0.18).ToString("F2", CultureInfo.InvariantCulture)}s";
 
-    private int Width => (int)(Size * 32.0 / 26.0);
+    private int Width => (int)(Size * 20.0 / 26.0);
 }

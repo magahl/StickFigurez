@@ -9,10 +9,8 @@
                 MinSize="16" MaxSize="192" SizeStep="4"
                 DefaultSize="100" DefaultColor="@ThemeDefaultColor"
                 OnChanged="SyncUrl" OnReset="ClearUrl">
-    <label class="search">
-        Search
-        <input type="search" placeholder="run, lock, stats…" @bind:event="oninput" @bind="query" />
-    </label>
+    <input class="search" type="search" placeholder="Search: run, lock, stats…"
+           aria-label="Search components" @bind:event="oninput" @bind="query" />
 </FigureControls>
 
 <section class="grid" style="color: @color;">
