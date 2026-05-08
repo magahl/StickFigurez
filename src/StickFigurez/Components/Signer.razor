@@ -1,0 +1,58 @@
+@using System.Globalization
+
+@* Front view. Head r=2.5 cy=4. Torso 7.5 (6.5→14). Legs 6 (14→20). No feet. *@
+<svg class="signer-svg"
+     width="@Width"
+     height="@Size"
+     viewBox="0 0 22 24"
+     style="--sign-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-linecap="round"
+     fill="none">
+
+    @* Head *@
+    <circle cx="6" cy="4" r="2.5" fill="currentColor" stroke="none"/>
+
+    @* Torso *@
+    <line x1="6" y1="6.5" x2="6" y2="14" stroke-width="2"/>
+
+    @* Legs *@
+    <line x1="6" y1="14" x2="3.5" y2="20" stroke-width="2"/>
+    <line x1="6" y1="14" x2="8.5" y2="20" stroke-width="2"/>
+
+    @* Off-arm — figure's right (viewer's left), hangs at side *@
+    <line x1="6" y1="7.5" x2="4" y2="11" stroke-width="2"/>
+    <line x1="4" y1="11" x2="3.5" y2="13.5" stroke-width="2"/>
+
+    @* Sign-holding arm — figure's left (viewer's right), reaches out to grip handle *@
+    <line x1="6" y1="7.5" x2="7.5" y2="8.5" stroke-width="2"/>
+    <line x1="7.5" y1="8.5" x2="9" y2="9" stroke-width="2"/>
+
+    @* Sign — handle stub + disc + text. Sways gently around hand. *@
+    <g class="sign">
+        @* Handle: stub from hand into disc edge *@
+        <line x1="9" y1="9" x2="10.3" y2="8.1" stroke-width="1.4"/>
+        @* Disc *@
+        <circle cx="14" cy="5.5" r="4.5" stroke-width="1.2" fill="none"/>
+        @* Text — textLength + lengthAdjust scale glyphs to fit disc width *@
+        <text x="14" y="6.8" text-anchor="middle"
+              textLength="7" lengthAdjust="spacingAndGlyphs"
+              font-size="3.6" font-weight="bold" font-family="sans-serif"
+              fill="currentColor" stroke="none">@Text</text>
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 32;
+    [Parameter] public int Speed { get; set; } = 5;
+    [Parameter] public string Text { get; set; } = "STOP";
+
+    private int Clamped => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(2.4 - (Clamped - 1) * 0.18).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 22.0 / 24.0);
+}

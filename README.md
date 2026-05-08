@@ -38,6 +38,7 @@ In a page or component:
 <Moper Size="32" Speed="4" />
 <Runner Size="32" Speed="7" />
 <Scientist Size="32" Speed="5" />
+<Signer Size="32" Speed="5" Text="STOP" />
 <Teacher Size="32" Speed="5" />
 <VibeCoder Size="32" Speed="4" />
 <Waiting Size="32" Speed="5" />
@@ -50,7 +51,7 @@ Color follows `currentColor` — set CSS `color` on a parent.
 `Size` sets the rendered **height** in pixels. The rendered width is derived
 from each figure's viewBox aspect, so wider figures (Cloner, Teacher,
 Scientist, Locksmith, Coder, VibeCoder, Runner, JackSparrow, Investigator,
-Cleaner, Mailer, Moper, Waiting) keep correct proportions instead of being squashed into a square.
+Cleaner, Mailer, Moper, Signer, Waiting) keep correct proportions instead of being squashed into a square.
 Square figures (Celebrator, Chef) render at `Size × Size`. Reserve a
 slightly wider slot for non-square figures, or constrain via CSS on the
 parent if you need a fixed bounding box.
@@ -73,6 +74,7 @@ parent if you need a fixed bounding box.
 | `Moper`        | `Size`, `Speed` (1–10)                      |
 | `Runner`       | `Size`, `Speed` (1–10)                      |
 | `Scientist`    | `Size`, `Speed` (1–10)                      |
+| `Signer`       | `Size`, `Speed` (1–10), `Text`              |
 | `Teacher`      | `Size`, `Speed` (1–10)                      |
 | `VibeCoder`    | `Size`, `Speed` (1–10)                      |
 | `Waiting`      | `Size`, `Speed` (1–10)                      |

@@ -34,6 +34,13 @@ else
                 <input type="text" maxlength="6" @bind:event="oninput" @bind="text" />
             </label>
         }
+        else if (figure.Name == "Signer")
+        {
+            <label class="text">
+                Text
+                <input type="text" maxlength="8" @bind:event="oninput" @bind="text" />
+            </label>
+        }
     </FigureControls>
 
     <section class="detail-stage" style="color: @color;">
@@ -56,8 +63,12 @@ else
     private int speed = 5;
     private string color = "#1a1a1a";
     private string text = "M3";
+    private string? lastNameForText;
 
     private string ThemeDefaultColor => Theme == "dark" ? "#e5e7eb" : "#1a1a1a";
+
+    private static string DefaultText(string? name) =>
+        string.Equals(name, "Signer", StringComparison.OrdinalIgnoreCase) ? "STOP" : "M3";
 
     protected override void OnParametersSet()
     {
@@ -66,6 +77,12 @@ else
         color = !string.IsNullOrEmpty(C)
             ? (C.StartsWith('#') ? C : "#" + C)
             : ThemeDefaultColor;
+
+        if (Name != lastNameForText)
+        {
+            text = DefaultText(Name);
+            lastNameForText = Name;
+        }
     }
 
     private string HomeUrl =>
@@ -84,7 +101,7 @@ else
 
     private void HandleReset()
     {
-        text = "M3";
+        text = DefaultText(Name);
         var url = Nav.GetUriWithQueryParameters(new Dictionary<string, object?>
         {
             ["s"] = null,

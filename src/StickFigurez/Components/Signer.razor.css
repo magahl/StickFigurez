@@ -1,0 +1,12 @@
+/* Signer — gentle sway of the held sign around the hand pivot */
+
+.sign {
+    will-change: transform;
+    transform-origin: 9px 9px;
+    animation: sign-sway var(--sign-duration, 2.4s) ease-in-out infinite;
+}
+
+@keyframes sign-sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50%      { transform: rotate(3deg); }
+}
