@@ -1,0 +1,107 @@
+@using System.Globalization
+
+@* Front view, centered at x=11. Head r=2.5 cy=4. Torso 7.5 (6.5→14). Legs 6 (14→20).
+   Snap arm raised above head: upper arm shoulder→elbow above shoulder, forearm bent
+   inward so the hand sits just above the head. Fingers flick (snap), then the figure
+   disintegrates Thanos-style: fades, drifts up, blurs; dust particles rise and fade. *@
+<svg class="snapper-svg"
+     width="@Width"
+     height="@Size"
+     viewBox="0 0 22 24"
+     overflow="visible"
+     style="--snap-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-linecap="round"
+     fill="none">
+
+    @* Stickman — vanishes during snap *@
+    <g class="figure">
+        @* Head *@
+        <circle cx="11" cy="4" r="2.5" fill="currentColor" stroke="none"/>
+
+        @* Torso *@
+        <line x1="11" y1="6.5" x2="11" y2="14" stroke-width="2"/>
+
+        @* Legs *@
+        <line x1="11" y1="14" x2="8.5" y2="20" stroke-width="2"/>
+        <line x1="11" y1="14" x2="13.5" y2="20" stroke-width="2"/>
+
+        @* Off-arm — figure's right (viewer's left), hangs at side *@
+        <line x1="11" y1="7.5" x2="9" y2="11" stroke-width="2"/>
+        <line x1="9" y1="11" x2="8.5" y2="13.5" stroke-width="2"/>
+
+        @* Snap arm — figure's left (viewer's right). 90° at shoulder (upper arm
+           horizontal, perpendicular to torso) and 90° at elbow (forearm vertical),
+           so the hand sits level with the face. Fingers flick at the wrist on snap. *@
+        <line x1="11" y1="7.5" x2="14.5" y2="7.5" stroke-width="2"/>
+        <line x1="14.5" y1="7.5" x2="16" y2="4" stroke-width="2"/>
+        <g class="snap-hand">
+            @* Thumb + middle finger pinched together, hand at (16, 4) *@
+            <line x1="16" y1="4" x2="15.4" y2="3.4" stroke-width="1.2"/>
+            <line x1="16" y1="4" x2="15.4" y2="4.7" stroke-width="1.2"/>
+        </g>
+    </g>
+
+    @* Snap spark — pulses at the hand at the moment of the snap *@
+    <g class="spark">
+        <circle cx="16" cy="4" r="0.6" fill="currentColor" stroke="none"/>
+    </g>
+
+    @* Dust — particles scattered over the figure, rise and fade after the snap *@
+    <g class="dust" fill="currentColor" stroke="none">
+        @* Head *@
+        <circle cx="11"   cy="2.5"  r="0.32"/>
+        <circle cx="10"   cy="3.5"  r="0.28"/>
+        <circle cx="12"   cy="3.2"  r="0.30"/>
+        <circle cx="9.5"  cy="4.5"  r="0.26"/>
+        <circle cx="12.5" cy="4.8"  r="0.30"/>
+        <circle cx="11"   cy="5.8"  r="0.28"/>
+        @* Torso upper *@
+        <circle cx="11"   cy="7"    r="0.30"/>
+        <circle cx="10.3" cy="8"    r="0.26"/>
+        <circle cx="11.7" cy="8.5"  r="0.30"/>
+        <circle cx="10.5" cy="9.5"  r="0.28"/>
+        <circle cx="11.5" cy="10"   r="0.30"/>
+        @* Torso mid *@
+        <circle cx="11"   cy="11"   r="0.32"/>
+        <circle cx="10.4" cy="11.8" r="0.26"/>
+        <circle cx="11.6" cy="12.3" r="0.30"/>
+        <circle cx="11"   cy="13"   r="0.28"/>
+        @* Off-arm trail (left side, viewer's left) *@
+        <circle cx="9.5"  cy="9.5"  r="0.26"/>
+        <circle cx="9"    cy="11"   r="0.30"/>
+        <circle cx="8.7"  cy="12.3" r="0.26"/>
+        <circle cx="8.5"  cy="13.5" r="0.28"/>
+        @* Snap-arm trail (right side, viewer's right) *@
+        <circle cx="12.5" cy="7.2"  r="0.28"/>
+        <circle cx="13.5" cy="7.5"  r="0.30"/>
+        <circle cx="14.5" cy="6.5"  r="0.26"/>
+        <circle cx="15.5" cy="5"    r="0.28"/>
+        <circle cx="15.8" cy="3.5"  r="0.26"/>
+        @* Hips *@
+        <circle cx="10.5" cy="14"   r="0.30"/>
+        <circle cx="11.5" cy="14.2" r="0.28"/>
+        @* Legs *@
+        <circle cx="10"   cy="15.5" r="0.28"/>
+        <circle cx="12"   cy="15.8" r="0.30"/>
+        <circle cx="9.5"  cy="17"   r="0.26"/>
+        <circle cx="12.5" cy="17"   r="0.28"/>
+        <circle cx="9"    cy="18.5" r="0.30"/>
+        <circle cx="13"   cy="18.5" r="0.26"/>
+        <circle cx="8.7"  cy="19.7" r="0.28"/>
+        <circle cx="13.3" cy="19.7" r="0.30"/>
+    </g>
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 32;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int Clamped => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(4.4 - (Clamped - 1) * 0.3).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 22.0 / 24.0);
+}

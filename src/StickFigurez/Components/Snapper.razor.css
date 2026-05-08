@@ -1,0 +1,88 @@
+/* Snapper — stickman snaps fingers, then disintegrates Thanos-style:
+   the figure fades, drifts up, and blurs while dust particles rise and dissipate.
+   Cycle reverses at the end so the figure respawns and snaps again. */
+
+.figure {
+    animation: snap-vanish var(--snap-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes snap-vanish {
+    0%, 32%   { opacity: 1; transform: translateY(0); filter: none; }
+    38%       { opacity: 1; transform: translateY(-0.3px); filter: blur(0.2px); }
+    58%, 88%  { opacity: 0; transform: translateY(-3px); filter: blur(0.8px); }
+    100%      { opacity: 1; transform: translateY(0); filter: none; }
+}
+
+.snap-hand {
+    transform-origin: 16px 4px;
+    animation: snap-flick var(--snap-duration, 4s) ease-in-out infinite;
+}
+
+@keyframes snap-flick {
+    0%, 28%   { transform: rotate(0); }
+    32%       { transform: rotate(-35deg); }
+    36%       { transform: rotate(25deg); }
+    42%, 100% { transform: rotate(0); }
+}
+
+.spark {
+    transform-origin: 16px 4px;
+    opacity: 0;
+    animation: snap-spark var(--snap-duration, 4s) ease-out infinite;
+}
+
+@keyframes snap-spark {
+    0%, 33%   { opacity: 0; transform: scale(0.4); }
+    36%       { opacity: 1; transform: scale(1.8); }
+    44%       { opacity: 0; transform: scale(2.4); }
+    100%      { opacity: 0; transform: scale(0.4); }
+}
+
+.dust circle {
+    opacity: 0;
+    animation: dust-rise var(--snap-duration, 4s) ease-out infinite;
+}
+
+@keyframes dust-rise {
+    0%, 36%   { opacity: 0; transform: translate(0, 0); }
+    44%       { opacity: 0.9; }
+    62%       { opacity: 0; transform: translate(var(--dx, 0px), var(--dy, -6px)); }
+    100%      { opacity: 0; transform: translate(0, 0); }
+}
+
+/* Per-particle drift (--dx horizontal, --dy vertical) + stagger.
+   Drift directions are scattered: up, down, left, right, diagonal. */
+.dust circle:nth-child(1)  { --dx:  0.5px; --dy: -5.0px; animation-delay: 0.02s; }
+.dust circle:nth-child(2)  { --dx: -2.2px; --dy: -3.5px; animation-delay: 0.05s; }
+.dust circle:nth-child(3)  { --dx:  2.8px; --dy:  1.5px; animation-delay: 0.00s; }
+.dust circle:nth-child(4)  { --dx: -0.4px; --dy:  4.0px; animation-delay: 0.08s; }
+.dust circle:nth-child(5)  { --dx:  3.2px; --dy: -2.0px; animation-delay: 0.04s; }
+.dust circle:nth-child(6)  { --dx: -3.0px; --dy:  2.5px; animation-delay: 0.10s; }
+.dust circle:nth-child(7)  { --dx:  1.0px; --dy: -6.0px; animation-delay: 0.06s; }
+.dust circle:nth-child(8)  { --dx: -0.7px; --dy:  3.0px; animation-delay: 0.00s; }
+.dust circle:nth-child(9)  { --dx: -3.5px; --dy: -1.5px; animation-delay: 0.12s; }
+.dust circle:nth-child(10) { --dx:  3.6px; --dy: -3.0px; animation-delay: 0.07s; }
+.dust circle:nth-child(11) { --dx: -0.6px; --dy: -5.5px; animation-delay: 0.03s; }
+.dust circle:nth-child(12) { --dx:  2.2px; --dy:  3.5px; animation-delay: 0.11s; }
+.dust circle:nth-child(13) { --dx:  1.3px; --dy: -4.5px; animation-delay: 0.09s; }
+.dust circle:nth-child(14) { --dx: -2.4px; --dy:  0.5px; animation-delay: 0.05s; }
+.dust circle:nth-child(15) { --dx: -0.9px; --dy:  4.5px; animation-delay: 0.13s; }
+.dust circle:nth-child(16) { --dx: -3.4px; --dy: -2.5px; animation-delay: 0.06s; }
+.dust circle:nth-child(17) { --dx:  3.0px; --dy:  2.0px; animation-delay: 0.14s; }
+.dust circle:nth-child(18) { --dx: -1.7px; --dy: -3.5px; animation-delay: 0.04s; }
+.dust circle:nth-child(19) { --dx: -2.8px; --dy:  3.0px; animation-delay: 0.10s; }
+.dust circle:nth-child(20) { --dx:  0.6px; --dy: -6.5px; animation-delay: 0.07s; }
+.dust circle:nth-child(21) { --dx:  3.1px; --dy: -1.0px; animation-delay: 0.02s; }
+.dust circle:nth-child(22) { --dx:  4.0px; --dy:  1.0px; animation-delay: 0.13s; }
+.dust circle:nth-child(23) { --dx:  4.5px; --dy: -3.5px; animation-delay: 0.05s; }
+.dust circle:nth-child(24) { --dx:  4.2px; --dy: -5.5px; animation-delay: 0.09s; }
+.dust circle:nth-child(25) { --dx: -1.5px; --dy:  4.5px; animation-delay: 0.11s; }
+.dust circle:nth-child(26) { --dx:  2.0px; --dy:  3.5px; animation-delay: 0.03s; }
+.dust circle:nth-child(27) { --dx: -3.6px; --dy: -1.0px; animation-delay: 0.08s; }
+.dust circle:nth-child(28) { --dx:  3.4px; --dy:  2.5px; animation-delay: 0.12s; }
+.dust circle:nth-child(29) { --dx: -2.7px; --dy:  3.5px; animation-delay: 0.06s; }
+.dust circle:nth-child(30) { --dx:  3.0px; --dy:  4.0px; animation-delay: 0.14s; }
+.dust circle:nth-child(31) { --dx: -3.2px; --dy:  4.5px; animation-delay: 0.04s; }
+.dust circle:nth-child(32) { --dx:  3.8px; --dy:  3.0px; animation-delay: 0.10s; }
+.dust circle:nth-child(33) { --dx: -4.0px; --dy:  3.0px; animation-delay: 0.07s; }
+.dust circle:nth-child(34) { --dx:  4.4px; --dy:  4.0px; animation-delay: 0.13s; }
