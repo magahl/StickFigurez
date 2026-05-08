@@ -38,6 +38,19 @@
     100%      { opacity: 0; transform: scale(0.4); }
 }
 
+.snap-burst {
+    transform-origin: 16px 4px;
+    opacity: 0;
+    animation: snap-burst var(--snap-duration, 4s) ease-out infinite;
+}
+
+@keyframes snap-burst {
+    0%, 33%   { opacity: 0; transform: scale(0.2); }
+    36%       { opacity: 1; transform: scale(1); }
+    44%       { opacity: 0; transform: scale(1.7); }
+    100%      { opacity: 0; transform: scale(0.2); }
+}
+
 .dust circle {
     opacity: 0;
     animation: dust-rise var(--snap-duration, 4s) ease-out infinite;
