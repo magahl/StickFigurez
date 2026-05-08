@@ -50,19 +50,19 @@
 }
 
 @keyframes cleaner-shin-l {
-    0%   { transform: translate(0px, 4.5px) rotate(8deg); }
-    25%  { transform: translate(0px, 4.5px) rotate(45deg); }
-    50%  { transform: translate(0px, 4.5px) rotate(2deg); }
-    75%  { transform: translate(0px, 4.5px) rotate(6deg); }
-    100% { transform: translate(0px, 4.5px) rotate(8deg); }
+    0%   { transform: translate(0px, 3px) rotate(8deg); }
+    25%  { transform: translate(0px, 3px) rotate(45deg); }
+    50%  { transform: translate(0px, 3px) rotate(2deg); }
+    75%  { transform: translate(0px, 3px) rotate(6deg); }
+    100% { transform: translate(0px, 3px) rotate(8deg); }
 }
 
 @keyframes cleaner-shin-r {
-    0%   { transform: translate(0px, 4.5px) rotate(2deg); }
-    25%  { transform: translate(0px, 4.5px) rotate(6deg); }
-    50%  { transform: translate(0px, 4.5px) rotate(8deg); }
-    75%  { transform: translate(0px, 4.5px) rotate(45deg); }
-    100% { transform: translate(0px, 4.5px) rotate(2deg); }
+    0%   { transform: translate(0px, 3px) rotate(2deg); }
+    25%  { transform: translate(0px, 3px) rotate(6deg); }
+    50%  { transform: translate(0px, 3px) rotate(8deg); }
+    75%  { transform: translate(0px, 3px) rotate(45deg); }
+    100% { transform: translate(0px, 3px) rotate(2deg); }
 }
 
 /* Front arm — Runner-style swing, opposite phase to R leg.
@@ -88,7 +88,7 @@
 
 .cleaner-wheel {
     will-change: transform;
-    transform-origin: 20px 23.5px;
+    transform-origin: 20px 22px;
     animation: cleaner-spin var(--cleaner-duration, 3s) linear infinite;
 }
 

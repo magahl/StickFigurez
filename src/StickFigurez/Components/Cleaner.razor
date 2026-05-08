@@ -3,7 +3,7 @@
 <svg class="cleaner-svg"
      width="@Width"
      height="@Size"
-     viewBox="0 0 20 26"
+     viewBox="0 0 20 24"
      overflow="visible"
      style="--cleaner-duration: @CycleDuration;"
      xmlns="http://www.w3.org/2000/svg"
@@ -18,18 +18,18 @@
         @* Wheelie bin — tilted, top toward figure, wheel at far side *@
         <g class="cleaner-bin">
             @* Bin body outline (tilted parallelogram) *@
-            <path d="M 24 12 L 19 10 L 15 22 L 20 24 Z" stroke-width="1.6"/>
+            <path d="M 24 10.5 L 19 8.5 L 15 20.5 L 20 22.5 Z" stroke-width="1.6"/>
             @* Lid — slight overhang past bin top *@
-            <line x1="18.5" y1="9.4" x2="24.6" y2="11.85" stroke-width="1.4"/>
-            <line x1="18.5" y1="9.4" x2="19" y2="10" stroke-width="1.2"/>
-            <line x1="24.6" y1="11.85" x2="24" y2="12" stroke-width="1.2"/>
+            <line x1="18.5" y1="7.9" x2="24.6" y2="10.35" stroke-width="1.4"/>
+            <line x1="18.5" y1="7.9" x2="19" y2="8.5" stroke-width="1.2"/>
+            <line x1="24.6" y1="10.35" x2="24" y2="10.5" stroke-width="1.2"/>
             @* Handle grip protruding toward figure *@
-            <line x1="24" y1="12" x2="25" y2="12.5" stroke-width="1.4"/>
+            <line x1="24" y1="10.5" x2="25" y2="11" stroke-width="1.4"/>
             @* Wheel — at bottom-near corner *@
             <g class="cleaner-wheel">
-                <circle cx="20" cy="23.5" r="1.8" stroke-width="1.2"/>
-                <line x1="20" y1="21.7" x2="20" y2="25.3" stroke-width="0.6"/>
-                <line x1="18.2" y1="23.5" x2="21.8" y2="23.5" stroke-width="0.6"/>
+                <circle cx="20" cy="22" r="1.8" stroke-width="1.2"/>
+                <line x1="20" y1="20.2" x2="20" y2="23.8" stroke-width="0.6"/>
+                <line x1="18.2" y1="22" x2="21.8" y2="22" stroke-width="0.6"/>
             </g>
         </g>
 
@@ -50,22 +50,22 @@
         </g>
 
         @* Back arm — gripping handle *@
-        <line x1="27" y1="8" x2="24" y2="12" stroke-width="1.6"/>
+        <line x1="27" y1="8" x2="24" y2="10.5" stroke-width="1.6"/>
 
         @* Legs — Runner-style: vertical unit lines positioned via translate+rotate.
            Both legs hip at (26, 16); symmetric ±25° absolute swing from vertical. *@
         <g class="cleaner-leg-l">
-            <line x1="0" y1="0" x2="0" y2="4.5" stroke-width="1.6"/>
+            <line x1="0" y1="0" x2="0" y2="3" stroke-width="1.6"/>
             <g class="cleaner-shin-l">
-                <line x1="0" y1="0" x2="0" y2="4.5" stroke-width="1.6"/>
-                <line x1="0" y1="4.5" x2="1.5" y2="4.5" stroke-width="1.5"/>
+                <line x1="0" y1="0" x2="0" y2="3" stroke-width="1.6"/>
+                <line x1="0" y1="3" x2="1.2" y2="3" stroke-width="1.5"/>
             </g>
         </g>
         <g class="cleaner-leg-r">
-            <line x1="0" y1="0" x2="0" y2="4.5" stroke-width="1.6"/>
+            <line x1="0" y1="0" x2="0" y2="3" stroke-width="1.6"/>
             <g class="cleaner-shin-r">
-                <line x1="0" y1="0" x2="0" y2="4.5" stroke-width="1.6"/>
-                <line x1="0" y1="4.5" x2="1.5" y2="4.5" stroke-width="1.5"/>
+                <line x1="0" y1="0" x2="0" y2="3" stroke-width="1.6"/>
+                <line x1="0" y1="3" x2="1.2" y2="3" stroke-width="1.5"/>
             </g>
         </g>
 
@@ -83,5 +83,5 @@
     private string CycleDuration =>
         $"{(2.2 - (ClampedSpeed - 1) * 0.18).ToString("F2", CultureInfo.InvariantCulture)}s";
 
-    private int Width => (int)(Size * 20.0 / 26.0);
+    private int Width => (int)(Size * 20.0 / 24.0);
 }
