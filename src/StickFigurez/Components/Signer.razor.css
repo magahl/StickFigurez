@@ -1,12 +1,14 @@
-/* Signer — gentle sway of the held sign around the hand pivot */
+/* Signer — sign flips front-to-back 90° around the hand. Starts tilted away
+   (scaleY(0.18) — flat ellipse, still visible), opens to face-up (scaleY(1)). */
 
 .sign {
     will-change: transform;
     transform-origin: 9px 9px;
-    animation: sign-sway var(--sign-duration, 2.4s) ease-in-out infinite;
+    animation: sign-flip var(--sign-duration, 2.4s) ease-in-out infinite;
 }
 
-@keyframes sign-sway {
-    0%, 100% { transform: rotate(-3deg); }
-    50%      { transform: rotate(3deg); }
+@keyframes sign-flip {
+    0%, 12%   { transform: scaleY(0.18); }
+    38%, 72%  { transform: scaleY(1); }
+    98%, 100% { transform: scaleY(0.18); }
 }
