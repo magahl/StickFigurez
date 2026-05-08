@@ -1,14 +1,27 @@
-/* Signer — sign flips front-to-back 90° around the hand. Starts tilted away
-   (scaleY(0.18) — flat ellipse, still visible), opens to face-up (scaleY(1)). */
+/* Signer — sign-arm rotates around the shoulder so the arm follows the sign
+   as it rises. The sign group counter-rotates so the disc and text stay upright,
+   and overlays a scaleY animation for the front-to-back flip. */
+
+.arm-sign {
+    will-change: transform;
+    transform-origin: 6px 9.5px;
+    animation: arm-raise var(--sign-duration, 2.4s) ease-in-out infinite;
+}
+
+@keyframes arm-raise {
+    0%, 12%   { transform: rotate(8deg); }
+    38%, 72%  { transform: rotate(-8deg); }
+    98%, 100% { transform: rotate(8deg); }
+}
 
 .sign {
     will-change: transform;
-    transform-origin: 9px 9px;
+    transform-origin: 10.5px 12px;
     animation: sign-flip var(--sign-duration, 2.4s) ease-in-out infinite;
 }
 
 @keyframes sign-flip {
-    0%, 12%   { transform: scaleY(0.18); }
-    38%, 72%  { transform: scaleY(1); }
-    98%, 100% { transform: scaleY(0.18); }
+    0%, 12%   { transform: rotate(-8deg) scaleY(0.18); }
+    38%, 72%  { transform: rotate(8deg) scaleY(1); }
+    98%, 100% { transform: rotate(-8deg) scaleY(0.18); }
 }
