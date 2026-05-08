@@ -3,7 +3,7 @@
 <svg class="cloner-svg"
      width="@Width"
      height="@Size"
-     viewBox="0 0 44 24"
+     viewBox="0 0 30 24"
      style="--clone-duration: @CycleDuration;"
      xmlns="http://www.w3.org/2000/svg"
      stroke="currentColor"
@@ -11,7 +11,7 @@
      stroke-linecap="round">
 
     @* Original stickman: sm-crouch squishes from the feet; sm-shake trembles laterally *@
-    <g transform="translate(13, 0)">
+    <g transform="translate(7, 0)">
         <g class="sm-crouch">
             <g class="sm-shake">
                 <circle cx="0" cy="4.5" r="2.5" fill="currentColor" stroke="none" />
@@ -46,5 +46,5 @@
     private string CycleDuration =>
         $"{(7.0 - (Clamped - 1) * 0.5).ToString("F2", CultureInfo.InvariantCulture)}s";
 
-    private int Width => (int)(Size * 44.0 / 24.0);
+    private int Width => (int)(Size * 30.0 / 24.0);
 }

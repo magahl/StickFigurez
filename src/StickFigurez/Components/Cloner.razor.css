@@ -72,16 +72,16 @@
 
 @keyframes sm-clone-anim {
     /* Invisible, parked exactly at the original's position */
-    0%   { transform: translate(13px, 0px); opacity: 0; }
-    49%  { transform: translate(13px, 0px); opacity: 0; }
+    0%   { transform: translate(7px, 0px); opacity: 0; }
+    49%  { transform: translate(7px, 0px); opacity: 0; }
     /* Snap visible (overlapping the original), then burst right */
-    53%  { transform: translate(13px, 0px); opacity: 1; animation-timing-function: ease-out; }
+    53%  { transform: translate(7px, 0px); opacity: 1; animation-timing-function: ease-out; }
     /* Decelerate into standing position next to original */
-    68%  { transform: translate(24px, 0px); opacity: 1; }
+    68%  { transform: translate(18px, 0px); opacity: 1; }
     /* Stand together for a moment */
-    82%  { transform: translate(24px, 0px); opacity: 1; animation-timing-function: ease-in; }
+    82%  { transform: translate(18px, 0px); opacity: 1; animation-timing-function: ease-in; }
     /* Accelerate away and vanish */
-    92%  { transform: translate(30px, 0px); opacity: 0; }
+    92%  { transform: translate(24px, 0px); opacity: 0; }
     /* Teleport back to start while invisible */
-    100% { transform: translate(13px, 0px); opacity: 0; }
+    100% { transform: translate(7px, 0px); opacity: 0; }
 }
