@@ -1,0 +1,81 @@
+@using System.Globalization
+
+<svg class="crafter-svg"
+     width="@Width" height="@Size"
+     viewBox="0 0 32 24"
+     overflow="visible"
+     style="--crafter-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+    @* Anvil — clean filled silhouette: flat face left, curved horn right, sweeping body into base plinth.
+       Base bottom y=21 (same ground line as feet). *@
+    <path d="M 16 15 L 23 15 Q 26 15.5 27 16.5 Q 26 17.2 23 17 C 23 17.5 21.5 18 21.5 19 L 23 19 L 23 21 L 18 21 L 18 19 L 19.5 19 C 19.5 18 18 17.5 18 17 L 16 17 Z"
+          fill="currentColor" stroke="none"/>
+
+    @* Hot workpiece on anvil top face *@
+    <rect class="crafter-bar" x="18.5" y="14.4" width="4" height="0.6"
+          fill="currentColor" stroke="none"/>
+
+    @* Sparks — flash on impact *@
+    <g class="crafter-sparks" stroke="currentColor" fill="currentColor">
+        <line x1="20" y1="14.5" x2="22" y2="10.5" stroke-width="0.8"/>
+        <line x1="20" y1="14.5" x2="19.5" y2="10" stroke-width="0.8"/>
+        <line x1="20" y1="14.5" x2="17" y2="12" stroke-width="0.8"/>
+        <line x1="20" y1="14.5" x2="24" y2="11.5" stroke-width="0.8"/>
+        <line x1="20" y1="14.5" x2="25" y2="13.5" stroke-width="0.8"/>
+        <circle cx="22.5" cy="11" r="0.4" stroke="none"/>
+        <circle cx="18.5" cy="11.5" r="0.4" stroke="none"/>
+        <circle cx="24.5" cy="12.5" r="0.3" stroke="none"/>
+    </g>
+
+    @* Stickman body — facing right, feet at anvil-base ground line (y=21) *@
+    @* Proportions: head r=2 cy=5, torso ~6.5, legs ~7.5 (compressed; deviates from default 22-unit figure to balance with anvil mass). *@
+    <g class="crafter-body">
+        <circle cx="12" cy="5" r="2" fill="currentColor" stroke="none"/>
+        <line x1="12" y1="7" x2="13" y2="13.5" stroke-width="1.6"/>
+        @* Front leg with slight forward knee bend *@
+        <line x1="13" y1="13.5" x2="14" y2="17" stroke-width="1.6"/>
+        <line x1="14" y1="17" x2="14.5" y2="20.2" stroke-width="1.6"/>
+        @* Back leg with slight rear knee bend *@
+        <line x1="13" y1="13.5" x2="12" y2="17" stroke-width="1.6"/>
+        <line x1="12" y1="17" x2="11" y2="20.2" stroke-width="1.6"/>
+    </g>
+
+    @* Right arm + tongs gripping workpiece (static, forward toward anvil) *@
+    <g class="crafter-tong-arm">
+        <line x1="12.3" y1="8" x2="15" y2="10" stroke-width="1.6"/>
+        <line x1="15" y1="10" x2="17" y2="12.5" stroke-width="1.6"/>
+        <line x1="17" y1="12.5" x2="18.5" y2="14.1" stroke-width="1.1"/>
+        <line x1="17" y1="12.5" x2="18.5" y2="14.7" stroke-width="1.1"/>
+        <circle cx="17" cy="12.5" r="0.4" fill="currentColor" stroke="none"/>
+    </g>
+
+    @* Left arm + hammer — rotates around shoulder (12.5, 7.5).
+       Elbow leads forward-up, forearm folds back, hammer handle inline with forearm. *@
+    <g class="crafter-hammer-arm">
+        <line x1="12.5" y1="7.5" x2="13.7" y2="3" stroke-width="1.6"/>
+        <line x1="13.7" y1="3" x2="12" y2="0.5" stroke-width="1.6"/>
+        <line x1="12" y1="0.5" x2="9.78" y2="-2.74" stroke-width="0.9"/>
+        <g transform="translate(9.78 -2.74) rotate(-34)">
+            <rect x="-1.6" y="-0.8" width="3.2" height="1.6"
+                  fill="currentColor" stroke="none"/>
+        </g>
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int Clamped => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(1.6 - (Clamped - 1) * 0.1).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 32.0 / 24.0);
+}
