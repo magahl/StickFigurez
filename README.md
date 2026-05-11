@@ -37,6 +37,7 @@ In a page or component:
 <Lover Size="32" Text="❤" />
 <Mailer Size="32" Speed="5" />
 <Moper Size="32" Speed="4" />
+<Printer Size="32" Speed="5" />
 <Runner Size="32" Speed="7" />
 <Scientist Size="32" Speed="5" />
 <Signer Size="32" Speed="5" Text="STOP" />

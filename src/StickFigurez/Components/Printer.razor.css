@@ -1,0 +1,32 @@
+/* Forearm pivots at elbow (17.32, 10.25). +50° continues the static upper-arm
+   so the limb reads straight while reaching down-left to the tray; −90° bends
+   the elbow so the forearm swings out horizontally, sweeping the hand up-and-
+   right in a natural pickup arc rather than a straight vertical lift. */
+.printer-forearm {
+    will-change: transform;
+    animation: printer-forearm var(--printer-duration, 2.0s) ease-in-out infinite;
+}
+
+@keyframes printer-forearm {
+    0%, 25%   { transform: translate(17.32px, 10.25px) rotate(50deg); }
+    50%, 65%  { transform: translate(17.32px, 10.25px) rotate(-90deg); }
+    90%, 100% { transform: translate(17.32px, 10.25px) rotate(50deg); }
+}
+
+/* Held sheet tracks the hand: (14.64, 12.5) at the tray, (20.82, 10.25) when
+   lifted horizontally at chest level. Paper rect is offset to extend leftward
+   from the hand so the right edge stops short of the torso (x=20). */
+.printer-held-paper {
+    will-change: transform, opacity;
+    opacity: 0;
+    animation: printer-paper var(--printer-duration, 2.0s) ease-in-out infinite;
+}
+
+@keyframes printer-paper {
+    0%, 22%   { opacity: 0; transform: translate(14.64px, 12.5px); }
+    27%       { opacity: 1; transform: translate(14.64px, 12.5px); }
+    50%       { opacity: 1; transform: translate(20.82px, 10.25px); }
+    63%       { opacity: 1; transform: translate(20.82px, 10.25px); }
+    68%       { opacity: 0; transform: translate(20.82px, 10.25px); }
+    90%, 100% { opacity: 0; transform: translate(14.64px, 12.5px); }
+}
