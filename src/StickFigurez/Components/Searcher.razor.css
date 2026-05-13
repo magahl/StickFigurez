@@ -1,0 +1,219 @@
+/* Searcher — bend (80°), press hand at rock's left-side edge, struggle
+   through small wobbles, heave it ~70° onto its side, peer at the exposed
+   ground, rock falls back, stand, slow low shrug.
+
+   Geometry refs (world coords):
+     hip pivot           (11, 13.5)
+     standing shoulder   (11, 8)
+     bent shoulder R=80° (16.42, 12.55)
+     bent head   R=80°   (20.36, 11.85)
+     rock pivot          (27, 21)
+     hand reach pose     (18.5, 19)   — left side edge of rock, mid-height
+     hand press pose     (18.5, 18)   — slight lift along the same edge
+
+   Phase timeline (one cycle):
+     0–3%    standing neutral
+     3–15%   bend forward (R: 0→80°); arm-l settles to passive hang;
+             arm-r begins reaching
+     15–22%  right hand arrives at rock's left edge (reach pose)
+     22–28%  small initial wobble — rock 5°, slips to 1°
+     28–38%  bigger push — rock 15°, slips to 8°
+     38–46%  major heave — rock to 40°
+     46–52%  rock topples over to 70° (on its side)
+     52–58%  hold tilted; head bobbles peering at the exposed ground;
+             right arm retracts to passive hang
+     58–64%  rock falls back: 70° → 30° → 5° → 0°
+     64–70%  straighten up (R: 80°→0°)
+     70–76%  hold neutral
+     76–82%  raise arms into shrug
+     82–94%  hold shrug — slow, long hold by design (~12% = 0.6s @ 5s)
+     94–100% lower arms back to neutral
+
+   Angle convention (CSS rotate, SVG y-down): 0° = pointing down; positive
+   rotates clockwise on screen. */
+
+.searcher-upper {
+    will-change: transform;
+    transform-origin: 11px 13.5px;
+    animation: searcher-bend var(--searcher-duration, 5s) ease-in-out infinite;
+}
+
+@keyframes searcher-bend {
+    0%, 3%   { transform: rotate(0deg); }
+    15%      { transform: rotate(80deg); }
+    64%      { transform: rotate(80deg); }
+    70%      { transform: rotate(0deg); }
+    100%     { transform: rotate(0deg); }
+}
+
+/* Head bobble while peering at the exposed ground under the tilted rock. */
+.searcher-head {
+    will-change: transform;
+    transform-origin: 11px 4px;
+    animation: searcher-head var(--searcher-duration, 5s) ease-in-out infinite;
+}
+
+@keyframes searcher-head {
+    0%, 50%  { transform: translate(0px, 0px) rotate(0deg); }
+    53%      { transform: translate(0.4px, 0.5px) rotate(7deg); }
+    55%      { transform: translate(-0.3px, 0.6px) rotate(-4deg); }
+    57%      { transform: translate(0.5px, 0.4px) rotate(6deg); }
+    60%      { transform: translate(0px, 0px) rotate(0deg); }
+    100%     { transform: translate(0px, 0px) rotate(0deg); }
+}
+
+/* Rock — wobble + tilt up to ~70° CW around its right-bottom corner (27, 21). */
+.searcher-rock {
+    will-change: transform;
+    transform-origin: 27px 21px;
+    animation: searcher-rock var(--searcher-duration, 5s) ease-in-out infinite;
+}
+
+@keyframes searcher-rock {
+    0%, 22%  { transform: rotate(0deg); }
+    25%      { transform: rotate(5deg); }
+    28%      { transform: rotate(1deg); }
+    33%      { transform: rotate(15deg); }
+    38%      { transform: rotate(8deg); }
+    42%      { transform: rotate(28deg); }
+    46%      { transform: rotate(40deg); }
+    50%      { transform: rotate(70deg); }
+    58%      { transform: rotate(70deg); }
+    61%      { transform: rotate(30deg); }
+    63%      { transform: rotate(5deg); }
+    65%      { transform: rotate(0deg); }
+    100%     { transform: rotate(0deg); }
+}
+
+/* Legs — knee positions morph between the standing splay and the bent
+   knees-toward-rock pose. Path d animates between same-structure paths
+   (M + L + L) so each coordinate interpolates smoothly. */
+.searcher-leg-l {
+    animation: searcher-leg-l var(--searcher-duration, 5s) ease-in-out infinite;
+}
+@keyframes searcher-leg-l {
+    0%, 3%   { d: path("M 11 14 L 10 17.5 L 9 21"); }
+    15%      { d: path("M 11 14 L 11 17.5 L 9 21"); }
+    64%      { d: path("M 11 14 L 11 17.5 L 9 21"); }
+    70%      { d: path("M 11 14 L 10 17.5 L 9 21"); }
+    100%     { d: path("M 11 14 L 10 17.5 L 9 21"); }
+}
+
+.searcher-leg-r {
+    animation: searcher-leg-r var(--searcher-duration, 5s) ease-in-out infinite;
+}
+@keyframes searcher-leg-r {
+    0%, 3%   { d: path("M 11 14 L 12 17.5 L 13 21"); }
+    15%      { d: path("M 11 14 L 13 17.5 L 13 21"); }
+    64%      { d: path("M 11 14 L 13 17.5 L 13 21"); }
+    70%      { d: path("M 11 14 L 12 17.5 L 13 21"); }
+    100%     { d: path("M 11 14 L 12 17.5 L 13 21"); }
+}
+
+/* Impact splash — invisible until the rock lands at 65%, then briefly
+   appears and expands outward from the impact corner (19, 21). */
+.searcher-splash {
+    will-change: opacity, transform;
+    transform-origin: 19px 21px;
+    opacity: 0;
+    animation: searcher-splash var(--searcher-duration, 5s) ease-out infinite;
+}
+
+@keyframes searcher-splash {
+    0%, 63%  { opacity: 0; transform: scale(0.3); }
+    65%      { opacity: 1; transform: scale(1); }
+    72%      { opacity: 0; transform: scale(1.6); }
+    100%     { opacity: 0; transform: scale(1.6); }
+}
+
+/* Screen-left arm: passive during the bent phase (hangs world-vertical from
+   the bent shoulder), joins both arms in the slow low shrug. */
+.searcher-arm-l-upper {
+    will-change: transform;
+    animation: searcher-arm-l-upper var(--searcher-duration, 5s) ease-in-out infinite;
+}
+@keyframes searcher-arm-l-upper {
+    0%, 3%   { transform: translate(11px, 8px) rotate(15deg); }
+    15%      { transform: translate(11px, 8px) rotate(-80deg); }
+    64%      { transform: translate(11px, 8px) rotate(-80deg); }
+    70%      { transform: translate(11px, 8px) rotate(15deg); }
+    76%      { transform: translate(11px, 8px) rotate(15deg); }
+    82%      { transform: translate(11px, 8px) rotate(76deg); }
+    94%      { transform: translate(11px, 8px) rotate(76deg); }
+    100%     { transform: translate(11px, 8px) rotate(15deg); }
+}
+
+.searcher-arm-l-fore {
+    will-change: transform;
+    animation: searcher-arm-l-fore var(--searcher-duration, 5s) ease-in-out infinite;
+}
+@keyframes searcher-arm-l-fore {
+    0%, 3%   { transform: translate(0px, 3.75px) rotate(10deg); }
+    15%      { transform: translate(0px, 3.75px) rotate(30deg); }
+    64%      { transform: translate(0px, 3.75px) rotate(30deg); }
+    70%      { transform: translate(0px, 3.75px) rotate(10deg); }
+    76%      { transform: translate(0px, 3.75px) rotate(10deg); }
+    82%      { transform: translate(0px, 3.75px) rotate(65deg); }
+    94%      { transform: translate(0px, 3.75px) rotate(65deg); }
+    100%     { transform: translate(0px, 3.75px) rotate(10deg); }
+}
+
+/* Screen-right arm: the active arm. Tracks a hold-point on the rock at
+   rock-local (18.5, 19) as the rock tilts around its pivot — so the hand
+   appears to stay gripped to the rock through the wobble + heave. Past
+   ~40° tilt the hold-point swings out of arm reach; the arm releases by
+   50% and retracts to passive while the rock topples to 70°.
+   IK poses (R=80°, shoulder world (16.42, 12.55), arms a=b=3.75):
+     reach   22% (rock 0°)  hold (18.5, 19.0)   → θ1=-73°  θ2=-51°
+     wobble  25% (rock 5°)  hold (18.71, 18.27) → θ1=-67°  θ2=-70°
+     slip    28% (rock 1°)  hold (18.51, 18.95) → θ1=-72°  θ2=-52°
+     push    33% (rock 15°) hold (19.31, 16.87) → θ1=-68°  θ2=-92°
+     slip    38% (rock 8°)  hold (18.86, 17.84) → θ1=-66°  θ2=-78°
+     heave   42% (rock 28°) hold (20.43, 15.24) → θ1=-86°  θ2=-100°
+     max     46% (rock 40°) hold (21.77, 14.00) → θ1=-113° θ2=-85°
+     release 50%             passive hang        → θ1=-80°  θ2=30° */
+.searcher-arm-r-upper {
+    will-change: transform;
+    animation: searcher-arm-r-upper var(--searcher-duration, 5s) ease-in-out infinite;
+}
+@keyframes searcher-arm-r-upper {
+    0%, 3%   { transform: translate(11px, 8px) rotate(-15deg); }
+    15%      { transform: translate(11px, 8px) rotate(-50deg); }
+    22%      { transform: translate(11px, 8px) rotate(-73deg); }
+    25%      { transform: translate(11px, 8px) rotate(-67deg); }
+    28%      { transform: translate(11px, 8px) rotate(-72deg); }
+    33%      { transform: translate(11px, 8px) rotate(-68deg); }
+    38%      { transform: translate(11px, 8px) rotate(-66deg); }
+    42%      { transform: translate(11px, 8px) rotate(-86deg); }
+    46%      { transform: translate(11px, 8px) rotate(-113deg); }
+    50%      { transform: translate(11px, 8px) rotate(-80deg); }
+    64%      { transform: translate(11px, 8px) rotate(-80deg); }
+    70%      { transform: translate(11px, 8px) rotate(-15deg); }
+    76%      { transform: translate(11px, 8px) rotate(-15deg); }
+    82%      { transform: translate(11px, 8px) rotate(-76deg); }
+    94%      { transform: translate(11px, 8px) rotate(-76deg); }
+    100%     { transform: translate(11px, 8px) rotate(-15deg); }
+}
+
+.searcher-arm-r-fore {
+    will-change: transform;
+    animation: searcher-arm-r-fore var(--searcher-duration, 5s) ease-in-out infinite;
+}
+@keyframes searcher-arm-r-fore {
+    0%, 3%   { transform: translate(0px, 3.75px) rotate(-10deg); }
+    15%      { transform: translate(0px, 3.75px) rotate(-30deg); }
+    22%      { transform: translate(0px, 3.75px) rotate(-51deg); }
+    25%      { transform: translate(0px, 3.75px) rotate(-70deg); }
+    28%      { transform: translate(0px, 3.75px) rotate(-52deg); }
+    33%      { transform: translate(0px, 3.75px) rotate(-92deg); }
+    38%      { transform: translate(0px, 3.75px) rotate(-78deg); }
+    42%      { transform: translate(0px, 3.75px) rotate(-100deg); }
+    46%      { transform: translate(0px, 3.75px) rotate(-85deg); }
+    50%      { transform: translate(0px, 3.75px) rotate(30deg); }
+    64%      { transform: translate(0px, 3.75px) rotate(30deg); }
+    70%      { transform: translate(0px, 3.75px) rotate(-10deg); }
+    76%      { transform: translate(0px, 3.75px) rotate(-10deg); }
+    82%      { transform: translate(0px, 3.75px) rotate(-65deg); }
+    94%      { transform: translate(0px, 3.75px) rotate(-65deg); }
+    100%     { transform: translate(0px, 3.75px) rotate(-10deg); }
+}

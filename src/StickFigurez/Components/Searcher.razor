@@ -1,0 +1,100 @@
+@using System.Globalization
+
+@* Stickman facing viewer. Bends forward to ~80° (light hunch), presses his
+   screen-right hand at the LEFT SIDE EDGE of a big rugged rock around its
+   mid-height, struggles through small wobbles then heaves it ~70° onto its
+   side, peers at the exposed ground, rock falls back, figure straightens
+   and shrugs slow & low. Loops.
+   Proportions: head r=2.5 cy=4; torso 6.5→14 (7.5); thigh 14→17.5,
+   shin 17.5→21 (knee kink); shoulder (11, 8); hip pivot (11, 13.5).
+   Upper-arm 3.75, forearm 3.75 (total 7.5 — bumped from 7).
+   Rock x=19–27, y=16.8–21.0, flat bottom at the same y as the figure's
+   feet; jagged polygon silhouette; pivot (27, 21). *@
+<svg class="searcher-svg"
+     width="@Width" height="@Size"
+     viewBox="0 0 29 22"
+     overflow="visible"
+     style="--searcher-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     fill="none">
+
+    @* Big rugged rock — 14-vertex jagged polygon. Tilts up to ~70° around
+       its right-bottom corner (27, 21). *@
+    <g class="searcher-rock">
+        <path d="M 19.0 21.0
+                 L 18.6 20.3 L 18.9 19.0 L 18.2 17.8
+                 L 19.5 17.5 L 20.7 16.9 L 21.9 17.4
+                 L 23.0 16.8 L 24.2 17.2 L 25.3 16.9
+                 L 26.0 17.9 L 26.5 18.8 L 26.8 19.9
+                 L 27.0 21.0 Z"
+              fill="currentColor" stroke="none"/>
+        @* Zigzag interior strokes hint at striations / facets. *@
+        <path d="M 19.8 19.2 L 21.0 18.7 L 22.3 19.1 L 23.7 18.7 L 25.2 19.0
+                 M 20.5 20.1 L 23.0 19.8 L 25.6 20.1"
+              stroke-width="0.35" opacity="0.4"/>
+    </g>
+
+    @* Impact splash — short radiating lines + dust specks at the rock's
+       left-bottom corner. Fires the moment the rock lands (~65%), fades
+       out as it expands. *@
+    <g class="searcher-splash" stroke="currentColor" fill="currentColor">
+        <line x1="19" y1="21" x2="17.0" y2="19.8" stroke-width="0.5"/>
+        <line x1="19" y1="21" x2="18.0" y2="19.2" stroke-width="0.5"/>
+        <line x1="19" y1="21" x2="19.0" y2="18.8" stroke-width="0.5"/>
+        <line x1="19" y1="21" x2="20.5" y2="19.5" stroke-width="0.5"/>
+        <line x1="19" y1="21" x2="16.5" y2="20.5" stroke-width="0.5"/>
+        <circle cx="17.5" cy="20.3" r="0.25" stroke="none"/>
+        <circle cx="18.5" cy="19.5" r="0.2"  stroke="none"/>
+        <circle cx="20.0" cy="20.0" r="0.25" stroke="none"/>
+    </g>
+
+    @* Legs — feet planted at (9, 21) and (13, 21); hips fixed at (11, 14).
+       Knee positions animate (path-d morph) between the default outward
+       splay (knees at x=10 / x=12) when standing and the bend-toward-rock
+       pose (knees at x=11 / x=13) during the bent phase. *@
+    <path class="searcher-leg-l" d="M 11 14 L 10 17.5 L 9 21" stroke-width="2"/>
+    <path class="searcher-leg-r" d="M 11 14 L 12 17.5 L 13 21" stroke-width="2"/>
+
+    @* Upper body — rotates around hip (11, 13.5). Rendered after the rock
+       so the figure stays visible if any silhouettes overlap. *@
+    <g class="searcher-upper">
+        <g class="searcher-head">
+            <circle cx="11" cy="4" r="2.5" fill="currentColor" stroke="none"/>
+        </g>
+        <line x1="11" y1="6.5" x2="11" y2="14" stroke-width="2"/>
+
+        @* Screen-left arm — passive during the bent phase, joins the shrug. *@
+        <g class="searcher-arm-l-upper">
+            <line x1="0" y1="0" x2="0" y2="3.75" stroke-width="2"/>
+            <g class="searcher-arm-l-fore">
+                <line x1="0" y1="0" x2="0" y2="3.75" stroke-width="2"/>
+            </g>
+        </g>
+
+        @* Screen-right arm — the active arm. Presses at rock left-side
+           edge around mid-height, lifts through the struggle, retracts
+           once the rock has toppled. *@
+        <g class="searcher-arm-r-upper">
+            <line x1="0" y1="0" x2="0" y2="3.75" stroke-width="2"/>
+            <g class="searcher-arm-r-fore">
+                <line x1="0" y1="0" x2="0" y2="3.75" stroke-width="2"/>
+            </g>
+        </g>
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int Clamped => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(5.0 - (Clamped - 1) * 0.32).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 29.0 / 22.0);
+}

@@ -48,11 +48,12 @@ Two conventions for new figure:
 3. **Off-origin rotations use translate–rotate–translate trick** (see `Locksmith.razor.css` `key-turn`, `Runner.razor` nested joint groups). SVG no `transform-origin` for inline `<g>` in older Safari; portable workaround.
 4. **`viewBox` start at `0 0`.** No non-zero origin (no `viewBox="2 0 …"`). Translate content with `<g transform="translate(…)">` instead — keeps render math obvious for consumers.
 5. **`Size` set rendered height; width track viewBox aspect.** `height="@Size"`, `width="@Width"` where `private int Width => (int)(Size * vbW / vbH);`. Square figure (vbW == vbH) can use `width="@Size" height="@Size"`. No `width="@Size" height="@Size"` for non-square viewBox — squashes content.
-6. **Body proportions stay consistent across figures** so grid/inline use look uniform. Use these defaults in SVG units (one figure ≈ 22 units tall standing):
+6. **Arms always have elbow joints; legs always have knee joints.** Split each limb into two segments meeting at the joint, even when the limb is static (use a slight kink at the joint so the bend is visible). Animated limbs nest the forearm/shin in its own `<g>` so it can pivot at the joint independent of the upper segment — see `Runner.razor` for the canonical two-link pattern.
+7. **Body proportions stay consistent across figures** so grid/inline use look uniform. Use these defaults in SVG units (one figure ≈ 22 units tall standing):
    - **Head:** `<circle r="2.5">`, center near `cy=4` (range 3.5–4.5). Head diameter = 5 ≈ 1/4 figure height. Sitting/compressed poses (e.g. `Coder`) may shrink to `r=1.8` — call out in comment if so.
    - **Torso:** ~7.5 units long. Head bottom (`cy + r`) connects to shoulder; shoulder→hip ≈ 7.5. Stroke-width `2`.
-   - **Arms:** ~6 units total length (single segment or upper+forearm summing to ~6). Stroke-width `2`. Shoulder anchor at torso top, ~1.5 units below head bottom.
-   - **Legs:** ~6 units long, hip→foot. Stroke-width `2`. Stance width ~4 units between feet.
+   - **Arms:** ~6 units total length, split upper+forearm (~3+3) meeting at an elbow. Stroke-width `2`. Shoulder anchor at torso top, ~1.5 units below head bottom.
+   - **Legs:** ~6 units long, hip→knee→foot, split thigh+shin (~3+3) meeting at a knee. Stroke-width `2`. Stance width ~4 units between feet.
    - **Total figure height:** ~22 units (head 5 + torso 7.5 + legs 6 + small overlap/ground). `viewBox` height 22–24 is normal; props/scenery (desks, podiums, banners) extend width but should not push total figure height past 24 unless figure is genuinely taller (e.g. `Mailer` carries a sack).
    New figure deviating from these = add `// Proportions: …` comment in the `.razor` explaining why.
 
