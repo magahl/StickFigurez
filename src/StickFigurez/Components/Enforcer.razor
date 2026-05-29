@@ -1,0 +1,82 @@
+@using System.Globalization
+
+@* Angry enforcer tapping a baseball bat into his open palm.
+   Bat is gripped in the screen-right fist and pivots at that grip point
+   (translate-rotate-translate trick) so the barrel taps the left hand.
+   Proportions: head r=2.5 cy=4; torso 6.5->14 (7.5); shoulder (15,7);
+   hip (15,14); thigh+shin 3.5+3.5 with knee; arms upper+fore ~3+3 with
+   elbow. Wide menacing stance, feet at x=11 and x=20. *@
+<svg class="enforcer-svg"
+     width="@Width" height="@Size"
+     viewBox="0 0 24 23"
+     overflow="visible"
+     style="--enforcer-duration: @CycleDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     fill="none">
+
+    @* Legs — modest stance, knee kink, oval feet *@
+    <path d="M 15 14 L 13.3 17.5 L 12.8 21" />
+    <path d="M 15 14 L 16.7 17.5 L 17.2 21" />
+    <ellipse cx="12.1" cy="21.2" rx="1.3" ry="0.7" fill="currentColor" stroke="none"/>
+    <ellipse cx="17.9" cy="21.2" rx="1.3" ry="0.7" fill="currentColor" stroke="none"/>
+
+    @* Torso *@
+    <line x1="15" y1="6.5" x2="15" y2="14" />
+
+    @* Head *@
+    <g class="enforcer-head">
+        <circle cx="15" cy="4" r="2.5" fill="currentColor" stroke="none"/>
+    </g>
+
+    @* Left arm — reaches across, open palm catches the bat barrel *@
+    <g class="enforcer-arm-l">
+        <line x1="15" y1="7" x2="12.3" y2="8.6" />
+        <line x1="12.3" y1="8.6" x2="7.6" y2="7.7" />
+        <circle cx="7.2" cy="7.6" r="1" fill="currentColor" stroke="none"/>
+    </g>
+
+    @* Bat + grip — pivots at the fist (18.5, 12), barrel rests in the palm *@
+    <g class="enforcer-bat">
+        <line x1="20" y1="12.7" x2="14.5" y2="10.2" stroke-width="1.5"/>
+        <line x1="15.5" y1="10.65" x2="9.5" y2="7.95" stroke-width="2.4"/>
+        <line x1="10.8" y1="8.3" x2="7.1" y2="6.9" stroke-width="3.4"/>
+        <circle cx="20.1" cy="12.7" r="0.7" fill="currentColor" stroke="none"/>
+    </g>
+
+    @* Right arm — bent, fist grips the bat handle *@
+    <g class="enforcer-arm-r">
+        <line x1="15" y1="7" x2="17.4" y2="9.2" />
+        <line x1="17.4" y1="9.2" x2="18.5" y2="12" />
+    </g>
+    @* Fist + fingers curled over the handle *@
+    <circle cx="18.5" cy="12" r="1" fill="currentColor" stroke="none"/>
+    <g stroke-width="1.3">
+        <line x1="18.61" y1="12.82" x2="19.19" y2="11.54" />
+        <line x1="19.01" y1="13.0" x2="19.59" y2="11.72" />
+        <line x1="19.41" y1="13.18" x2="19.99" y2="11.90" />
+    </g>
+
+    @* Impact swish lines near the palm — flash on each tap *@
+    <g class="enforcer-swish" stroke-width="0.5">
+        <line x1="6.4" y1="5.3" x2="7.8" y2="6.2" />
+        <line x1="5.4" y1="6.7" x2="7.0" y2="7.0" />
+        <line x1="6.0" y1="8.3" x2="7.5" y2="7.8" />
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int Clamped => Math.Clamp(Speed, 1, 10);
+
+    private string CycleDuration =>
+        $"{(2.4 - (Clamped - 1) * 0.16).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 24.0 / 23.0);
+}

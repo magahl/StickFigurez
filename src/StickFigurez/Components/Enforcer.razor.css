@@ -1,0 +1,63 @@
+/* =====================================================================
+   ENFORCER ANIMATION
+   Bat pivots at the grip fist (18.5, 12): cocks back, then snaps down
+   to tap the open left palm. Palm bounces on impact, swish lines flash,
+   the figure does a small menacing bob. Two taps per cycle.
+   translate-rotate-translate keeps the pivot at the fist.
+   ===================================================================== */
+
+.enforcer-bat {
+    will-change: transform;
+    animation: enforcer-tap var(--enforcer-duration, 2.4s) ease-in-out infinite;
+}
+
+@keyframes enforcer-tap {
+    0%   { transform: translate(18.5px, 12px) rotate(0deg)  translate(-18.5px, -12px); }
+    15%  { transform: translate(18.5px, 12px) rotate(9deg)  translate(-18.5px, -12px); }
+    25%  { transform: translate(18.5px, 12px) rotate(0deg)  translate(-18.5px, -12px); }
+    40%  { transform: translate(18.5px, 12px) rotate(0deg)  translate(-18.5px, -12px); }
+    55%  { transform: translate(18.5px, 12px) rotate(9deg)  translate(-18.5px, -12px); }
+    65%  { transform: translate(18.5px, 12px) rotate(0deg)  translate(-18.5px, -12px); }
+    100% { transform: translate(18.5px, 12px) rotate(0deg)  translate(-18.5px, -12px); }
+}
+
+.enforcer-arm-l {
+    will-change: transform;
+    animation: enforcer-palm var(--enforcer-duration, 2.4s) ease-in-out infinite;
+}
+
+@keyframes enforcer-palm {
+    0%, 22%   { transform: translate(0, 0); }
+    26%       { transform: translate(0.3px, 0.5px); }
+    34%       { transform: translate(0, 0); }
+    62%       { transform: translate(0, 0); }
+    66%       { transform: translate(0.3px, 0.5px); }
+    74%, 100% { transform: translate(0, 0); }
+}
+
+.enforcer-swish {
+    animation: enforcer-flash var(--enforcer-duration, 2.4s) ease-out infinite;
+}
+
+@keyframes enforcer-flash {
+    0%, 22%  { opacity: 0; }
+    26%      { opacity: 0.7; }
+    36%      { opacity: 0; }
+    62%      { opacity: 0; }
+    66%      { opacity: 0.7; }
+    76%, 100% { opacity: 0; }
+}
+
+.enforcer-head {
+    will-change: transform;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: enforcer-bob var(--enforcer-duration, 2.4s) ease-in-out infinite;
+}
+
+@keyframes enforcer-bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    26%      { transform: translateY(0.3px) rotate(1.5deg); }
+    66%      { transform: translateY(0.3px) rotate(1.5deg); }
+    45%      { transform: translateY(0) rotate(0deg); }
+}

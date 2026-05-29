@@ -30,6 +30,7 @@ In a page or component:
 <Cloner Size="32" Speed="6" />
 <Coder Size="32" Speed="6" />
 <Crafter Size="32" Speed="5" />
+<Enforcer Size="32" Speed="5" />
 <Githubber Size="32" Speed="5" />
 <Investigator Size="32" Speed="5" />
 <JackSparrow Size="32" Speed="7" />
@@ -70,6 +71,7 @@ parent if you need a fixed bounding box.
 | `Cloner`       | `Size`, `Speed` (1–10)                      |
 | `Coder`        | `Size`, `Speed` (1–10)                      |
 | `Crafter`      | `Size`, `Speed` (1–10)                      |
+| `Enforcer`     | `Size`, `Speed` (1–10)                      |
 | `Githubber`    | `Size`, `Speed` (1–10)                      |
 | `Investigator` | `Size`, `Speed` (1–10)                      |
 | `JackSparrow`  | `Size`, `Speed` (1–10)                      |
