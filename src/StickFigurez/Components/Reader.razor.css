@@ -1,0 +1,46 @@
+/* =====================================================================
+   ROCKING CHAIR + PAGE-TURN ANIMATION
+   Whole scene rocks around the rocker's ground contact (9.25, 20.8).
+   Page flips about the spine line through (11.2, 11.9) — through depth,
+   not in the picture plane; the forearm pivots at the elbow (8.8, 9.6).
+   Uses the translate-rotate-translate trick for correct pivot points.
+   ===================================================================== */
+
+.reader-rocker {
+    will-change: transform;
+    animation: reader-rock var(--rock-duration, 2.5s) ease-in-out infinite;
+}
+
+@keyframes reader-rock {
+    0%, 100% { transform: translate(9.25px, 20.8px) rotate(-3deg) translate(-9.25px, -20.8px); }
+    50%      { transform: translate(9.25px, 20.8px) rotate(3deg) translate(-9.25px, -20.8px); }
+}
+
+/* Page flips about the book line itself: rotating -24.2deg aligns the local
+   y axis perpendicular to the slab, so scaleY is the projected height of a
+   sheet rotating through depth around that line. It rests flat on the book
+   (scaleY ~0), rises to fully standing (scaleY 1) at the flip's midpoint,
+   and lies back down flat — landed on the other side. The end state equals
+   the start state, so the loop needs no fade. */
+.reader-page {
+    will-change: transform;
+    animation: reader-page-flip var(--page-duration, 7.5s) ease-in-out infinite;
+}
+
+@keyframes reader-page-flip {
+    0%, 55%   { transform: translate(11.2px, 11.9px) rotate(-24.2deg) scaleY(0.04) rotate(24.2deg) translate(-11.2px, -11.9px); }
+    63%       { transform: translate(11.2px, 11.9px) rotate(-24.2deg) scaleY(1) rotate(24.2deg) translate(-11.2px, -11.9px); }
+    72%, 100% { transform: translate(11.2px, 11.9px) rotate(-24.2deg) scaleY(0.04) rotate(24.2deg) translate(-11.2px, -11.9px); }
+}
+
+/* Hand reaches up to the page, follows it across, then settles back. */
+.reader-forearm-front {
+    will-change: transform;
+    animation: reader-hand-sweep var(--page-duration, 7.5s) ease-in-out infinite;
+}
+
+@keyframes reader-hand-sweep {
+    0%, 52%   { transform: translate(8.8px, 9.6px) rotate(0deg) translate(-8.8px, -9.6px); }
+    63%       { transform: translate(8.8px, 9.6px) rotate(-22deg) translate(-8.8px, -9.6px); }
+    78%, 100% { transform: translate(8.8px, 9.6px) rotate(0deg) translate(-8.8px, -9.6px); }
+}

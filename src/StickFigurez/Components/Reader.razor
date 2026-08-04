@@ -1,0 +1,103 @@
+@using System.Globalization
+
+@* Stickman reads a book in a rocking chair (side view, facing right).
+   The whole scene rocks gently around the rocker's ground-contact point
+   (9.25, 20.8); once every third rock a page rises out of the book and
+   lies back down, flipped away from the reader.
+   Proportions: head r=2.5 cy=3.9; torso 6.8→14 (~7.2); seated pose —
+   thigh ~4.4 and shin ~5.8 (longer than the standing 3+3 split) so the
+   figure reaches the floor from rocking-chair seat height. *@
+<svg class="reader-svg"
+     width="@Width" height="@Size"
+     viewBox="0 0 17 22"
+     overflow="visible"
+     style="--rock-duration: @RockDuration; --page-duration: @PageDuration;"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     fill="none">
+
+    <g class="reader-rocker">
+
+        @* Rocking chair — thinner stroke than the figure *@
+        <g class="reader-chair" stroke-width="1.1">
+            @* Rocker (curved runner) *@
+            <path d="M 3 19.2 Q 9.25 22.4 15.5 19.2"/>
+            @* Rear post *@
+            <line x1="6.4" y1="20.5" x2="7" y2="14.5"/>
+            @* Front post — behind his shin; the knees overhang the seat edge *@
+            <line x1="11.7" y1="20.6" x2="11.2" y2="14.5"/>
+            @* Seat *@
+            <line x1="6.4" y1="14.5" x2="11.2" y2="14.5"/>
+            @* Backrest *@
+            <line x1="6.6" y1="14.5" x2="4.4" y2="4.5"/>
+            @* Armrest + support post *@
+            <line x1="5.8" y1="11" x2="10.4" y2="11"/>
+            <line x1="8.2" y1="11" x2="8.4" y2="14.5"/>
+        </g>
+
+        @* Head *@
+        <circle cx="7.9" cy="3.9" r="2.5" fill="currentColor" stroke="none"/>
+
+        @* Torso — reclined against the backrest *@
+        <line x1="7.4" y1="6.8" x2="8.6" y2="14"/>
+
+        @* Leg (side view) — thigh forward along the seat, shin down to the
+           floor, foot forward *@
+        <line x1="8.6" y1="14" x2="13" y2="13.6"/>
+        <line x1="13" y1="13.6" x2="13.2" y2="19.4" stroke-linecap="butt"/>
+        <line x1="13.2" y1="19.4" x2="14.4" y2="19.4" stroke-width="1.5"/>
+
+        @* Back arm — relaxed, hangs down and rests on the armrest so it
+           reads at a clearly different angle from the book arm *@
+        <line x1="7.4" y1="6.8" x2="8" y2="10.3"/>
+        <line x1="8" y1="10.3" x2="10.2" y2="11"/>
+
+        @* Front arm — forearm pivots at the elbow to lift the page over *@
+        <line x1="7.6" y1="7" x2="8.8" y2="9.6"/>
+        <g class="reader-forearm-front">
+            <line x1="8.8" y1="9.6" x2="11.4" y2="11.6"/>
+        </g>
+
+        @* Open book seen edge-on — a single flat slab from the hands up
+           toward the knees. Filled quad with a thin round-join stroke for
+           slightly softened corners. *@
+        <path class="reader-book"
+              d="M 11.08 11.63 L 15.08 9.83 L 15.32 10.37 L 11.32 12.17 Z"
+              fill="currentColor" stroke="currentColor"
+              stroke-width="0.3" stroke-linejoin="round"/>
+
+        @* Turning page — a filled sheet hinged along the book line itself
+           (the visible book IS the rotation axis). It rotates through depth:
+           rises out of the slab, stands perpendicular at the flip's midpoint,
+           and lies back down as it lands on the other side. Drawn at full
+           standing height; scaleY across the book-line axis animates the
+           projection. *@
+        <path class="reader-page"
+              d="M 11.5 11.77 L 14.9 10.24 L 13.67 7.51 L 10.27 9.04 Z"
+              fill="currentColor" stroke="currentColor"
+              stroke-width="0.3" stroke-linejoin="round"/>
+
+    </g>
+
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 24;
+    [Parameter] public int Speed { get; set; } = 5;
+
+    private int Clamped => Math.Clamp(Speed, 1, 10);
+
+    // One rock: 4 s at speed 1, 1.3 s at speed 10. Page turns once per three rocks.
+    private double RockSeconds => 4.0 - (Clamped - 1) * 0.3;
+
+    private string RockDuration =>
+        $"{RockSeconds.ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private string PageDuration =>
+        $"{(RockSeconds * 3).ToString("F2", CultureInfo.InvariantCulture)}s";
+
+    private int Width => (int)(Size * 17.0 / 22.0);
+}

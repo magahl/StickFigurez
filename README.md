@@ -39,6 +39,7 @@ In a page or component:
 <Mailer Size="32" Speed="5" />
 <Moper Size="32" Speed="4" />
 <Printer Size="32" Speed="5" />
+<Reader Size="32" Speed="4" />
 <Runner Size="32" Speed="7" />
 <Scientist Size="32" Speed="5" />
 <Searcher Size="32" Speed="5" />
@@ -79,6 +80,8 @@ parent if you need a fixed bounding box.
 | `Lover`        | `Size`, `Speed` (1–10), `Text`              |
 | `Mailer`       | `Size`, `Speed` (1–10)                      |
 | `Moper`        | `Size`, `Speed` (1–10)                      |
+| `Printer`      | `Size`, `Speed` (1–10)                      |
+| `Reader`       | `Size`, `Speed` (1–10)                      |
 | `Runner`       | `Size`, `Speed` (1–10)                      |
 | `Scientist`    | `Size`, `Speed` (1–10)                      |
 | `Searcher`     | `Size`, `Speed` (1–10)                      |
